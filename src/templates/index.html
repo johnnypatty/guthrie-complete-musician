@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="A 24-week Guthrie Govan-inspired guitar musicianship course with original backing tracks, ear training, harmony, improvisation and practice tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Guthrie Complete Musician">
+  <meta property="og:description" content="Build technique, time, ears, harmony, improvisation, repertoire and personality together.">
+  <meta property="og:url" content="{{CANONICAL_URL}}">
+  <meta property="og:image" content="{{SOCIAL_IMAGE}}">
+  <link rel="canonical" href="{{CANONICAL_URL}}">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <title>Guthrie Complete Musician</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to practice</a>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Guthrie Complete Musician home">
+      <span class="brand-mark">GCM</span>
+      <span>Complete Musician</span>
+    </a>
+    <nav aria-label="Course sections">
+      <a href="#today">Today</a>
+      <a href="#backing-lab">Backing Lab</a>
+      <a href="#roadmap">24 Weeks</a>
+      <a href="#library">Library</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section id="top" class="hero shell">
+      <div>
+        <p class="eyebrow">Hear it. Understand it. Say something.</p>
+        <h1>Build freedom, not a collection of licks.</h1>
+        <p class="hero-copy">Technique, time, ears, harmony, improvisation, repertoire and personality—trained together for 24 weeks.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#today">Start today</a>
+          <a class="button ghost" href="#library">Browse {{LESSON_COUNT}} lessons</a>
+        </div>
+      </div>
+      <aside class="hero-note" aria-label="Course principle">
+        <strong>Guthrie-inspired, not Guthrie-copied.</strong>
+        <span>Your finish line is hearing an idea and making the guitar communicate it in your own voice.</span>
+      </aside>
+    </section>
+
+    <section id="today" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Start today</p>
+          <h2>Your complete session</h2>
+        </div>
+        <p id="progress-summary" class="progress-pill">0% complete today</p>
+      </div>
+
+      <div class="control-row card compact">
+        <label>Course week
+          <input id="week-input" type="number" min="1" max="24" value="1" inputmode="numeric">
+        </label>
+        <label>Session length
+          <select id="minutes-select">
+            <option value="90">90-minute core</option>
+            <option value="120">Two-hour standard</option>
+          </select>
+        </label>
+        <div class="phase-readout">
+          <span id="phase-name">Control and baseline</span>
+          <small id="phase-focus"></small>
+        </div>
+      </div>
+
+      <div class="today-grid">
+        <article class="card">
+          <h3>Session checklist</h3>
+          <ol id="session-list" class="session-list"></ol>
+        </article>
+
+        <article class="card timer-card">
+          <h3>Focused timer</h3>
+          <p>Use it for one block. Take a real break after 45–60 minutes.</p>
+          <label>Minutes
+            <input id="timer-minutes" type="number" min="1" max="60" value="20">
+          </label>
+          <output id="timer-display" class="timer-display" aria-live="polite">20:00</output>
+          <div class="button-row">
+            <button id="timer-start" class="button primary" type="button">Start timer</button>
+            <button id="timer-reset" class="button ghost" type="button">Reset</button>
+          </div>
+          <p id="timer-message" class="status" aria-live="polite"></p>
+        </article>
+
+        <article class="card prompt-card-wrap">
+          <p class="eyebrow">Improvisation constraint</p>
+          <blockquote id="prompt-card">Use only three notes. Make rhythm and dynamics carry the solo.</blockquote>
+          <button id="new-prompt" class="button ghost" type="button">Give me another</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="backing-lab" class="section section-alt">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Original • offline • synchronized</p>
+            <h2>Backing Lab</h2>
+          </div>
+          <p>Generated locally—no downloaded copyrighted tracks.</p>
+        </div>
+
+        <div class="player-grid">
+          <article class="card player-card">
+            <div class="control-grid">
+              <label>Track
+                <select id="track-select"></select>
+              </label>
+              <label>Loop
+                <select id="section-select">
+                  <option value="full">Full progression</option>
+                </select>
+              </label>
+              <label>Tempo <output id="tempo-output">74 BPM</output>
+                <input id="tempo-input" type="range" min="50" max="220" value="74">
+              </label>
+            </div>
+
+            <div class="transport">
+              <button id="play-button" class="button primary transport-button" type="button">▶ Play</button>
+              <button id="stop-button" class="button ghost transport-button" type="button" disabled>■ Stop</button>
+              <span id="player-status" class="status" aria-live="polite">Ready. Sound begins only when you press Play.</span>
+            </div>
+
+            <div id="chord-strip" class="chord-strip" aria-label="Chord timeline"></div>
+
+            <details class="mixer">
+              <summary>Mix</summary>
+              <div class="control-grid three">
+                <label>Pad <input id="pad-level" type="range" min="0" max="100" value="72"></label>
+                <label>Bass <input id="bass-level" type="range" min="0" max="100" value="72"></label>
+                <label>Drums <input id="drums-level" type="range" min="0" max="100" value="62"></label>
+              </div>
+            </details>
+          </article>
+
+          <aside class="card track-notes">
+            <p class="eyebrow" id="track-style">Expressive rock</p>
+            <h3 id="track-title">D Minor Emotional Arena</h3>
+            <p id="track-description"></p>
+            <dl>
+              <div><dt>Key</dt><dd id="track-key"></dd></div>
+              <div><dt>Meter</dt><dd id="track-meter"></dd></div>
+            </dl>
+            <p class="practice-question"><strong>Ear challenge:</strong> look away from the chord strip, sing the bass roots, then reveal it and compare.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="chord-lab" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Construction, not shape collecting</p>
+          <h2>Chord Lab</h2>
+        </div>
+      </div>
+      <div class="chord-lab card">
+        <div class="control-row">
+          <label>Root
+            <select id="chord-root"></select>
+          </label>
+          <label>Quality
+            <select id="chord-quality"></select>
+          </label>
+        </div>
+        <div id="chord-result" class="chord-result" aria-live="polite"></div>
+        <p>Next: sing the third and seventh, find the notes on one string set, then connect to another chord by the smallest motion.</p>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section section-alt">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Six connected phases</p>
+            <h2>24-week roadmap</h2>
+          </div>
+        </div>
+        <div id="roadmap-grid" class="roadmap-grid"></div>
+      </div>
+    </section>
+
+    <section id="library" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Detailed local lessons</p>
+          <h2>Course library</h2>
+        </div>
+      </div>
+      <div id="library-grid" class="library-grid">{{LESSON_CARDS}}</div>
+    </section>
+
+    <section id="guitar" class="section shell">
+      <article class="card guitar-card">
+        <div>
+          <p class="eyebrow">Used-instrument decisions</p>
+          <h2>RG8570 model and inspection guide</h2>
+          <p>Evaluate the model, then make the individual guitar prove its neck, frets, Lo-Pro Edge, electronics, serial and documents in person.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="lessons/in-person-inspection-checklist.html">Open inspection checklist</a>
+          <a class="button ghost" href="lessons/rg8570-long-term-evaluation.html">Read model evaluation</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="section shell progress-controls">
+      <button id="reset-progress" class="text-button" type="button">Reset locally saved course progress</button>
+      <p>Your checks, week, duration, track and tempo stay only in this browser on this computer.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <strong>Make the next phrase mean something.</strong>
+      <span>Unofficial educational project • no account • no tracking • no copyrighted backing-track downloads</span>
+    </div>
+  </footer>
+
+  <script src="js/course-data.js"></script>
+  <script src="js/lesson-index.js"></script>
+  <script src="js/music-theory.js"></script>
+  <script src="js/practice-engine.js"></script>
+  <script src="js/player-timeline.js"></script>
+  <script src="js/audio-engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

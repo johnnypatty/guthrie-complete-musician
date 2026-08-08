@@ -1,0 +1,645 @@
+[
+  {
+    "title": "The Two-Hour Standard Session",
+    "category": "Daily Practice",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "daily-practice",
+      "hour",
+      "session"
+    ],
+    "summary": "This is the recommended serious day. It keeps the complete 90-minute core and adds repertoire plus deep phrase study.",
+    "slug": "2-hour-session"
+  },
+  {
+    "title": "The 90-Minute Core",
+    "category": "Daily Practice",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "daily-practice",
+      "minute",
+      "core"
+    ],
+    "summary": "Use this on ordinary days. Keep transitions short and use a timer.",
+    "slug": "90-minute-core"
+  },
+  {
+    "title": "Optional Long-Day Blocks",
+    "category": "Daily Practice",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "daily-practice",
+      "long",
+      "blocks"
+    ],
+    "summary": "Add these **after** the core. Each block is 30–45 minutes and must have one deliverable. Rest 10–15 minutes after 45–60 minutes of playing. A five-hour day should contain listen...",
+    "slug": "long-day-blocks"
+  },
+  {
+    "title": "Rest and Injury Prevention",
+    "category": "Daily Practice",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "daily-practice",
+      "rest",
+      "injury",
+      "prevention"
+    ],
+    "summary": "This is preventive guidance, not medical diagnosis.",
+    "slug": "rest-and-injury-prevention"
+  },
+  {
+    "title": "Weekly Schedule",
+    "category": "Daily Practice",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "daily-practice",
+      "weekly",
+      "schedule"
+    ],
+    "summary": "Keep one main technical focus for a week while changing its musical application. This gives repetition without mindless sameness.",
+    "slug": "weekly-schedule"
+  },
+  {
+    "title": "Bending, Vibrato, Dynamics, and Harmonics",
+    "category": "Technique",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "technique",
+      "bending",
+      "vibrato",
+      "dynamics",
+      "harmonics"
+    ],
+    "summary": "This is the expressive center of the system. Accuracy without character is unfinished; character without pitch control is unreliable.",
+    "slug": "bending-vibrato-dynamics-and-harmonics"
+  },
+  {
+    "title": "Clean Speed System",
+    "category": "Technique",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "technique",
+      "clean",
+      "speed",
+      "system"
+    ],
+    "summary": "Speed is the result of efficient motion, accurate timing, reliable muting, and gradual exposure—not maximum effort.",
+    "slug": "clean-speed-system"
+  },
+  {
+    "title": "Legato and Tapping",
+    "category": "Technique",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "technique",
+      "legato",
+      "tapping"
+    ],
+    "summary": "Create connected notes with deliberate rhythm and equal musical authority—not merely softer attacks between picked notes.",
+    "slug": "legato-and-tapping"
+  },
+  {
+    "title": "Picking and Synchronization",
+    "category": "Technique",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "technique",
+      "picking",
+      "synchronization"
+    ],
+    "summary": "Make pick attack, fretting contact, release, and muting arrive as one rhythmic event across strings.",
+    "slug": "picking-and-synchronization"
+  },
+  {
+    "title": "Sweeping, String Skipping, and Muting",
+    "category": "Technique",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "technique",
+      "sweeping",
+      "string",
+      "skipping",
+      "muting"
+    ],
+    "summary": "Cross nonadjacent and adjacent strings efficiently while each note remains rhythmically separate and unwanted strings stay silent.",
+    "slug": "sweeping-string-skipping-and-muting"
+  },
+  {
+    "title": "Funk and Muted Articulation",
+    "category": "Rhythm and Groove",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "rhythm-and-groove",
+      "funk",
+      "muted",
+      "articulation"
+    ],
+    "summary": "Develop the percussive control needed for Wonderful Slippery Thing-style grooves, clean funk, neo-soul, and rhythmically alive lead playing.",
+    "slug": "funk-and-muted-articulation"
+  },
+  {
+    "title": "Odd Meter and Rhythmic Displacement",
+    "category": "Rhythm and Groove",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "rhythm-and-groove",
+      "meter",
+      "rhythmic",
+      "displacement"
+    ],
+    "summary": "Feel unusual groupings as phrases rather than perform arithmetic while playing.",
+    "slug": "odd-meter-and-rhythmic-displacement"
+  },
+  {
+    "title": "Time, Subdivisions, and the Metronome",
+    "category": "Rhythm and Groove",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "rhythm-and-groove",
+      "time",
+      "subdivisions",
+      "metronome"
+    ],
+    "summary": "Own the space between clicks so the metronome confirms your pulse rather than creating it.",
+    "slug": "time-subdivisions-and-metronome"
+  },
+  {
+    "title": "Famous Short Melodies and Riffs — Learn by Ear",
+    "category": "Ear Training and Transcription",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "ear-training",
+      "famous",
+      "short",
+      "melodies",
+      "riffs"
+    ],
+    "summary": "These are short cultural “sentences.” Learn only the recognizable fragment first, in any comfortable key, with no tab. Then find it in two more neck areas and create one variati...",
+    "slug": "famous-short-melodies-and-riffs"
+  },
+  {
+    "title": "Hearing Chords and Bass Lines",
+    "category": "Ear Training and Transcription",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "ear-training",
+      "hearing",
+      "chords",
+      "bass",
+      "lines"
+    ],
+    "summary": "Stop treating a solo as notes floating over an anonymous backing. Hear where harmony moves and why a melodic note feels stable, bright, dark, tense, or resolved.",
+    "slug": "hearing-chords-and-bass-lines"
+  },
+  {
+    "title": "The No-Tabs Method",
+    "category": "Ear Training and Transcription",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "ear-training",
+      "tabs",
+      "method"
+    ],
+    "summary": "Use this every time an assignment says **No Tabs**. The goal is not to prove you never need help; it is to connect hearing, understanding, and the fretboard before your eyes bor...",
+    "slug": "the-no-tabs-method"
+  },
+  {
+    "title": "Transcription Ladder",
+    "category": "Ear Training and Transcription",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "ear-training",
+      "transcription",
+      "ladder"
+    ],
+    "summary": "Move up when the process is reliable, not when one lucky song works.",
+    "slug": "transcription-ladder"
+  },
+  {
+    "title": "Fretboard Freedom",
+    "category": "Fretboard Theory and Chords",
+    "phase": "Weeks 1-20",
+    "difficulty": "Progressive",
+    "tags": [
+      "fretboard-theory-chords",
+      "fretboard",
+      "freedom"
+    ],
+    "summary": "The neck is not five boxes. It is one pitch map viewed through intervals, chord tones, and sound.",
+    "slug": "fretboard-freedom"
+  },
+  {
+    "title": "How Chords Are Built",
+    "category": "Fretboard Theory and Chords",
+    "phase": "Weeks 1-20",
+    "difficulty": "Progressive",
+    "tags": [
+      "fretboard-theory-chords",
+      "chords",
+      "built"
+    ],
+    "summary": "Chord creation is interval selection plus voicing and context. You never need to wait for a chord dictionary.",
+    "slug": "how-chords-are-built"
+  },
+  {
+    "title": "How Scales Are Built",
+    "category": "Fretboard Theory and Chords",
+    "phase": "Weeks 1-20",
+    "difficulty": "Progressive",
+    "tags": [
+      "fretboard-theory-chords",
+      "scales",
+      "built"
+    ],
+    "summary": "Western equal-tempered music divides the octave into 12 semitones. A scale is a chosen collection of those distances from a root. Learn formulas as intervals and sounds, then di...",
+    "slug": "how-scales-are-built"
+  },
+  {
+    "title": "Modes, Harmony, and Playing Through Changes",
+    "category": "Fretboard Theory and Chords",
+    "phase": "Weeks 1-20",
+    "difficulty": "Progressive",
+    "tags": [
+      "fretboard-theory-chords",
+      "modes",
+      "harmony",
+      "playing",
+      "changes"
+    ],
+    "summary": "Do not merely run the parent major scale from a different note. Establish the modal root with a drone/vamp and feature the identifying degree:",
+    "slug": "modes-harmony-and-playing-through-changes"
+  },
+  {
+    "title": "Seventh Chords, Extensions, and Alterations",
+    "category": "Fretboard Theory and Chords",
+    "phase": "Weeks 1-20",
+    "difficulty": "Progressive",
+    "tags": [
+      "fretboard-theory-chords",
+      "seventh",
+      "chords",
+      "extensions",
+      "alterations"
+    ],
+    "summary": "Extensions work because a chord may continue stacking thirds: 9, 11, 13. On guitar, choose the tones the ear needs.",
+    "slug": "seventh-chords-extensions-and-alterations"
+  },
+  {
+    "title": "Triads, Inversions, and Voice Leading",
+    "category": "Fretboard Theory and Chords",
+    "phase": "Weeks 1-20",
+    "difficulty": "Progressive",
+    "tags": [
+      "fretboard-theory-chords",
+      "triads",
+      "inversions",
+      "voice",
+      "leading"
+    ],
+    "summary": "Turn the whole neck into small movable harmony and create smooth chord movement useful for funk, neo-soul, fusion, accompaniment, and melodic soloing.",
+    "slug": "triads-inversions-and-voice-leading"
+  },
+  {
+    "title": "Build Your Own Vocabulary",
+    "category": "Improvisation and Phrasing",
+    "phase": "Weeks 5-24",
+    "difficulty": "Intermediate to advanced",
+    "tags": [
+      "improvisation-phrasing",
+      "build",
+      "vocabulary"
+    ],
+    "summary": "Vocabulary should become grammar you can recombine, not quotations pasted into unrelated conversations.",
+    "slug": "build-your-own-vocabulary"
+  },
+  {
+    "title": "Motif Development",
+    "category": "Improvisation and Phrasing",
+    "phase": "Weeks 5-24",
+    "difficulty": "Intermediate to advanced",
+    "tags": [
+      "improvisation-phrasing",
+      "motif",
+      "development"
+    ],
+    "summary": "A motif is a small recognizable identity—often rhythm plus contour, not a specific lick.",
+    "slug": "motif-development"
+  },
+  {
+    "title": "Target Notes and Chord Changes",
+    "category": "Improvisation and Phrasing",
+    "phase": "Weeks 5-24",
+    "difficulty": "Intermediate to advanced",
+    "tags": [
+      "improvisation-phrasing",
+      "target",
+      "chord",
+      "changes"
+    ],
+    "summary": "Make the harmony audible through melodic arrival while preserving rhythm and phrase continuity.",
+    "slug": "target-notes-and-chord-changes"
+  },
+  {
+    "title": "Tension, Release, and Outside Playing",
+    "category": "Improvisation and Phrasing",
+    "phase": "Weeks 5-24",
+    "difficulty": "Intermediate to advanced",
+    "tags": [
+      "improvisation-phrasing",
+      "tension",
+      "release",
+      "outside",
+      "playing"
+    ],
+    "summary": "Outside playing works when the listener can hear where “inside” is and believes you meant to leave and return.",
+    "slug": "tension-release-and-outside-playing"
+  },
+  {
+    "title": "The Musical Sentence",
+    "category": "Improvisation and Phrasing",
+    "phase": "Weeks 5-24",
+    "difficulty": "Intermediate to advanced",
+    "tags": [
+      "improvisation-phrasing",
+      "musical",
+      "sentence"
+    ],
+    "summary": "Improvisation becomes understandable when phrases behave like speech: ideas, breath, emphasis, response, development, and conclusion.",
+    "slug": "the-musical-sentence"
+  },
+  {
+    "title": "Arrangement and Performance Checklist",
+    "category": "Repertoire and Self-Made Covers",
+    "phase": "Weeks 5-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "repertoire-covers",
+      "arrangement",
+      "performance",
+      "checklist"
+    ],
+    "summary": "Choose at least one:",
+    "slug": "arrangement-and-performance-checklist"
+  },
+  {
+    "title": "Self-Made Cover Rules — No Tabs First",
+    "category": "Repertoire and Self-Made Covers",
+    "phase": "Weeks 5-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "repertoire-covers",
+      "cover",
+      "rules",
+      "tabs"
+    ],
+    "summary": "Your first complete version comes from the recording, your ears, and your musical decisions. A tab may later diagnose differences, but it cannot design your interpretation.",
+    "slug": "cover-rules-no-tabs"
+  },
+  {
+    "title": "Guthrie Study Map",
+    "category": "Repertoire and Self-Made Covers",
+    "phase": "Weeks 5-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "repertoire-covers",
+      "guthrie",
+      "study"
+    ],
+    "summary": "Study Guthrie as a problem-solver. Learn small sections, identify the principle, then make it yours.",
+    "slug": "guthrie-study-map"
+  },
+  {
+    "title": "Your Personal Cover Ladder",
+    "category": "Repertoire and Self-Made Covers",
+    "phase": "Weeks 5-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "repertoire-covers",
+      "personal",
+      "cover",
+      "ladder"
+    ],
+    "summary": "This is built from your supplied Songsterr favourites. It is not a difficulty ranking of entire songs; it ranks **useful first projects**. Start with selected sections and earn...",
+    "slug": "personal-cover-ladder"
+  },
+  {
+    "title": "Develop Your Own Voice",
+    "category": "Musical Personality and Humour",
+    "phase": "Weeks 9-24",
+    "difficulty": "All levels",
+    "tags": [
+      "personality-humour",
+      "develop",
+      "voice"
+    ],
+    "summary": "Your voice is not found by avoiding influences. It appears when influences pass through your ears, taste, limitations, experiences, and repeated choices.",
+    "slug": "develop-your-own-voice"
+  },
+  {
+    "title": "Natural Stage Banter",
+    "category": "Musical Personality and Humour",
+    "phase": "Weeks 9-24",
+    "difficulty": "All levels",
+    "tags": [
+      "personality-humour",
+      "natural",
+      "stage",
+      "banter"
+    ],
+    "summary": "Being funny like Guthrie does not mean copying Guthrie's jokes. His strongest lesson is comfort, observation, timing, vocabulary, and treating the audience like intelligent humans.",
+    "slug": "natural-stage-banter"
+  },
+  {
+    "title": "Storytelling, Timing, and Callbacks",
+    "category": "Musical Personality and Humour",
+    "phase": "Weeks 9-24",
+    "difficulty": "All levels",
+    "tags": [
+      "personality-humour",
+      "storytelling",
+      "timing",
+      "callbacks"
+    ],
+    "summary": "Write ten true, small moments:",
+    "slug": "storytelling-timing-and-callbacks"
+  },
+  {
+    "title": "24-Week Final Performance",
+    "category": "Assessments",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "assessments",
+      "week",
+      "final",
+      "performance"
+    ],
+    "summary": "Create one 12–20 minute recorded set. It may be filmed in separate continuous pieces, but do not edit individual notes.",
+    "slug": "24-week-final-performance"
+  },
+  {
+    "title": "Baseline Test",
+    "category": "Assessments",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "assessments",
+      "baseline",
+      "test"
+    ],
+    "summary": "Take this once before week 1. Save every raw recording in a folder dated `Baseline`. Do not rehearse first; the purpose is an honest starting point.",
+    "slug": "baseline-test"
+  },
+  {
+    "title": "Monthly Tests",
+    "category": "Assessments",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "assessments",
+      "monthly",
+      "tests"
+    ],
+    "summary": "Run at the end of weeks 4, 8, 12, 16, 20, and 24. Use the same recording setup and compare to your baseline, not to a polished artist recording.",
+    "slug": "monthly-tests"
+  },
+  {
+    "title": "Weekly Review",
+    "category": "Assessments",
+    "phase": "Weeks 1-24",
+    "difficulty": "Progressive",
+    "tags": [
+      "assessments",
+      "weekly",
+      "review"
+    ],
+    "summary": "Complete this on the light day in 15–25 minutes.",
+    "slug": "weekly-review"
+  },
+  {
+    "title": "Recording Review Checklist",
+    "category": "Templates and Trackers",
+    "phase": "Weeks 1-24",
+    "difficulty": "All levels",
+    "tags": [
+      "templates-trackers",
+      "recording",
+      "review",
+      "checklist"
+    ],
+    "summary": "A practical lesson from the Templates and Trackers course track.",
+    "slug": "recording-review-checklist"
+  },
+  {
+    "title": "Solo Analysis Worksheet",
+    "category": "Templates and Trackers",
+    "phase": "Weeks 1-24",
+    "difficulty": "All levels",
+    "tags": [
+      "templates-trackers",
+      "solo",
+      "analysis",
+      "worksheet"
+    ],
+    "summary": "A practical lesson from the Templates and Trackers course track.",
+    "slug": "solo-analysis-worksheet"
+  },
+  {
+    "title": "Transcription Worksheet",
+    "category": "Templates and Trackers",
+    "phase": "Weeks 1-24",
+    "difficulty": "All levels",
+    "tags": [
+      "templates-trackers",
+      "transcription",
+      "worksheet"
+    ],
+    "summary": "A practical lesson from the Templates and Trackers course track.",
+    "slug": "transcription-worksheet"
+  },
+  {
+    "title": "Best Learning Resources — What to Use and When",
+    "category": "Best Learning Resources",
+    "phase": "Reference",
+    "difficulty": "All levels",
+    "tags": [
+      "learning-resources",
+      "resource"
+    ],
+    "summary": "The best resource is the one assigned to a real musical problem. Do not buy or bookmark everything at once.",
+    "slug": "resource-guide"
+  },
+  {
+    "title": "Source Notes",
+    "category": "Best Learning Resources",
+    "phase": "Reference",
+    "difficulty": "All levels",
+    "tags": [
+      "learning-resources",
+      "source"
+    ],
+    "summary": "Checked on **2026-08-08**. These are the sources used to design this course. “Free” means the linked material can be read or used without purchasing it; regional prices and avai...",
+    "slug": "source-notes"
+  },
+  {
+    "title": "Future Stainless Refret Notes",
+    "category": "RG8570 Buying Guide",
+    "phase": "Reference",
+    "difficulty": "Reference",
+    "tags": [
+      "rg8570-buying-guide",
+      "future",
+      "stainless",
+      "refret"
+    ],
+    "summary": "Playing for one year does not automatically mean the frets need replacement. Inspect actual wear and playability. The original j.custom nickel-silver fretwork is valuable and ma...",
+    "slug": "future-stainless-refret-notes"
+  },
+  {
+    "title": "RG8570 In-Person Inspection Checklist",
+    "category": "RG8570 Buying Guide",
+    "phase": "Reference",
+    "difficulty": "Reference",
+    "tags": [
+      "rg8570-buying-guide",
+      "person",
+      "inspection",
+      "checklist"
+    ],
+    "summary": "Bring: clip-on tuner, familiar cable, small clean/gained headphone/amp setup if practical (GP-200 is fine), flashlight/phone light, pick, strap if allowed, and this checklist. D...",
+    "slug": "in-person-inspection-checklist"
+  },
+  {
+    "title": "Ibanez j.custom RG8570 Long-Term Evaluation",
+    "category": "RG8570 Buying Guide",
+    "phase": "Reference",
+    "difficulty": "Reference",
+    "tags": [
+      "rg8570-buying-guide",
+      "ibanez",
+      "used-guitar",
+      "tremolo",
+      "inspection"
+    ],
+    "summary": "A model-level evaluation of the RG8570 as a long-term fusion, rock, metal, clean, and expressive lead instrument—plus the limits of buying any used example unseen.",
+    "slug": "rg8570-long-term-evaluation"
+  }
+]

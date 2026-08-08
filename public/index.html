@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="A 24-week Guthrie Govan-inspired guitar musicianship course with original backing tracks, ear training, harmony, improvisation and practice tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Guthrie Complete Musician">
+  <meta property="og:description" content="Build technique, time, ears, harmony, improvisation, repertoire and personality together.">
+  <meta property="og:url" content="https://johnnypatty.github.io/guthrie-complete-musician/">
+  <meta property="og:image" content="https://johnnypatty.github.io/guthrie-complete-musician/assets/social-preview.svg">
+  <link rel="canonical" href="https://johnnypatty.github.io/guthrie-complete-musician/">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <title>Guthrie Complete Musician</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to practice</a>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Guthrie Complete Musician home">
+      <span class="brand-mark">GCM</span>
+      <span>Complete Musician</span>
+    </a>
+    <nav aria-label="Course sections">
+      <a href="#today">Today</a>
+      <a href="#backing-lab">Backing Lab</a>
+      <a href="#roadmap">24 Weeks</a>
+      <a href="#library">Library</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section id="top" class="hero shell">
+      <div>
+        <p class="eyebrow">Hear it. Understand it. Say something.</p>
+        <h1>Build freedom, not a collection of licks.</h1>
+        <p class="hero-copy">Technique, time, ears, harmony, improvisation, repertoire and personality—trained together for 24 weeks.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#today">Start today</a>
+          <a class="button ghost" href="#library">Browse 47 lessons</a>
+        </div>
+      </div>
+      <aside class="hero-note" aria-label="Course principle">
+        <strong>Guthrie-inspired, not Guthrie-copied.</strong>
+        <span>Your finish line is hearing an idea and making the guitar communicate it in your own voice.</span>
+      </aside>
+    </section>
+
+    <section id="today" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Start today</p>
+          <h2>Your complete session</h2>
+        </div>
+        <p id="progress-summary" class="progress-pill">0% complete today</p>
+      </div>
+
+      <div class="control-row card compact">
+        <label>Course week
+          <input id="week-input" type="number" min="1" max="24" value="1" inputmode="numeric">
+        </label>
+        <label>Session length
+          <select id="minutes-select">
+            <option value="90">90-minute core</option>
+            <option value="120">Two-hour standard</option>
+          </select>
+        </label>
+        <div class="phase-readout">
+          <span id="phase-name">Control and baseline</span>
+          <small id="phase-focus"></small>
+        </div>
+      </div>
+
+      <div class="today-grid">
+        <article class="card">
+          <h3>Session checklist</h3>
+          <ol id="session-list" class="session-list"></ol>
+        </article>
+
+        <article class="card timer-card">
+          <h3>Focused timer</h3>
+          <p>Use it for one block. Take a real break after 45–60 minutes.</p>
+          <label>Minutes
+            <input id="timer-minutes" type="number" min="1" max="60" value="20">
+          </label>
+          <output id="timer-display" class="timer-display" aria-live="polite">20:00</output>
+          <div class="button-row">
+            <button id="timer-start" class="button primary" type="button">Start timer</button>
+            <button id="timer-reset" class="button ghost" type="button">Reset</button>
+          </div>
+          <p id="timer-message" class="status" aria-live="polite"></p>
+        </article>
+
+        <article class="card prompt-card-wrap">
+          <p class="eyebrow">Improvisation constraint</p>
+          <blockquote id="prompt-card">Use only three notes. Make rhythm and dynamics carry the solo.</blockquote>
+          <button id="new-prompt" class="button ghost" type="button">Give me another</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="backing-lab" class="section section-alt">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Original • offline • synchronized</p>
+            <h2>Backing Lab</h2>
+          </div>
+          <p>Generated locally—no downloaded copyrighted tracks.</p>
+        </div>
+
+        <div class="player-grid">
+          <article class="card player-card">
+            <div class="control-grid">
+              <label>Track
+                <select id="track-select"></select>
+              </label>
+              <label>Loop
+                <select id="section-select">
+                  <option value="full">Full progression</option>
+                </select>
+              </label>
+              <label>Tempo <output id="tempo-output">74 BPM</output>
+                <input id="tempo-input" type="range" min="50" max="220" value="74">
+              </label>
+            </div>
+
+            <div class="transport">
+              <button id="play-button" class="button primary transport-button" type="button">▶ Play</button>
+              <button id="stop-button" class="button ghost transport-button" type="button" disabled>■ Stop</button>
+              <span id="player-status" class="status" aria-live="polite">Ready. Sound begins only when you press Play.</span>
+            </div>
+
+            <div id="chord-strip" class="chord-strip" aria-label="Chord timeline"></div>
+
+            <details class="mixer">
+              <summary>Mix</summary>
+              <div class="control-grid three">
+                <label>Pad <input id="pad-level" type="range" min="0" max="100" value="72"></label>
+                <label>Bass <input id="bass-level" type="range" min="0" max="100" value="72"></label>
+                <label>Drums <input id="drums-level" type="range" min="0" max="100" value="62"></label>
+              </div>
+            </details>
+          </article>
+
+          <aside class="card track-notes">
+            <p class="eyebrow" id="track-style">Expressive rock</p>
+            <h3 id="track-title">D Minor Emotional Arena</h3>
+            <p id="track-description"></p>
+            <dl>
+              <div><dt>Key</dt><dd id="track-key"></dd></div>
+              <div><dt>Meter</dt><dd id="track-meter"></dd></div>
+            </dl>
+            <p class="practice-question"><strong>Ear challenge:</strong> look away from the chord strip, sing the bass roots, then reveal it and compare.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="chord-lab" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Construction, not shape collecting</p>
+          <h2>Chord Lab</h2>
+        </div>
+      </div>
+      <div class="chord-lab card">
+        <div class="control-row">
+          <label>Root
+            <select id="chord-root"></select>
+          </label>
+          <label>Quality
+            <select id="chord-quality"></select>
+          </label>
+        </div>
+        <div id="chord-result" class="chord-result" aria-live="polite"></div>
+        <p>Next: sing the third and seventh, find the notes on one string set, then connect to another chord by the smallest motion.</p>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section section-alt">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Six connected phases</p>
+            <h2>24-week roadmap</h2>
+          </div>
+        </div>
+        <div id="roadmap-grid" class="roadmap-grid"></div>
+      </div>
+    </section>
+
+    <section id="library" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Detailed local lessons</p>
+          <h2>Course library</h2>
+        </div>
+      </div>
+      <div id="library-grid" class="library-grid"><a class="library-link" href="lessons/2-hour-session.html" data-category="Daily Practice" data-phase="Weeks 1-24" data-search="the two-hour standard session this is the recommended serious day. it keeps the complete 90-minute core and adds repertoire plus deep phrase study. daily-practice hour session">
+  <small>Daily Practice</small>
+  <strong>The Two-Hour Standard Session</strong>
+  <span>This is the recommended serious day. It keeps the complete 90-minute core and adds repertoire plus deep phrase study.</span>
+</a>
+<a class="library-link" href="lessons/90-minute-core.html" data-category="Daily Practice" data-phase="Weeks 1-24" data-search="the 90-minute core use this on ordinary days. keep transitions short and use a timer. daily-practice minute core">
+  <small>Daily Practice</small>
+  <strong>The 90-Minute Core</strong>
+  <span>Use this on ordinary days. Keep transitions short and use a timer.</span>
+</a>
+<a class="library-link" href="lessons/long-day-blocks.html" data-category="Daily Practice" data-phase="Weeks 1-24" data-search="optional long-day blocks add these **after** the core. each block is 30–45 minutes and must have one deliverable. rest 10–15 minutes after 45–60 minutes of playing. a five-hour day should contain listen... daily-practice long blocks">
+  <small>Daily Practice</small>
+  <strong>Optional Long-Day Blocks</strong>
+  <span>Add these **after** the core. Each block is 30–45 minutes and must have one deliverable. Rest 10–15 minutes after 45–60 minutes of playing. A five-hour day should contain listen...</span>
+</a>
+<a class="library-link" href="lessons/rest-and-injury-prevention.html" data-category="Daily Practice" data-phase="Weeks 1-24" data-search="rest and injury prevention this is preventive guidance, not medical diagnosis. daily-practice rest injury prevention">
+  <small>Daily Practice</small>
+  <strong>Rest and Injury Prevention</strong>
+  <span>This is preventive guidance, not medical diagnosis.</span>
+</a>
+<a class="library-link" href="lessons/weekly-schedule.html" data-category="Daily Practice" data-phase="Weeks 1-24" data-search="weekly schedule keep one main technical focus for a week while changing its musical application. this gives repetition without mindless sameness. daily-practice weekly schedule">
+  <small>Daily Practice</small>
+  <strong>Weekly Schedule</strong>
+  <span>Keep one main technical focus for a week while changing its musical application. This gives repetition without mindless sameness.</span>
+</a>
+<a class="library-link" href="lessons/bending-vibrato-dynamics-and-harmonics.html" data-category="Technique" data-phase="Weeks 1-24" data-search="bending, vibrato, dynamics, and harmonics this is the expressive center of the system. accuracy without character is unfinished; character without pitch control is unreliable. technique bending vibrato dynamics harmonics">
+  <small>Technique</small>
+  <strong>Bending, Vibrato, Dynamics, and Harmonics</strong>
+  <span>This is the expressive center of the system. Accuracy without character is unfinished; character without pitch control is unreliable.</span>
+</a>
+<a class="library-link" href="lessons/clean-speed-system.html" data-category="Technique" data-phase="Weeks 1-24" data-search="clean speed system speed is the result of efficient motion, accurate timing, reliable muting, and gradual exposure—not maximum effort. technique clean speed system">
+  <small>Technique</small>
+  <strong>Clean Speed System</strong>
+  <span>Speed is the result of efficient motion, accurate timing, reliable muting, and gradual exposure—not maximum effort.</span>
+</a>
+<a class="library-link" href="lessons/legato-and-tapping.html" data-category="Technique" data-phase="Weeks 1-24" data-search="legato and tapping create connected notes with deliberate rhythm and equal musical authority—not merely softer attacks between picked notes. technique legato tapping">
+  <small>Technique</small>
+  <strong>Legato and Tapping</strong>
+  <span>Create connected notes with deliberate rhythm and equal musical authority—not merely softer attacks between picked notes.</span>
+</a>
+<a class="library-link" href="lessons/picking-and-synchronization.html" data-category="Technique" data-phase="Weeks 1-24" data-search="picking and synchronization make pick attack, fretting contact, release, and muting arrive as one rhythmic event across strings. technique picking synchronization">
+  <small>Technique</small>
+  <strong>Picking and Synchronization</strong>
+  <span>Make pick attack, fretting contact, release, and muting arrive as one rhythmic event across strings.</span>
+</a>
+<a class="library-link" href="lessons/sweeping-string-skipping-and-muting.html" data-category="Technique" data-phase="Weeks 1-24" data-search="sweeping, string skipping, and muting cross nonadjacent and adjacent strings efficiently while each note remains rhythmically separate and unwanted strings stay silent. technique sweeping string skipping muting">
+  <small>Technique</small>
+  <strong>Sweeping, String Skipping, and Muting</strong>
+  <span>Cross nonadjacent and adjacent strings efficiently while each note remains rhythmically separate and unwanted strings stay silent.</span>
+</a>
+<a class="library-link" href="lessons/funk-and-muted-articulation.html" data-category="Rhythm and Groove" data-phase="Weeks 1-24" data-search="funk and muted articulation develop the percussive control needed for wonderful slippery thing-style grooves, clean funk, neo-soul, and rhythmically alive lead playing. rhythm-and-groove funk muted articulation">
+  <small>Rhythm and Groove</small>
+  <strong>Funk and Muted Articulation</strong>
+  <span>Develop the percussive control needed for Wonderful Slippery Thing-style grooves, clean funk, neo-soul, and rhythmically alive lead playing.</span>
+</a>
+<a class="library-link" href="lessons/odd-meter-and-rhythmic-displacement.html" data-category="Rhythm and Groove" data-phase="Weeks 1-24" data-search="odd meter and rhythmic displacement feel unusual groupings as phrases rather than perform arithmetic while playing. rhythm-and-groove meter rhythmic displacement">
+  <small>Rhythm and Groove</small>
+  <strong>Odd Meter and Rhythmic Displacement</strong>
+  <span>Feel unusual groupings as phrases rather than perform arithmetic while playing.</span>
+</a>
+<a class="library-link" href="lessons/time-subdivisions-and-metronome.html" data-category="Rhythm and Groove" data-phase="Weeks 1-24" data-search="time, subdivisions, and the metronome own the space between clicks so the metronome confirms your pulse rather than creating it. rhythm-and-groove time subdivisions metronome">
+  <small>Rhythm and Groove</small>
+  <strong>Time, Subdivisions, and the Metronome</strong>
+  <span>Own the space between clicks so the metronome confirms your pulse rather than creating it.</span>
+</a>
+<a class="library-link" href="lessons/famous-short-melodies-and-riffs.html" data-category="Ear Training and Transcription" data-phase="Weeks 1-24" data-search="famous short melodies and riffs — learn by ear these are short cultural “sentences.” learn only the recognizable fragment first, in any comfortable key, with no tab. then find it in two more neck areas and create one variati... ear-training famous short melodies riffs">
+  <small>Ear Training and Transcription</small>
+  <strong>Famous Short Melodies and Riffs — Learn by Ear</strong>
+  <span>These are short cultural “sentences.” Learn only the recognizable fragment first, in any comfortable key, with no tab. Then find it in two more neck areas and create one variati...</span>
+</a>
+<a class="library-link" href="lessons/hearing-chords-and-bass-lines.html" data-category="Ear Training and Transcription" data-phase="Weeks 1-24" data-search="hearing chords and bass lines stop treating a solo as notes floating over an anonymous backing. hear where harmony moves and why a melodic note feels stable, bright, dark, tense, or resolved. ear-training hearing chords bass lines">
+  <small>Ear Training and Transcription</small>
+  <strong>Hearing Chords and Bass Lines</strong>
+  <span>Stop treating a solo as notes floating over an anonymous backing. Hear where harmony moves and why a melodic note feels stable, bright, dark, tense, or resolved.</span>
+</a>
+<a class="library-link" href="lessons/the-no-tabs-method.html" data-category="Ear Training and Transcription" data-phase="Weeks 1-24" data-search="the no-tabs method use this every time an assignment says **no tabs**. the goal is not to prove you never need help; it is to connect hearing, understanding, and the fretboard before your eyes bor... ear-training tabs method">
+  <small>Ear Training and Transcription</small>
+  <strong>The No-Tabs Method</strong>
+  <span>Use this every time an assignment says **No Tabs**. The goal is not to prove you never need help; it is to connect hearing, understanding, and the fretboard before your eyes bor...</span>
+</a>
+<a class="library-link" href="lessons/transcription-ladder.html" data-category="Ear Training and Transcription" data-phase="Weeks 1-24" data-search="transcription ladder move up when the process is reliable, not when one lucky song works. ear-training transcription ladder">
+  <small>Ear Training and Transcription</small>
+  <strong>Transcription Ladder</strong>
+  <span>Move up when the process is reliable, not when one lucky song works.</span>
+</a>
+<a class="library-link" href="lessons/fretboard-freedom.html" data-category="Fretboard Theory and Chords" data-phase="Weeks 1-20" data-search="fretboard freedom the neck is not five boxes. it is one pitch map viewed through intervals, chord tones, and sound. fretboard-theory-chords fretboard freedom">
+  <small>Fretboard Theory and Chords</small>
+  <strong>Fretboard Freedom</strong>
+  <span>The neck is not five boxes. It is one pitch map viewed through intervals, chord tones, and sound.</span>
+</a>
+<a class="library-link" href="lessons/how-chords-are-built.html" data-category="Fretboard Theory and Chords" data-phase="Weeks 1-20" data-search="how chords are built chord creation is interval selection plus voicing and context. you never need to wait for a chord dictionary. fretboard-theory-chords chords built">
+  <small>Fretboard Theory and Chords</small>
+  <strong>How Chords Are Built</strong>
+  <span>Chord creation is interval selection plus voicing and context. You never need to wait for a chord dictionary.</span>
+</a>
+<a class="library-link" href="lessons/how-scales-are-built.html" data-category="Fretboard Theory and Chords" data-phase="Weeks 1-20" data-search="how scales are built western equal-tempered music divides the octave into 12 semitones. a scale is a chosen collection of those distances from a root. learn formulas as intervals and sounds, then di... fretboard-theory-chords scales built">
+  <small>Fretboard Theory and Chords</small>
+  <strong>How Scales Are Built</strong>
+  <span>Western equal-tempered music divides the octave into 12 semitones. A scale is a chosen collection of those distances from a root. Learn formulas as intervals and sounds, then di...</span>
+</a>
+<a class="library-link" href="lessons/modes-harmony-and-playing-through-changes.html" data-category="Fretboard Theory and Chords" data-phase="Weeks 1-20" data-search="modes, harmony, and playing through changes do not merely run the parent major scale from a different note. establish the modal root with a drone/vamp and feature the identifying degree: fretboard-theory-chords modes harmony playing changes">
+  <small>Fretboard Theory and Chords</small>
+  <strong>Modes, Harmony, and Playing Through Changes</strong>
+  <span>Do not merely run the parent major scale from a different note. Establish the modal root with a drone/vamp and feature the identifying degree:</span>
+</a>
+<a class="library-link" href="lessons/seventh-chords-extensions-and-alterations.html" data-category="Fretboard Theory and Chords" data-phase="Weeks 1-20" data-search="seventh chords, extensions, and alterations extensions work because a chord may continue stacking thirds: 9, 11, 13. on guitar, choose the tones the ear needs. fretboard-theory-chords seventh chords extensions alterations">
+  <small>Fretboard Theory and Chords</small>
+  <strong>Seventh Chords, Extensions, and Alterations</strong>
+  <span>Extensions work because a chord may continue stacking thirds: 9, 11, 13. On guitar, choose the tones the ear needs.</span>
+</a>
+<a class="library-link" href="lessons/triads-inversions-and-voice-leading.html" data-category="Fretboard Theory and Chords" data-phase="Weeks 1-20" data-search="triads, inversions, and voice leading turn the whole neck into small movable harmony and create smooth chord movement useful for funk, neo-soul, fusion, accompaniment, and melodic soloing. fretboard-theory-chords triads inversions voice leading">
+  <small>Fretboard Theory and Chords</small>
+  <strong>Triads, Inversions, and Voice Leading</strong>
+  <span>Turn the whole neck into small movable harmony and create smooth chord movement useful for funk, neo-soul, fusion, accompaniment, and melodic soloing.</span>
+</a>
+<a class="library-link" href="lessons/build-your-own-vocabulary.html" data-category="Improvisation and Phrasing" data-phase="Weeks 5-24" data-search="build your own vocabulary vocabulary should become grammar you can recombine, not quotations pasted into unrelated conversations. improvisation-phrasing build vocabulary">
+  <small>Improvisation and Phrasing</small>
+  <strong>Build Your Own Vocabulary</strong>
+  <span>Vocabulary should become grammar you can recombine, not quotations pasted into unrelated conversations.</span>
+</a>
+<a class="library-link" href="lessons/motif-development.html" data-category="Improvisation and Phrasing" data-phase="Weeks 5-24" data-search="motif development a motif is a small recognizable identity—often rhythm plus contour, not a specific lick. improvisation-phrasing motif development">
+  <small>Improvisation and Phrasing</small>
+  <strong>Motif Development</strong>
+  <span>A motif is a small recognizable identity—often rhythm plus contour, not a specific lick.</span>
+</a>
+<a class="library-link" href="lessons/target-notes-and-chord-changes.html" data-category="Improvisation and Phrasing" data-phase="Weeks 5-24" data-search="target notes and chord changes make the harmony audible through melodic arrival while preserving rhythm and phrase continuity. improvisation-phrasing target chord changes">
+  <small>Improvisation and Phrasing</small>
+  <strong>Target Notes and Chord Changes</strong>
+  <span>Make the harmony audible through melodic arrival while preserving rhythm and phrase continuity.</span>
+</a>
+<a class="library-link" href="lessons/tension-release-and-outside-playing.html" data-category="Improvisation and Phrasing" data-phase="Weeks 5-24" data-search="tension, release, and outside playing outside playing works when the listener can hear where “inside” is and believes you meant to leave and return. improvisation-phrasing tension release outside playing">
+  <small>Improvisation and Phrasing</small>
+  <strong>Tension, Release, and Outside Playing</strong>
+  <span>Outside playing works when the listener can hear where “inside” is and believes you meant to leave and return.</span>
+</a>
+<a class="library-link" href="lessons/the-musical-sentence.html" data-category="Improvisation and Phrasing" data-phase="Weeks 5-24" data-search="the musical sentence improvisation becomes understandable when phrases behave like speech: ideas, breath, emphasis, response, development, and conclusion. improvisation-phrasing musical sentence">
+  <small>Improvisation and Phrasing</small>
+  <strong>The Musical Sentence</strong>
+  <span>Improvisation becomes understandable when phrases behave like speech: ideas, breath, emphasis, response, development, and conclusion.</span>
+</a>
+<a class="library-link" href="lessons/arrangement-and-performance-checklist.html" data-category="Repertoire and Self-Made Covers" data-phase="Weeks 5-24" data-search="arrangement and performance checklist choose at least one: repertoire-covers arrangement performance checklist">
+  <small>Repertoire and Self-Made Covers</small>
+  <strong>Arrangement and Performance Checklist</strong>
+  <span>Choose at least one:</span>
+</a>
+<a class="library-link" href="lessons/cover-rules-no-tabs.html" data-category="Repertoire and Self-Made Covers" data-phase="Weeks 5-24" data-search="self-made cover rules — no tabs first your first complete version comes from the recording, your ears, and your musical decisions. a tab may later diagnose differences, but it cannot design your interpretation. repertoire-covers cover rules tabs">
+  <small>Repertoire and Self-Made Covers</small>
+  <strong>Self-Made Cover Rules — No Tabs First</strong>
+  <span>Your first complete version comes from the recording, your ears, and your musical decisions. A tab may later diagnose differences, but it cannot design your interpretation.</span>
+</a>
+<a class="library-link" href="lessons/guthrie-study-map.html" data-category="Repertoire and Self-Made Covers" data-phase="Weeks 5-24" data-search="guthrie study map study guthrie as a problem-solver. learn small sections, identify the principle, then make it yours. repertoire-covers guthrie study">
+  <small>Repertoire and Self-Made Covers</small>
+  <strong>Guthrie Study Map</strong>
+  <span>Study Guthrie as a problem-solver. Learn small sections, identify the principle, then make it yours.</span>
+</a>
+<a class="library-link" href="lessons/personal-cover-ladder.html" data-category="Repertoire and Self-Made Covers" data-phase="Weeks 5-24" data-search="your personal cover ladder this is built from your supplied songsterr favourites. it is not a difficulty ranking of entire songs; it ranks **useful first projects**. start with selected sections and earn... repertoire-covers personal cover ladder">
+  <small>Repertoire and Self-Made Covers</small>
+  <strong>Your Personal Cover Ladder</strong>
+  <span>This is built from your supplied Songsterr favourites. It is not a difficulty ranking of entire songs; it ranks **useful first projects**. Start with selected sections and earn...</span>
+</a>
+<a class="library-link" href="lessons/develop-your-own-voice.html" data-category="Musical Personality and Humour" data-phase="Weeks 9-24" data-search="develop your own voice your voice is not found by avoiding influences. it appears when influences pass through your ears, taste, limitations, experiences, and repeated choices. personality-humour develop voice">
+  <small>Musical Personality and Humour</small>
+  <strong>Develop Your Own Voice</strong>
+  <span>Your voice is not found by avoiding influences. It appears when influences pass through your ears, taste, limitations, experiences, and repeated choices.</span>
+</a>
+<a class="library-link" href="lessons/natural-stage-banter.html" data-category="Musical Personality and Humour" data-phase="Weeks 9-24" data-search="natural stage banter being funny like guthrie does not mean copying guthrie&#39;s jokes. his strongest lesson is comfort, observation, timing, vocabulary, and treating the audience like intelligent humans. personality-humour natural stage banter">
+  <small>Musical Personality and Humour</small>
+  <strong>Natural Stage Banter</strong>
+  <span>Being funny like Guthrie does not mean copying Guthrie&#39;s jokes. His strongest lesson is comfort, observation, timing, vocabulary, and treating the audience like intelligent humans.</span>
+</a>
+<a class="library-link" href="lessons/storytelling-timing-and-callbacks.html" data-category="Musical Personality and Humour" data-phase="Weeks 9-24" data-search="storytelling, timing, and callbacks write ten true, small moments: personality-humour storytelling timing callbacks">
+  <small>Musical Personality and Humour</small>
+  <strong>Storytelling, Timing, and Callbacks</strong>
+  <span>Write ten true, small moments:</span>
+</a>
+<a class="library-link" href="lessons/24-week-final-performance.html" data-category="Assessments" data-phase="Weeks 1-24" data-search="24-week final performance create one 12–20 minute recorded set. it may be filmed in separate continuous pieces, but do not edit individual notes. assessments week final performance">
+  <small>Assessments</small>
+  <strong>24-Week Final Performance</strong>
+  <span>Create one 12–20 minute recorded set. It may be filmed in separate continuous pieces, but do not edit individual notes.</span>
+</a>
+<a class="library-link" href="lessons/baseline-test.html" data-category="Assessments" data-phase="Weeks 1-24" data-search="baseline test take this once before week 1. save every raw recording in a folder dated `baseline`. do not rehearse first; the purpose is an honest starting point. assessments baseline test">
+  <small>Assessments</small>
+  <strong>Baseline Test</strong>
+  <span>Take this once before week 1. Save every raw recording in a folder dated `Baseline`. Do not rehearse first; the purpose is an honest starting point.</span>
+</a>
+<a class="library-link" href="lessons/monthly-tests.html" data-category="Assessments" data-phase="Weeks 1-24" data-search="monthly tests run at the end of weeks 4, 8, 12, 16, 20, and 24. use the same recording setup and compare to your baseline, not to a polished artist recording. assessments monthly tests">
+  <small>Assessments</small>
+  <strong>Monthly Tests</strong>
+  <span>Run at the end of weeks 4, 8, 12, 16, 20, and 24. Use the same recording setup and compare to your baseline, not to a polished artist recording.</span>
+</a>
+<a class="library-link" href="lessons/weekly-review.html" data-category="Assessments" data-phase="Weeks 1-24" data-search="weekly review complete this on the light day in 15–25 minutes. assessments weekly review">
+  <small>Assessments</small>
+  <strong>Weekly Review</strong>
+  <span>Complete this on the light day in 15–25 minutes.</span>
+</a>
+<a class="library-link" href="lessons/recording-review-checklist.html" data-category="Templates and Trackers" data-phase="Weeks 1-24" data-search="recording review checklist a practical lesson from the templates and trackers course track. templates-trackers recording review checklist">
+  <small>Templates and Trackers</small>
+  <strong>Recording Review Checklist</strong>
+  <span>A practical lesson from the Templates and Trackers course track.</span>
+</a>
+<a class="library-link" href="lessons/solo-analysis-worksheet.html" data-category="Templates and Trackers" data-phase="Weeks 1-24" data-search="solo analysis worksheet a practical lesson from the templates and trackers course track. templates-trackers solo analysis worksheet">
+  <small>Templates and Trackers</small>
+  <strong>Solo Analysis Worksheet</strong>
+  <span>A practical lesson from the Templates and Trackers course track.</span>
+</a>
+<a class="library-link" href="lessons/transcription-worksheet.html" data-category="Templates and Trackers" data-phase="Weeks 1-24" data-search="transcription worksheet a practical lesson from the templates and trackers course track. templates-trackers transcription worksheet">
+  <small>Templates and Trackers</small>
+  <strong>Transcription Worksheet</strong>
+  <span>A practical lesson from the Templates and Trackers course track.</span>
+</a>
+<a class="library-link" href="lessons/resource-guide.html" data-category="Best Learning Resources" data-phase="Reference" data-search="best learning resources — what to use and when the best resource is the one assigned to a real musical problem. do not buy or bookmark everything at once. learning-resources resource">
+  <small>Best Learning Resources</small>
+  <strong>Best Learning Resources — What to Use and When</strong>
+  <span>The best resource is the one assigned to a real musical problem. Do not buy or bookmark everything at once.</span>
+</a>
+<a class="library-link" href="lessons/source-notes.html" data-category="Best Learning Resources" data-phase="Reference" data-search="source notes checked on **2026-08-08**. these are the sources used to design this course. “free” means the linked material can be read or used without purchasing it; regional prices and avai... learning-resources source">
+  <small>Best Learning Resources</small>
+  <strong>Source Notes</strong>
+  <span>Checked on **2026-08-08**. These are the sources used to design this course. “Free” means the linked material can be read or used without purchasing it; regional prices and avai...</span>
+</a>
+<a class="library-link" href="lessons/future-stainless-refret-notes.html" data-category="RG8570 Buying Guide" data-phase="Reference" data-search="future stainless refret notes playing for one year does not automatically mean the frets need replacement. inspect actual wear and playability. the original j.custom nickel-silver fretwork is valuable and ma... rg8570-buying-guide future stainless refret">
+  <small>RG8570 Buying Guide</small>
+  <strong>Future Stainless Refret Notes</strong>
+  <span>Playing for one year does not automatically mean the frets need replacement. Inspect actual wear and playability. The original j.custom nickel-silver fretwork is valuable and ma...</span>
+</a>
+<a class="library-link" href="lessons/in-person-inspection-checklist.html" data-category="RG8570 Buying Guide" data-phase="Reference" data-search="rg8570 in-person inspection checklist bring: clip-on tuner, familiar cable, small clean/gained headphone/amp setup if practical (gp-200 is fine), flashlight/phone light, pick, strap if allowed, and this checklist. d... rg8570-buying-guide person inspection checklist">
+  <small>RG8570 Buying Guide</small>
+  <strong>RG8570 In-Person Inspection Checklist</strong>
+  <span>Bring: clip-on tuner, familiar cable, small clean/gained headphone/amp setup if practical (GP-200 is fine), flashlight/phone light, pick, strap if allowed, and this checklist. D...</span>
+</a>
+<a class="library-link" href="lessons/rg8570-long-term-evaluation.html" data-category="RG8570 Buying Guide" data-phase="Reference" data-search="ibanez j.custom rg8570 long-term evaluation a model-level evaluation of the rg8570 as a long-term fusion, rock, metal, clean, and expressive lead instrument—plus the limits of buying any used example unseen. rg8570-buying-guide ibanez used-guitar tremolo inspection">
+  <small>RG8570 Buying Guide</small>
+  <strong>Ibanez j.custom RG8570 Long-Term Evaluation</strong>
+  <span>A model-level evaluation of the RG8570 as a long-term fusion, rock, metal, clean, and expressive lead instrument—plus the limits of buying any used example unseen.</span>
+</a></div>
+    </section>
+
+    <section id="guitar" class="section shell">
+      <article class="card guitar-card">
+        <div>
+          <p class="eyebrow">Used-instrument decisions</p>
+          <h2>RG8570 model and inspection guide</h2>
+          <p>Evaluate the model, then make the individual guitar prove its neck, frets, Lo-Pro Edge, electronics, serial and documents in person.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="lessons/in-person-inspection-checklist.html">Open inspection checklist</a>
+          <a class="button ghost" href="lessons/rg8570-long-term-evaluation.html">Read model evaluation</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="section shell progress-controls">
+      <button id="reset-progress" class="text-button" type="button">Reset locally saved course progress</button>
+      <p>Your checks, week, duration, track and tempo stay only in this browser on this computer.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <strong>Make the next phrase mean something.</strong>
+      <span>Unofficial educational project • no account • no tracking • no copyrighted backing-track downloads</span>
+    </div>
+  </footer>
+
+  <script src="js/course-data.js"></script>
+  <script src="js/lesson-index.js"></script>
+  <script src="js/music-theory.js"></script>
+  <script src="js/practice-engine.js"></script>
+  <script src="js/player-timeline.js"></script>
+  <script src="js/audio-engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

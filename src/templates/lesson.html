@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="{{SUMMARY}}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{TITLE}} — Guthrie Complete Musician">
+  <meta property="og:description" content="{{SUMMARY}}">
+  <meta property="og:url" content="{{CANONICAL_URL}}">
+  <link rel="canonical" href="{{CANONICAL_URL}}">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <title>{{TITLE}} — Guthrie Complete Musician</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="lesson-page">
+  <a class="skip-link" href="#lesson-content">Skip to lesson</a>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="Guthrie Complete Musician home">
+      <span class="brand-mark">GCM</span>
+      <span>Complete Musician</span>
+    </a>
+    <nav aria-label="Lesson actions">
+      <a href="../index.html#library">Library</a>
+      <a href="{{SOURCE_URL}}" target="_blank" rel="noreferrer noopener">Markdown source</a>
+    </nav>
+  </header>
+
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
+  <main id="lesson-content" class="lesson-shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Course</a><span aria-hidden="true">/</span>
+      <a href="../index.html#library">{{CATEGORY}}</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{{TITLE}}</span>
+    </nav>
+
+    <article class="lesson-article" data-lesson-slug="{{SLUG}}">
+      <header class="lesson-header">
+        <p class="eyebrow">{{CATEGORY}} • {{PHASE}}</p>
+        <h1>{{TITLE}}</h1>
+        <p class="lesson-summary">{{SUMMARY}}</p>
+        <div class="lesson-meta">
+          <span>{{DIFFICULTY}}</span>
+          <span>{{TAGS}}</span>
+        </div>
+      </header>
+      <div class="lesson-body">{{CONTENT}}</div>
+    </article>
+
+    <div class="lesson-actions">
+      <label class="lesson-complete"><input id="lesson-complete" type="checkbox"> Mark this lesson complete</label>
+      <button class="button ghost" id="print-lesson" type="button">Print lesson</button>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Previous and next lessons">
+      {{PREVIOUS_LINK}}
+      {{NEXT_LINK}}
+    </nav>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <strong>Hear it. Understand it. Say something.</strong>
+      <span>Unofficial educational project • progress stays in this browser</span>
+    </div>
+  </footer>
+</body>
+</html>
