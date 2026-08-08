@@ -29,8 +29,12 @@ test('buildSite generates the complete static lesson site', async () => {
   assert.match(index, /<main id="main-content">/);
   assert.match(index, /Guthrie Complete Musician/);
   assert.match(index, /<script src="js\/lesson-index\.js"><\/script>/);
+  assert.match(index, /class="mobile-nav"/);
   assert.match(firstLesson, /aria-label="Breadcrumb"/);
   assert.match(firstLesson, /class="lesson-nav"/);
+  assert.match(firstLesson, /class="mobile-nav"/);
+  assert.match(firstLesson, /<script src="\.\.\/js\/progress-store\.js"><\/script>/);
+  assert.match(firstLesson, /<script src="\.\.\/js\/lesson-page\.js"><\/script>/);
   assert.match(firstLesson, /github\.com\/johnnypatty\/guthrie-complete-musician\/blob\/main\/content\//);
   assert.match(notFound, /Page not found/);
   assert.equal(lessonIndex.length, 47);

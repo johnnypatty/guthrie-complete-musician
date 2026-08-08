@@ -1,18 +1,11 @@
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'gcm-progress-v1';
+  const STORAGE_KEY = 'gcm-progress-v2';
+  const LEGACY_STORAGE_KEY = 'gcm-progress-v1';
   const $ = (selector) => document.querySelector(selector);
   const audio = AudioEngine.create();
-  const defaults = {
-    week: 1,
-    minutes: 90,
-    completed: {},
-    trackId: CourseData.tracks[0].id,
-    tempo: CourseData.tracks[0].bpm,
-    loop: 'full',
-    levels: { pad: 72, bass: 72, drums: 62 }
-  };
+  const defaults = ProgressStore.normalize(null);
   let state = loadState();
   let timerInterval = null;
   let timerRemaining = 20 * 60;
@@ -24,29 +17,25 @@
   }
 
   function loadState() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const validTrack = CourseData.tracks.some((track) => track.id === saved.trackId);
-      return {
-        week: safeInteger(saved.week, defaults.week, 1, 24),
-        minutes: [90, 120].includes(Number(saved.minutes)) ? Number(saved.minutes) : defaults.minutes,
-        completed: saved.completed && typeof saved.completed === 'object' ? saved.completed : {},
-        trackId: validTrack ? saved.trackId : defaults.trackId,
-        tempo: safeInteger(saved.tempo, defaults.tempo, 50, 220),
-        loop: typeof saved.loop === 'string' ? saved.loop : 'full',
-        levels: {
-          pad: safeInteger(saved.levels?.pad, 72, 0, 100),
-          bass: safeInteger(saved.levels?.bass, 72, 0, 100),
-          drums: safeInteger(saved.levels?.drums, 62, 0, 100)
+    for (const key of [STORAGE_KEY, LEGACY_STORAGE_KEY]) {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      try {
+        const loaded = ProgressStore.normalize(JSON.parse(raw));
+        if (!CourseData.tracks.some((track) => track.id === loaded.trackId)) {
+          loaded.trackId = CourseData.tracks[0].id;
+          loaded.tempo = CourseData.tracks[0].bpm;
         }
-      };
-    } catch (_) {
-      return { ...defaults, completed: {}, levels: { ...defaults.levels } };
+        return loaded;
+      } catch (_error) {
+        // Try the legacy key, then fall back to safe defaults.
+      }
     }
+    return ProgressStore.normalize(null);
   }
 
   function saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(STORAGE_KEY, ProgressStore.exportJson(state));
   }
 
   function currentTrack() {
@@ -112,11 +101,58 @@
     }).join('');
   }
 
+  function lessonIndex() {
+    return Array.isArray(globalThis.GcmLessonIndex) ? globalThis.GcmLessonIndex : CourseData.lessons;
+  }
+
   function renderLibrary() {
-    const lessons = Array.isArray(globalThis.GcmLessonIndex) ? globalThis.GcmLessonIndex : CourseData.lessons;
+    const allLessons = lessonIndex();
+    const lessons = LessonSearch.filter(allLessons, {
+      query: $('#lesson-search')?.value || '',
+      category: $('#lesson-category')?.value || 'all',
+      phase: $('#lesson-phase')?.value || 'all'
+    });
     $('#library-grid').innerHTML = lessons.map((lesson) =>
-      `<a class="library-link" href="${lesson.slug ? `lessons/${encodeURIComponent(lesson.slug)}.html` : encodeURI(lesson.path)}"><small>${escapeHtml(lesson.category || lesson.group)}</small><strong>${escapeHtml(lesson.title)}</strong><span>${escapeHtml(lesson.summary || 'Open lesson')} →</span></a>`
+      `<a class="library-link${state.lessons[lesson.slug] ? ' is-complete' : ''}" href="${lesson.slug ? `lessons/${encodeURIComponent(lesson.slug)}.html` : encodeURI(lesson.path)}"><small>${escapeHtml(lesson.category || lesson.group)}</small><strong>${escapeHtml(lesson.title)}</strong><span>${escapeHtml(lesson.summary || 'Open lesson')} →</span>${state.lessons[lesson.slug] ? '<b class="completion-badge">Completed</b>' : ''}</a>`
     ).join('');
+    if ($('#lesson-result-count')) $('#lesson-result-count').textContent = `${lessons.length} of ${allLessons.length} lessons`;
+    if ($('#lesson-no-results')) $('#lesson-no-results').hidden = lessons.length !== 0;
+  }
+
+  function populateLessonFilters() {
+    const lessons = lessonIndex();
+    $('#lesson-category').innerHTML = '<option value="all">All categories</option>' + LessonSearch.options(lessons, 'category')
+      .map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join('');
+    $('#lesson-phase').innerHTML = '<option value="all">All phases</option>' + LessonSearch.options(lessons, 'phase')
+      .map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join('');
+  }
+
+  function exportProgress() {
+    const blob = new Blob([ProgressStore.exportJson(state)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'guthrie-complete-musician-progress.json';
+    link.click();
+    URL.revokeObjectURL(url);
+    $('#progress-file-status').textContent = 'Progress exported. The file stayed on this device.';
+  }
+
+  async function importProgressFile(file) {
+    if (!file) return;
+    try {
+      const imported = ProgressStore.importJson(await file.text());
+      if (!CourseData.tracks.some((track) => track.id === imported.trackId)) {
+        imported.trackId = CourseData.tracks[0].id;
+        imported.tempo = CourseData.tracks[0].bpm;
+      }
+      state = imported;
+      saveState();
+      $('#progress-file-status').textContent = 'Progress imported. Reloading the course…';
+      location.reload();
+    } catch (error) {
+      $('#progress-file-status').textContent = error.message;
+    }
   }
 
   function populateTracks() {
@@ -303,6 +339,13 @@
     $('#timer-reset').addEventListener('click', resetTimer);
     $('#timer-minutes').addEventListener('change', resetTimer);
 
+    $('#lesson-search').addEventListener('input', renderLibrary);
+    $('#lesson-category').addEventListener('change', renderLibrary);
+    $('#lesson-phase').addEventListener('change', renderLibrary);
+    $('#export-progress').addEventListener('click', exportProgress);
+    $('#import-progress').addEventListener('click', () => $('#progress-file').click());
+    $('#progress-file').addEventListener('change', (event) => importProgressFile(event.target.files?.[0]));
+
     $('#track-select').addEventListener('change', () => {
       stopPlayer();
       state.trackId = $('#track-select').value;
@@ -336,7 +379,8 @@
     $('#reset-progress').addEventListener('click', () => {
       if (!confirm('Reset the locally saved week, checks, track and tempo? Your lesson files will not be deleted.')) return;
       localStorage.removeItem(STORAGE_KEY);
-      state = { ...defaults, completed: {}, levels: { ...defaults.levels } };
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      state = ProgressStore.normalize(null);
       location.reload();
     });
   }
@@ -346,6 +390,7 @@
     populateTracks();
     renderTrack(false);
     renderSession();
+    populateLessonFilters();
     renderLibrary();
     populateChordLab();
     resetTimer();

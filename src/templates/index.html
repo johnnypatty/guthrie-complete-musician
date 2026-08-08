@@ -29,6 +29,15 @@
       <a href="#roadmap">24 Weeks</a>
       <a href="#library">Library</a>
     </nav>
+    <details class="mobile-nav">
+      <summary aria-label="Open course menu">Menu</summary>
+      <div>
+        <a href="#today">Today</a>
+        <a href="#backing-lab">Backing Lab</a>
+        <a href="#roadmap">24 Weeks</a>
+        <a href="#library">Library</a>
+      </div>
+    </details>
   </header>
 
   <main id="main-content">
@@ -199,7 +208,20 @@
           <h2>Course library</h2>
         </div>
       </div>
+      <div class="library-tools card compact" role="search" aria-label="Filter course lessons">
+        <label>Search lessons
+          <input id="lesson-search" type="search" autocomplete="off" placeholder="Try rhythm, bends, triads…">
+        </label>
+        <label>Category
+          <select id="lesson-category"><option value="all">All categories</option></select>
+        </label>
+        <label>Phase
+          <select id="lesson-phase"><option value="all">All phases</option></select>
+        </label>
+        <p id="lesson-result-count" class="status" aria-live="polite">{{LESSON_COUNT}} lessons</p>
+      </div>
       <div id="library-grid" class="library-grid">{{LESSON_CARDS}}</div>
+      <p id="lesson-no-results" class="empty-state" hidden>No lessons match those filters. Try fewer words or choose All categories.</p>
     </section>
 
     <section id="guitar" class="section shell">
@@ -217,8 +239,13 @@
     </section>
 
     <section class="section shell progress-controls">
-      <button id="reset-progress" class="text-button" type="button">Reset locally saved course progress</button>
-      <p>Your checks, week, duration, track and tempo stay only in this browser on this computer.</p>
+      <div class="button-row progress-buttons">
+        <button id="export-progress" class="button ghost" type="button">Export progress</button>
+        <button id="import-progress" class="button ghost" type="button">Import progress</button>
+        <button id="reset-progress" class="text-button" type="button">Reset local progress</button>
+      </div>
+      <input id="progress-file" type="file" accept="application/json,.json" hidden>
+      <p id="progress-file-status" class="status" aria-live="polite">Your checks, lessons, week, duration, track and tempo stay only in this browser on this computer.</p>
     </section>
   </main>
 
@@ -231,6 +258,8 @@
 
   <script src="js/course-data.js"></script>
   <script src="js/lesson-index.js"></script>
+  <script src="js/progress-store.js"></script>
+  <script src="js/lesson-search.js"></script>
   <script src="js/music-theory.js"></script>
   <script src="js/practice-engine.js"></script>
   <script src="js/player-timeline.js"></script>
