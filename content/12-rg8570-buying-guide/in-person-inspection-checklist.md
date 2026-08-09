@@ -12,7 +12,7 @@ Bring: clip-on tuner, familiar cable, small clean/gained headphone/amp setup if 
 
 - [ ] Clear photograph of back-of-headstock serial received
 - [ ] Photograph of j.custom certificate/COA received
-- [ ] Exact address/time and pickup price (€2,000) reconfirmed
+- [ ] Exact address/time and agreed pickup price reconfirmed
 - [ ] Original case, trem arm and accessories reconfirmed
 - [ ] Ask whether strings/tuning/setup are still factory gauge/E standard
 - [ ] Do not send a deposit or private banking data merely to “hold” it

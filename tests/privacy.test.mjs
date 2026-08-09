@@ -22,6 +22,11 @@ test('flags private contact and payment details', () => {
   assert.deepEqual(matches, ['email-address', 'phone-number', 'payment-detail']);
 });
 
+test('flags an exact transaction pickup price', () => {
+  const matches = scanPrivateText('Exact pickup price (€9,999) reconfirmed', 'guide.md');
+  assert.deepEqual(matches, ['transaction-price']);
+});
+
 test('allows a generic used-guitar inspection guide', () => {
   assert.deepEqual(
     scanPrivateText('Check the tremolo, frets, serial, case and certificate.', 'guide.md'),

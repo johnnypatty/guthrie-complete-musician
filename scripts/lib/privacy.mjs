@@ -15,6 +15,10 @@ const MARKERS = [
     pattern: /\b(?:pickup|collection|travel|return|meeting)\s+date\s*:\s*\d{4}-\d{2}-\d{2}\b/i
   },
   {
+    name: 'transaction-price',
+    pattern: /\bpickup\s+price\s*(?:is|:|\()?\s*(?:€|\$|£)\s?\d[\d.,]*\)?/i
+  },
+  {
     name: 'email-address',
     pattern: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i
   },
