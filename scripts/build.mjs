@@ -57,6 +57,17 @@ function lessonLink(lesson, direction) {
   return `<a href="${lesson.slug}.html" rel="${direction === 'previous' ? 'prev' : 'next'}"><small>${label}</small><br><strong>${direction === 'previous' ? `${arrow} ` : ''}${escapeHtml(lesson.title)}${direction === 'next' ? ` ${arrow}` : ''}</strong></a>`;
 }
 
+export function cacheDigest(entries) {
+  const hash = createHash('sha256');
+  for (const entry of [...entries].sort((left, right) => left.path.localeCompare(right.path, 'en'))) {
+    hash.update(String(entry.path));
+    hash.update('\0');
+    hash.update(entry.data);
+    hash.update('\0');
+  }
+  return hash.digest('hex').slice(0, 12);
+}
+
 async function listFiles(root) {
   const files = [];
   async function visit(directory) {
@@ -136,11 +147,13 @@ export async function buildSite(options = {}) {
   await writeFile(join(outDir, '404.html'), notFoundTemplate, 'utf8');
   await writeFile(join(outDir, '.nojekyll'), '', 'utf8');
 
-  const precacheUrls = (await listFiles(outDir))
-    .map((absolute) => `./${relative(outDir, absolute).split(sep).join('/')}`)
-    .filter((url) => url !== './.nojekyll')
-    .sort();
-  const cacheHash = createHash('sha256').update(precacheUrls.join('\n')).digest('hex').slice(0, 12);
+  const precacheFiles = (await listFiles(outDir)).filter((absolute) => relative(outDir, absolute) !== '.nojekyll');
+  const precacheEntries = await Promise.all(precacheFiles.map(async (absolute) => ({
+    path: `./${relative(outDir, absolute).split(sep).join('/')}`,
+    data: await readFile(absolute)
+  })));
+  const precacheUrls = precacheEntries.map(({ path }) => path).sort();
+  const cacheHash = cacheDigest(precacheEntries);
   const serviceWorkerTemplate = await readFile(join(templatesDir, 'sw.js'), 'utf8');
   const serviceWorker = fillTemplate(serviceWorkerTemplate, {
     CACHE_NAME: JSON.stringify(`gcm-static-${cacheHash}`),

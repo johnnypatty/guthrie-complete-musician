@@ -1,4 +1,4 @@
-const CACHE_NAME = "gcm-static-d25a87a50994";
+const CACHE_NAME = "gcm-static-dc31fc3ab3a6";
 const PRECACHE_URLS = [
   "./404.html",
   "./assets/icon.svg",

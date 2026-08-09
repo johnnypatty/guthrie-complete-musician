@@ -4,10 +4,19 @@ import { mkdtemp, readFile, readdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 
-import { buildSite } from '../scripts/build.mjs';
+import { buildSite, cacheDigest } from '../scripts/build.mjs';
 import { packageOffline } from '../scripts/package-offline.mjs';
 
 const projectRoot = resolve(import.meta.dirname, '..');
+
+test('service-worker cache fingerprint is order-stable and content-sensitive', () => {
+  const original = [
+    { path: './index.html', data: Buffer.from('one') },
+    { path: './assets/style.css', data: Buffer.from('two') }
+  ];
+  assert.equal(cacheDigest(original), cacheDigest([...original].reverse()));
+  assert.notEqual(cacheDigest(original), cacheDigest([{ ...original[0], data: Buffer.from('changed') }, original[1]]));
+});
 
 test('build creates a standalone manifest and complete service-worker lesson cache', async () => {
   const outDir = await mkdtemp(join(tmpdir(), 'gcm-offline-build-'));

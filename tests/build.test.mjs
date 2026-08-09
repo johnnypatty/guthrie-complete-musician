@@ -25,6 +25,7 @@ test('buildSite generates the complete static lesson site', async () => {
   const notFound = await readFile(join(outDir, '404.html'), 'utf8');
   const lessonIndex = JSON.parse(await readFile(join(outDir, 'data', 'lessons.json'), 'utf8'));
   const lessonIndexScript = await readFile(join(outDir, 'js', 'lesson-index.js'), 'utf8');
+  const styles = await readFile(join(outDir, 'assets', 'style.css'), 'utf8');
 
   assert.match(index, /<main id="main-content">/);
   assert.match(index, /Guthrie Complete Musician/);
@@ -44,6 +45,7 @@ test('buildSite generates the complete static lesson site', async () => {
   assert.match(notFound, /Page not found/);
   assert.equal(lessonIndex.length, 47);
   assert.match(lessonIndexScript, /globalThis\.GcmLessonIndex/);
+  assert.match(styles, /\.player-grid\s*>\s*\*\s*\{\s*min-width:\s*0/);
   assert.deepEqual(Object.keys(lessonIndex[0]).sort(), ['category', 'difficulty', 'phase', 'slug', 'summary', 'tags', 'title'].sort());
 
   await stat(join(outDir, '.nojekyll'));

@@ -111,6 +111,7 @@ input[type="range"] { padding-inline: 0; accent-color: var(--teal); }
 blockquote { margin: 14px 0 22px; font-size: clamp(1.35rem, 3vw, 2.25rem); font-weight: 760; line-height: 1.25; }
 
 .player-grid { display: grid; grid-template-columns: 1.6fr 0.7fr; gap: 20px; }
+.player-grid > * { min-width: 0; }
 .transport { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 22px 0; }
 .transport .status { flex: 1 1 260px; }
 .transport-button { min-width: 110px; }
