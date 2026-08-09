@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
 import { buildSite } from '../scripts/build.mjs';
+import { packageOffline } from '../scripts/package-offline.mjs';
 import { verifySite } from '../scripts/verify.mjs';
 
 const projectRoot = resolve(import.meta.dirname, '..');
@@ -12,6 +13,7 @@ const projectRoot = resolve(import.meta.dirname, '..');
 test('verifySite accepts a complete privacy-safe build', async () => {
   const publicRoot = await mkdtemp(join(tmpdir(), 'gcm-verify-'));
   await buildSite({ projectRoot, contentRoot: join(projectRoot, 'content'), outDir: publicRoot });
+  await packageOffline({ projectRoot, publicDir: publicRoot, zipPath: join(publicRoot, 'downloads', 'guthrie-complete-musician-offline.zip') });
 
   const result = await verifySite({ projectRoot, publicRoot });
 
@@ -23,6 +25,7 @@ test('verifySite accepts a complete privacy-safe build', async () => {
 test('verifySite rejects a broken local asset link', async () => {
   const publicRoot = await mkdtemp(join(tmpdir(), 'gcm-verify-'));
   await buildSite({ projectRoot, contentRoot: join(projectRoot, 'content'), outDir: publicRoot });
+  await packageOffline({ projectRoot, publicDir: publicRoot, zipPath: join(publicRoot, 'downloads', 'guthrie-complete-musician-offline.zip') });
   await rm(join(publicRoot, 'assets', 'icon.svg'));
 
   await assert.rejects(() => verifySite({ projectRoot, publicRoot }), /broken local links.*icon\.svg/i);

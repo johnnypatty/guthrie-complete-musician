@@ -421,6 +421,21 @@
     });
   }
 
+  async function registerOfflineSupport() {
+    const status = $('#offline-status');
+    if (!status) return;
+    if (!('serviceWorker' in navigator) || !/^https?:$/.test(location.protocol)) {
+      status.textContent = 'Use the ZIP for fully offline access.';
+      return;
+    }
+    try {
+      await navigator.serviceWorker.register('sw.js');
+      status.textContent = 'Offline support ready after the first complete visit.';
+    } catch (_error) {
+      status.textContent = 'Offline cache unavailable; the ZIP still works.';
+    }
+  }
+
   function init() {
     bindEvents();
     populateTracks();
@@ -431,6 +446,7 @@
     populateChordLab();
     resetTimer();
     $('#prompt-card').textContent = PracticeEngine.pickPrompt(`week-${state.week}`).text;
+    registerOfflineSupport();
   }
 
   document.addEventListener('DOMContentLoaded', init);

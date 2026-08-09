@@ -1,5 +1,6 @@
-import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
-import { dirname, join, parse, resolve } from 'node:path';
+import { createHash } from 'node:crypto';
+import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { dirname, join, parse, relative, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { loadLessons } from './lib/content.mjs';
@@ -56,6 +57,21 @@ function lessonLink(lesson, direction) {
   return `<a href="${lesson.slug}.html" rel="${direction === 'previous' ? 'prev' : 'next'}"><small>${label}</small><br><strong>${direction === 'previous' ? `${arrow} ` : ''}${escapeHtml(lesson.title)}${direction === 'next' ? ` ${arrow}` : ''}</strong></a>`;
 }
 
+async function listFiles(root) {
+  const files = [];
+  async function visit(directory) {
+    const items = await readdir(directory, { withFileTypes: true });
+    items.sort((left, right) => left.name.localeCompare(right.name, 'en'));
+    for (const item of items) {
+      const absolute = join(directory, item.name);
+      if (item.isDirectory()) await visit(absolute);
+      else if (item.isFile()) files.push(absolute);
+    }
+  }
+  await visit(root);
+  return files;
+}
+
 export async function buildSite(options = {}) {
   const projectRoot = resolve(options.projectRoot || process.cwd());
   const contentRoot = resolve(options.contentRoot || join(projectRoot, 'content'));
@@ -75,6 +91,7 @@ export async function buildSite(options = {}) {
   await mkdir(join(outDir, 'downloads'), { recursive: true });
   await cp(join(projectRoot, 'src', 'assets'), join(outDir, 'assets'), { recursive: true });
   await cp(join(projectRoot, 'src', 'js'), join(outDir, 'js'), { recursive: true });
+  await cp(join(projectRoot, 'src', 'manifest.webmanifest'), join(outDir, 'manifest.webmanifest'));
   await cp(join(contentRoot, 'templates', 'Practice Log.csv'), join(outDir, 'downloads', 'Practice Log.csv'));
   await cp(join(contentRoot, 'templates', 'Repertoire Tracker.csv'), join(outDir, 'downloads', 'Repertoire Tracker.csv'));
 
@@ -118,6 +135,18 @@ export async function buildSite(options = {}) {
   await writeFile(join(outDir, 'js', 'lesson-index.js'), `globalThis.GcmLessonIndex = ${JSON.stringify(publicLessonIndex)};\n`, 'utf8');
   await writeFile(join(outDir, '404.html'), notFoundTemplate, 'utf8');
   await writeFile(join(outDir, '.nojekyll'), '', 'utf8');
+
+  const precacheUrls = (await listFiles(outDir))
+    .map((absolute) => `./${relative(outDir, absolute).split(sep).join('/')}`)
+    .filter((url) => url !== './.nojekyll')
+    .sort();
+  const cacheHash = createHash('sha256').update(precacheUrls.join('\n')).digest('hex').slice(0, 12);
+  const serviceWorkerTemplate = await readFile(join(templatesDir, 'sw.js'), 'utf8');
+  const serviceWorker = fillTemplate(serviceWorkerTemplate, {
+    CACHE_NAME: JSON.stringify(`gcm-static-${cacheHash}`),
+    PRECACHE_URLS: JSON.stringify(precacheUrls, null, 2)
+  }, 'src/templates/sw.js');
+  await writeFile(join(outDir, 'sw.js'), serviceWorker, 'utf8');
 
   return { outDir, lessonCount: lessons.length };
 }
