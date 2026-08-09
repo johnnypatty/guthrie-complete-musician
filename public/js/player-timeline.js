@@ -52,5 +52,30 @@
     return start + ((((Number(absoluteBeat) - start) % length) + length) % length);
   }
 
-  return { secondsPerBeat, buildTimeline, eventAtBeat, loopBeat };
+  function remapBeat(beat, oldTotal, newTotal) {
+    const oldLength = Number(oldTotal);
+    const newLength = Number(newTotal);
+    const position = Number(beat);
+    if (!Number.isFinite(position)) throw new Error('Beat must be finite');
+    if (!Number.isFinite(oldLength) || !Number.isFinite(newLength) || oldLength <= 0 || newLength <= 0) {
+      throw new Error('Old and new totals must be positive');
+    }
+    return (loopBeat(position, 0, oldLength) / oldLength) * newLength;
+  }
+
+  function positionAtBeat(timeline, beat) {
+    if (!timeline || !Array.isArray(timeline.events) || timeline.events.length === 0 || timeline.totalBeats <= 0) {
+      throw new Error('Timeline must contain events');
+    }
+    const normalizedBeat = loopBeat(Number(beat), 0, timeline.totalBeats);
+    return {
+      event: eventAtBeat(timeline.events, normalizedBeat),
+      bar: Math.floor(normalizedBeat / timeline.beatsPerBar) + 1,
+      beatInBar: (normalizedBeat % timeline.beatsPerBar) + 1,
+      progress: normalizedBeat / timeline.totalBeats,
+      normalizedBeat
+    };
+  }
+
+  return { secondsPerBeat, buildTimeline, eventAtBeat, loopBeat, remapBeat, positionAtBeat };
 });

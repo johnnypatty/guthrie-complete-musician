@@ -209,8 +209,21 @@
     return {
       pad: state.levels.pad / 100,
       bass: state.levels.bass / 100,
-      drums: state.levels.drums / 100
+      drums: state.levels.drums / 100,
+      master: state.levels.master / 100
     };
+  }
+
+  function renderTargetTones(chord) {
+    const target = $('#target-tones');
+    try {
+      const tones = MusicTheory.getTargetTones(chord);
+      target.innerHTML = `<strong>${escapeHtml(chord)}</strong>${tones.chordTones.map((note) =>
+        `<span class="note-pill${tones.guideTones.includes(note) ? ' is-guide' : ''}">${escapeHtml(note)}</span>`
+      ).join('')}<small>Gold = 3rd or 7th: hear these through the change.</small>`;
+    } catch (_error) {
+      target.textContent = chord;
+    }
   }
 
   function highlightChord(payload) {
@@ -221,6 +234,19 @@
       chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
     $('#player-status').textContent = `${payload.chord} • section ${payload.section}`;
+    renderTargetTones(payload.chord);
+  }
+
+  function handleTransport(payload) {
+    if (payload.phase === 'count-in') {
+      $('#transport-position').textContent = `Count-in ${payload.countInBeat} / ${payload.countInTotal}`;
+      $('#transport-progress').value = 0;
+      return;
+    }
+    const percent = Math.max(0, Math.min(100, Math.round(payload.progress * 100)));
+    $('#transport-position').textContent = `Bar ${payload.bar} • beat ${payload.beatInBar} • ${payload.section}`;
+    $('#transport-progress').value = percent;
+    $('#transport-progress').textContent = `${percent}%`;
   }
 
   async function startPlayer() {
@@ -234,8 +260,10 @@
         bpm: state.tempo,
         loopStartBeat: bounds.start,
         loopEndBeat: bounds.end,
+        countInBars: state.countInBars,
         levels: levels(),
-        onChordChange: highlightChord
+        onChordChange: highlightChord,
+        onTransport: handleTransport
       });
       $('#stop-button').disabled = false;
       $('#player-status').textContent = 'Playing…';
@@ -251,6 +279,9 @@
     $('#play-button').disabled = false;
     $('#stop-button').disabled = true;
     $('#player-status').textContent = 'Stopped.';
+    $('#transport-position').textContent = 'Ready';
+    $('#transport-progress').value = 0;
+    $('#target-tones').textContent = 'Press Play to reveal guide tones.';
     document.querySelectorAll('.chord-chip').forEach((chip) => chip.classList.remove('is-current'));
   }
 
@@ -363,10 +394,15 @@
       audio.setTempo(state.tempo);
       saveState();
     });
+    $('#count-in-select').value = state.countInBars;
+    $('#count-in-select').addEventListener('change', () => {
+      state.countInBars = safeInteger($('#count-in-select').value, defaults.countInBars, 0, 2);
+      saveState();
+    });
     $('#play-button').addEventListener('click', startPlayer);
     $('#stop-button').addEventListener('click', stopPlayer);
 
-    ['pad', 'bass', 'drums'].forEach((voice) => {
+    ['master', 'pad', 'bass', 'drums'].forEach((voice) => {
       const input = $(`#${voice}-level`);
       input.value = state.levels[voice];
       input.addEventListener('input', () => {

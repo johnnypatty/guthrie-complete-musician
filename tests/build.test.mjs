@@ -30,6 +30,11 @@ test('buildSite generates the complete static lesson site', async () => {
   assert.match(index, /Guthrie Complete Musician/);
   assert.match(index, /<script src="js\/lesson-index\.js"><\/script>/);
   assert.match(index, /class="mobile-nav"/);
+  assert.match(index, /id="count-in-select"/);
+  assert.match(index, /id="master-level"/);
+  assert.match(index, /id="transport-position"/);
+  assert.match(index, /id="transport-progress"/);
+  assert.match(index, /id="target-tones"/);
   assert.match(firstLesson, /aria-label="Breadcrumb"/);
   assert.match(firstLesson, /class="lesson-nav"/);
   assert.match(firstLesson, /class="mobile-nav"/);

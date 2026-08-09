@@ -115,10 +115,24 @@
     return `${newRoot}${parsed.quality}${newBass ? `/${newBass}` : ''}`;
   }
 
+  function getTargetTones(symbol) {
+    const parsed = parseChord(symbol);
+    const definition = DEFINITIONS[parsed.quality];
+    const chordTones = buildChord(parsed.root, parsed.quality);
+    const formula = definition.formula.split(/\s+/);
+    let guideTones = chordTones.filter((_note, index) => /^(?:b|#)?3$|^(?:bb|b|#)?7$/.test(formula[index]));
+    if (guideTones.length === 0) {
+      guideTones = chordTones.filter((_note, index) => ![0, 4].includes(definition.degrees[index])).slice(0, 2);
+    }
+    if (guideTones.length === 0 && chordTones.length > 1) guideTones = [chordTones[1]];
+    return { chordTones, guideTones };
+  }
+
   return {
     NOTE_NAMES,
     CHORD_FORMULAS,
     buildChord,
+    getTargetTones,
     parseChord,
     transposeChord,
     noteToPc

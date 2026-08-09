@@ -134,6 +134,13 @@
               <label>Tempo <output id="tempo-output">74 BPM</output>
                 <input id="tempo-input" type="range" min="50" max="220" value="74">
               </label>
+              <label>Count-in
+                <select id="count-in-select">
+                  <option value="0">None</option>
+                  <option value="1" selected>1 bar</option>
+                  <option value="2">2 bars</option>
+                </select>
+              </label>
             </div>
 
             <div class="transport">
@@ -142,11 +149,22 @@
               <span id="player-status" class="status" aria-live="polite">Ready. Sound begins only when you press Play.</span>
             </div>
 
+            <div class="transport-readout" aria-live="polite">
+              <strong id="transport-position">Ready</strong>
+              <progress id="transport-progress" max="100" value="0">0%</progress>
+            </div>
+
             <div id="chord-strip" class="chord-strip" aria-label="Chord timeline"></div>
+
+            <div class="target-panel">
+              <span>Current chord targets</span>
+              <div id="target-tones" class="target-tones">Press Play to reveal guide tones.</div>
+            </div>
 
             <details class="mixer">
               <summary>Mix</summary>
-              <div class="control-grid three">
+              <div class="control-grid four">
+                <label>Master <input id="master-level" type="range" min="0" max="100" value="80"></label>
                 <label>Pad <input id="pad-level" type="range" min="0" max="100" value="72"></label>
                 <label>Bass <input id="bass-level" type="range" min="0" max="100" value="72"></label>
                 <label>Drums <input id="drums-level" type="range" min="0" max="100" value="62"></label>
