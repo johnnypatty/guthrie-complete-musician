@@ -48,6 +48,7 @@ export async function verifySite(options = {}) {
   ];
   const unresolvedTokens = [];
   const brokenLinks = [];
+  const missingCacheEntries = [];
 
   for (const file of files.filter((item) => TEXT_EXTENSIONS.has(extname(item).toLowerCase()))) {
     const text = await readFile(file, 'utf8');
@@ -74,7 +75,11 @@ export async function verifySite(options = {}) {
     }
   }
 
-  const required = ['index.html', '404.html', '.nojekyll', 'assets/icon.svg', 'assets/social-preview.svg', 'data/lessons.json'];
+  const required = [
+    'index.html', '404.html', '.nojekyll', 'manifest.webmanifest', 'sw.js',
+    'assets/icon.svg', 'assets/social-preview.svg', 'data/lessons.json',
+    'downloads/guthrie-complete-musician-offline.zip'
+  ];
   const missingRequired = [];
   for (const path of required) {
     try {
@@ -84,12 +89,43 @@ export async function verifySite(options = {}) {
     }
   }
 
+  const worker = await readFile(join(publicRoot, 'sw.js'), 'utf8').catch(() => '');
+  const cacheCandidates = files
+    .map((file) => relative(publicRoot, file).split(sep).join('/'))
+    .filter((path) => !['.nojekyll', 'sw.js', 'downloads/guthrie-complete-musician-offline.zip'].includes(path));
+  for (const path of cacheCandidates) {
+    if (!worker.includes(JSON.stringify(`./${path}`))) missingCacheEntries.push(path);
+  }
+
+  const repositoryFiles = ['README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'LICENSE-CODE', 'LICENSE-CONTENT', '.github/workflows/test.yml', '.github/workflows/pages.yml'];
+  const missingRepositoryFiles = [];
+  for (const path of repositoryFiles) {
+    try {
+      await access(join(projectRoot, path));
+    } catch (_error) {
+      missingRepositoryFiles.push(path);
+    }
+  }
+
+  const workflowProblems = [];
+  const testWorkflow = await readFile(join(projectRoot, '.github', 'workflows', 'test.yml'), 'utf8').catch(() => '');
+  const pagesWorkflow = await readFile(join(projectRoot, '.github', 'workflows', 'pages.yml'), 'utf8').catch(() => '');
+  for (const command of ['npm ci', 'npm test', 'npm run build', 'npm run package:offline', 'npm run verify']) {
+    if (!testWorkflow.includes(command) || !pagesWorkflow.includes(command)) workflowProblems.push(`missing gate command: ${command}`);
+  }
+  const [pagesBuild = '', pagesDeploy = ''] = pagesWorkflow.split(/^  deploy:/m);
+  if (/pages:\s*write|id-token:\s*write/.test(pagesBuild)) workflowProblems.push('deploy permissions appear outside the deploy job');
+  if (!/pages:\s*write/.test(pagesDeploy) || !/id-token:\s*write/.test(pagesDeploy)) workflowProblems.push('deploy job lacks Pages permissions');
+
   const failures = [];
   if (lessonPages.length !== lessons.length) failures.push(`lesson count mismatch: ${lessonPages.length} pages for ${lessons.length} sources`);
   if (privacyFindings.length) failures.push(`privacy findings: ${JSON.stringify(privacyFindings)}`);
   if (unresolvedTokens.length) failures.push(`unresolved template tokens: ${unresolvedTokens.join(', ')}`);
   if (brokenLinks.length) failures.push(`broken local links: ${JSON.stringify(brokenLinks)}`);
   if (missingRequired.length) failures.push(`missing required output: ${missingRequired.join(', ')}`);
+  if (missingCacheEntries.length) failures.push(`missing service-worker cache entries: ${missingCacheEntries.join(', ')}`);
+  if (missingRepositoryFiles.length) failures.push(`missing repository policy files: ${missingRepositoryFiles.join(', ')}`);
+  if (workflowProblems.length) failures.push(`workflow policy problems: ${workflowProblems.join(', ')}`);
   if (failures.length) throw new Error(`Verification failed\n- ${failures.join('\n- ')}`);
 
   return {
@@ -98,7 +134,10 @@ export async function verifySite(options = {}) {
     privacyFindings,
     brokenLinks,
     unresolvedTokens,
-    missingRequired
+    missingRequired,
+    missingCacheEntries,
+    missingRepositoryFiles,
+    workflowProblems
   };
 }
 
