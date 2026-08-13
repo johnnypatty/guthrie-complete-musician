@@ -600,6 +600,86 @@
     "slug": "source-notes"
   },
   {
+    "title": "Action, Relief, and Intonation",
+    "category": "Gear and Setup",
+    "phase": "Reference",
+    "difficulty": "Intermediate",
+    "tags": [
+      "gear",
+      "action",
+      "relief",
+      "intonation"
+    ],
+    "summary": "Diagnose setup in the right order so one adjustment does not hide another problem.",
+    "slug": "action-relief-intonation"
+  },
+  {
+    "title": "Floating Tremolo Setup",
+    "category": "Gear and Setup",
+    "phase": "Reference",
+    "difficulty": "Intermediate",
+    "tags": [
+      "gear",
+      "floating-tremolo",
+      "setup"
+    ],
+    "summary": "Balance string and spring tension without turning a normal gauge change into a tuning fight.",
+    "slug": "floating-tremolo-setup"
+  },
+  {
+    "title": "Maintenance and Storage",
+    "category": "Gear and Setup",
+    "phase": "Reference",
+    "difficulty": "Beginner",
+    "tags": [
+      "gear",
+      "maintenance",
+      "storage"
+    ],
+    "summary": "Keep the instrument stable with small regular checks rather than unnecessary modification.",
+    "slug": "maintenance-and-storage"
+  },
+  {
+    "title": "Signal Noise and Grounding",
+    "category": "Gear and Setup",
+    "phase": "Reference",
+    "difficulty": "Beginner",
+    "tags": [
+      "gear",
+      "noise",
+      "grounding",
+      "recording"
+    ],
+    "summary": "Separate guitar noise, USB ground loops, and expected high-gain hiss before reaching for a heavy gate.",
+    "slug": "signal-noise-and-grounding"
+  },
+  {
+    "title": "String Gauge Changes",
+    "category": "Gear and Setup",
+    "phase": "Reference",
+    "difficulty": "Beginner",
+    "tags": [
+      "gear",
+      "strings",
+      "gauge"
+    ],
+    "summary": "Choose a gauge for feel and reliability, then plan the setup consequences.",
+    "slug": "string-gauge-changes"
+  },
+  {
+    "title": "Used Guitar Inspection",
+    "category": "Gear and Setup",
+    "phase": "Reference",
+    "difficulty": "Reference",
+    "tags": [
+      "gear",
+      "inspection",
+      "used-guitar"
+    ],
+    "summary": "A model-neutral inspection route for neck, frets, hardware, electronics, and playability.",
+    "slug": "used-guitar-inspection"
+  },
+  {
     "title": "Future Stainless Refret Notes",
     "category": "RG8570 Buying Guide",
     "phase": "Reference",

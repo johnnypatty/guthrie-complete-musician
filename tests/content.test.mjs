@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readdir, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -96,4 +96,12 @@ test('loadLessons excludes template files and sorts by category path', async () 
 
   assert.deepEqual(lessons.map((lesson) => lesson.title), ['A Lesson', 'B Lesson']);
   assert.deepEqual(lessons.map((lesson) => lesson.slug), ['a', 'b']);
+});
+
+test('ships six generic Gear and Setup guides without transaction details', async () => {
+  const directory = join(process.cwd(), 'content', '12-gear-and-setup');
+  const files = (await readdir(directory)).filter((name) => name.endsWith('.md'));
+  assert.equal(files.length, 6);
+  const text = (await Promise.all(files.map((name) => readFile(join(directory, name), 'utf8')))).join('\n');
+  assert.match(text, /floating tremolo/i); assert.match(text, /ground/i); assert.doesNotMatch(text, /pickup price|message from seller/i);
 });

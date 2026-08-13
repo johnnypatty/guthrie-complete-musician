@@ -163,6 +163,15 @@
     }
   ];
 
+  tracks.forEach((track, index) => {
+    const style = track.style.toLowerCase();
+    track.meterObject = track.meter === '5/4'
+      ? { numerator: 5, denominator: 4, groups: [3, 2], tempoUnit: 4 }
+      : { numerator: track.beatsPerBar, denominator: 4, groups: [track.beatsPerBar], tempoUnit: 4 };
+    track.groove = style.includes('funk') ? 'funk' : style.includes('neo-soul') ? 'neo-soul' : style.includes('ambient') ? 'ambient' : style.includes('changes') || style.includes('blues') ? 'changes' : style.includes('rock') || style.includes('metal') || style.includes('neo-classical') ? 'rock' : 'fusion';
+    track.seed = index + 1;
+  });
+
   const lessons = [
     { group: 'Daily Practice', title: '90-Minute Core', path: '../01 Daily Practice/90 Minute Core.md' },
     { group: 'Technique', title: 'Clean Speed System', path: '../02 Technique/Clean Speed System.md' },

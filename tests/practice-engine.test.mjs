@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 await import('../src/js/course-data.js');
+await import('../src/js/session-planner.js');
 await import('../src/js/practice-engine.js');
 const PracticeEngine = globalThis.PracticeEngine;
 
@@ -24,6 +25,16 @@ test('builds exact 90 and 120 minute complete sessions', () => {
   }
   assert.ok(standard.some((block) => block.id === 'repertoire'));
   assert.ok(standard.some((block) => block.id === 'phrase-lab'));
+});
+
+test('delegates all supported duration plans to the session planner compatibility facade', () => {
+  for (const minutes of [30, 60, 90, 120]) {
+    const session = PracticeEngine.buildSession(minutes, 9);
+    assert.equal(session.reduce((sum, block) => sum + block.minutes, 0), minutes);
+    assert.ok(session.every((block) => block.type === 'practice' || block.type === 'rest'));
+    assert.equal(new Set(session.map((block) => block.instanceId)).size, session.length);
+    assert.ok(session.filter((block) => block.type === 'practice').every((block) => block.id === block.candidateId));
+  }
 });
 
 test('deterministic prompts repeat for the same seed', () => {

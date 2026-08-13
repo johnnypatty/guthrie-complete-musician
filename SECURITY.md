@@ -11,3 +11,9 @@ Please use GitHub's private vulnerability-reporting or security-advisory channel
 Do not publish credentials, private personal data, exploit payloads containing real user information, or another person's files in a public issue. For ordinary non-sensitive defects and accessibility problems, the public issue tracker is appropriate.
 
 This is a static, account-free site. Its primary security boundaries are safe content rendering, local progress import validation, path-safe build/package tools, service-worker scope, and preventing private material from entering public artifacts.
+
+## Local-data and network boundary
+
+The application does not send practice history, microphone recordings, gear details, recommendations, or imported backups to a server. It contains no analytics or advertising SDK. Microphone access is requested only after the player presses the explicit connect/record control, and recordings stay in memory until the player downloads or discards them. The release verifier rejects application modules that introduce fetch, XMLHttpRequest, WebSocket, sendBeacon, analytics, or upload code outside the allowlisted static service worker.
+
+The service worker caches only generated static release files. It does not dynamically add navigation responses, blobs, recordings, or browser-local progress to the cache.
