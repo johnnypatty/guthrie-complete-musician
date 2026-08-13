@@ -204,4 +204,260 @@
 - `PitchDetector.analyse(samples, sampleRate, calibration)` returns `{ status, frequency, note, cents, confidence, reason }`.
 - `SignalFeatures.frame(samples, sampleRate)` returns RMS, peak/clipping ratio, zero-crossing rate, spectral flux inputs, high-band ratio, and onset candidate fields.
 
-- [ ] **Step 1: Write failing hand-derived fixtures** for 82.41, 110, 220, and 440 Hz plus Â±25-cent offsets; silence/nois]9ó«h‘éì¶»§q«^vFòW6RFV6†æ–6–ã°¢Ò7G&–ærÖvVvR6†ævW2æB6WGW6öç6WVVæ6W3°¢Ò6–væÂÖ6†–âæö—6RæBw&÷VæF–ærG&÷V&ÆW6†ö÷F–æs°¢Ò–ç7G'VÖVçBÖ–çFVææ6RæB6fR7F÷&vRà ¤W†—7F–ær$sƒSs'F–6ÆW2Ö’&VÖ–â2&6†—fVBÖöFVÂW†×ÆW2Â'WBF†W’&Ræ÷BF†RV&Æ–2Æ–6F–öâw277VÖVB–ç7G'VÖVçBâW'6öæÂ6†'fVÂÂ–&æW¢Âç–Æöâ×7G&–ærÂ7G&–ærÖvVvRÂ6WGWÂW&6†6RÂæB6öÆÆV7F–öâæ÷FW2Æ—fR–âF†R÷F–öæÂÆö6ÂvV"&öf–ÆRæB&R–æ6ÇVFVBöæÇ’v†VâF†RÆ–W"FVÆ–&W&FVÇ’W‡÷'G2&öw&W72à ¢22"âFFÂ&—f7’ÂæB6fWG ¤v—D‡V"vW26W'fW27FF–2Æ–6F–öâf–ÆW2öæÇ’âF†RFVfVÇBÆ–6F–öâW&f÷&×2æòFVÆVÖWG'’ÂæÇ—F–72Â66÷VçB7&VF–öâÂ6Æ÷VB7–æ2ÂVF–òWÆöBÂW‡FW&æÂ’&WVW7BÂ÷"&6¶w&÷VæBÖ–7&÷†öæR7F—fF–öâà ¢Ò6ÖÆÂ&VfW&Væ6W2æB&W7VÖ&ÆR6W76–öâ7FFRW6RÆö6Å7F÷&vVà¢Ò6W76–öâ†—7F÷'’Â6¶–ÆÂö'6W'fF–öç2Â&Wf–Wr—FV×2ÂæB7W7FöÒ&öw&W76–öç2W6R–æFW†VDD"à¢ÒVF–ò&Æö'2W6R6W&FR–æFW†VDD"7F÷&Rà¢Ò6W'f–6R×v÷&¶W"66†W26öçF–âöæÇ’V&Æ–2Æ–6F–öâ76WG2à¢ÒW‡÷'B&WV—&W2W‡Æ–6—B7F–öâæB6ÆV&Ç’7FFW2v†WF†W"F†Rf–ÆR6öçF–ç2&öw&W72ÖWFFF÷"VF–òà¢Ò&W6WB†26W&FR6†ö–6W2f÷"&öw&W72Â&V6÷&F–æw2Â7W7FöÒ&öw&W76–öç2ÂvV"&öf–ÆRÂ÷"ÆÂÆö6ÂFFà ¥F†RÆ–6F–öâW6W27W÷'F—fRVGV6F–öæÂÆæwVvRâ–â&ö×G2Gf—6R7F÷–æræB6öç7VÇF–ærVÆ–f–VBGVÇB÷"†VÇF‚&öfW76–öæÂv†Vâ&÷&–FS²F†W’Fòæ÷BF–væ÷6R–æ§W&–W2â†V&–ærwV–Fæ6R&V6öÖÖVæG26öç6W'fF—fRÆWfVÇ2æB'&V·2v—F†÷WB6Æ–Ö–ærFòÖV7W&R6fR†VG†öæRÆ÷VFæW72à ¢222â66W76–&–Æ—G’æBöffÆ–æR&V†f–÷  ¤ÆÂfVGW&W2&R¶W–&ö&BÖ÷W&&ÆRæBW‡÷6Rf—6–&ÆRfö7W2ÂÆ&VÆÆVB6öçG&öÇ2ÂÆ—fR×&Vv–öâWFFW2F†BFòæ÷B6†GFW"öâWfW'’VF–òg&ÖRÂ&VGV6VBÖÖ÷F–öâ7W÷'BÂ†–v‚Ö6öçG&7BÖV7W&VÖVçB7FFW2ÂæBFW‡BWV—fÆVçG2f÷"w&‡2â6öÆ÷"—2æWfW"F†RöæÇ’72öf–Â6–væÂà ¥F†RwV–FVB'VææW"æBæÇ—6—2f–Ww2FBFò6ÖÆÂ67&VVç2Â'WB–çWBÖæÇ—6—26÷’æ÷FW2F†BÖö&–ÆR'&÷w6W"öFWf–6R7W÷'Bf&–W2âVç7W÷'FVBfVGW&W2f–Â–æF—f–GVÆÇ’æBÆVfRF†R&W7BöbF†RtgVæ7F–öæÂà ¥7FF–2ÆW76öç2Â6W76–öâÆææ–ærÂ6VÆb×&FVBwV–FVB6W76–öç2ÂF†V÷'’Væv–æW2Â6fVBÖWFFFÂæBvVæW&FVB&6¶–ærÆ"VF–òv÷&²öffÆ–æRgFW"f—'7B66†Râ'&÷w6W"–ç7FÆÆF–öâÂÖ–7&÷†öæRW&Ö—76–öâÂæBFWf–6RVçVÖW&F–öâföÆÆ÷rÆFf÷&Ò&WV—&VÖVçG2æB6ææ÷B&R&öÖ—6VBöâWfW'’VÖ&VFFVB'&÷w6W"à ¢22BâW'&÷"†æFÆ–æp ¤W'&÷'2&RÆö6ÂÂ7F–öæ&ÆRÂæB66÷VC  ¢ÒW&Ö—76–öâFVæ–VC¢W‡Æ–â†÷rFò&WG'’æB¶VWæöâÖ–çWB&7F–6Rf–Æ&ÆRà¢Ò–çWBF—66öææV7FVC¢7F÷æÇ—6—2Â&W6W'fR6ö×ÆWFVBÖV7W&VÖVçG2ÂæBöffW"&V6öææV7Bà¢ÒÆ÷r6öæf–FVæ6Rö6Æ—–æs¢7W&W7266÷&W2æB6†÷r6WGW6÷'&V7F–öç2à¢Ò&V6÷&F–ærVç7W÷'FVB÷"V÷FW†6VVFVC¢&W6W'fRÖWFFFv†Vâ÷76–&ÆRæBöffW"W‡÷'BöFVÆWFR7F–öç2à¢Ò6÷''WB–×÷'FVB¥4ôã¢&V¦V7B—Bv—F†÷WB×WFF–ær7W'&VçBFFæB–FVçF–g’F†R–çfÆ–B6V7F–öâà¢Ò–çFW''WFVB6W76–öã¢&W7F÷&RF†RÆ7B6ö×ÆWFVB&Æö6²æB6²&Vf÷&R&W7VÖ–ærà¢ÒVF–òVæv–æRf–ÇW&S¢7F÷66†VGVÆVB6÷W&6W2÷F–ÖW'2æB&WGW&â6öçG&öÇ2Fò6fR–FÆR7FFRà ¤æòW'&÷"WFöÖF–6ÆÇ’FVÆWFW2†—7F÷'’÷"&V6÷&F–æw2à ¢22RâFW7F–æræBfW&–f–6F–öà ¤WfW'’æWr&V†f–÷"föÆÆ÷w2&VBÖw&VVâ×&Vf7F÷"v—F‚æöFRw2'V–ÇBÖ–âFW7B'VææW"âW&RÖöGVÆW2&V6V—fRF—&V7BVæ—BFW7G2â'&÷w6W"Öf6–ærÖöGVÆW2&V6V—fRFWVæFVæ7’Ö–æ¦V7FVBf¶W2f÷"ÖVF–7G&V×2ÂVF–òg&ÖW2ÂÖVF–&V6÷&FW"Â–æFW†VDD"Â6Æö6·2ÂæBF–ÖW'2âFW7G26÷fW"&÷F‚7W÷'FVBæBVç7W÷'FVB'&÷w6W"F‡2à ¥&WV—&VBWFöÖFVB6÷fW&vR–æ6ÇVFW3  ¢ÒW†7BÖGW&F–öâÆç2Â&W7B–ç6W'F–öâÂ&F–æw2Â–çFW''WF–öâ&V6÷fW'’ÂæB–â×7F÷&V†f–÷#°¢ÒG&ç7&VçB&V6öÖÖVæFF–öâ&æ¶–æræBW6W"÷fW'&–FW3°¢Òg&WVVæ7’öæ÷FRö6VçG26öçfW'6–öâÂ6öæf–FVæ6R&V¦V7F–öâÂ&VæB÷f–'&Fò÷F–Ö–ærf—‡GW&W2ÂæBÖWG&–27W&W76–öã°¢ÒFWf–6RÆ–fV7–6ÆRæB6ö×ÆWFRÖVF–×G&6²6‡WFF÷vã°¢Ò&V6÷&F–ærÖWFFFÂV÷Ff–ÇW&RÂFVÆWF–öâ6öæf—&ÖF–öâ&÷VæF'’ÂæBW‡÷'B6W&F–öã°¢Òg&WF&ö&B÷6—F–öç2Â–çFW'fÂö6†÷&B×FöæRç7vW'2Â&Wf–Wr66†VGVÆ–ærÂæB&6¶–ærÆ"7–æ6‡&öæ—¦F–öã°¢Ò&öw&W76–öâfÆ–FF–öâÂöFBÖÖWFW"F–ÖVÆ–æW2ÂÆö÷–ærÂFV×ò&×2ÂæB–×÷'G3°¢Ò66†VÖó"Fò2Ö–w&F–öâÂ–çfÆ–B–×÷'B–Ö×WF&–Æ—G’Â6¶–ÆÂ7VÖÖ&–W2ÂæB&V6öÖÖVæFF–öâWf–FVæ6S°¢Ò&—f7’66ç2&÷f–æræòæWGv÷&²æÇ—F–72÷WÆöBF‚æBæòVF–ò–â&öw&W72¥4ôã°¢Ò'V–ÆBÂöffÆ–æR66†RÂ¤•6¶vRÂ'&ö¶VâÖÆ–æ²fW&–f–6F–öâÂ¶W–&ö&B6VÖçF–72ÂæB&VGV6VBÖÖ÷F–öâ&V†f–÷"à ¥&VÆV6RfW&–f–6F–öâ'Vç2F†R6ö×ÆWFRFW7B7V—FRÂ&öGV7F–öâ'V–ÆBÂöffÆ–æR6¶vRÂ6—FRfW&–f–W"ÂæB'&÷w6W"v–ç7BFW6·F÷æBæ'&÷rf–Ww÷'G2â&VÂÖFWf–6RÖçVÂ6†V6·26÷fW"uÓ#6VÆV7F–öâÂ6ÆVâÖæ÷FRFWFV7F–öâÂF—66öææV7B÷&V6öææV7BÂ&V6÷&F–ærÆ–&6²öW‡÷'BÂFVæ–VBW&Ö—76–öç2ÂöffÆ–æR&VÆöBÂæB7F÷&vR&W6WBà ¢22bâFVÆ—fW'’6WVVæ6P ¥F†Rv÷&²—2F—f–FVB–çFò–æFWVæFVçFÇ’FW7F&ÆR&VÆV6W2öâöæRc"'&æ6ƒ  £âf÷VæFF–öã¢æWræf–vF–öâ6†VÆÂÂ66†VÖc2Â–æFW†VDD"&÷VæF'’ÂæBÖ–w&F–öâà£"âwV–FVB6ö6ƒ¢ÆææW"Â&V6öÖÖVæFF–öâ&V6öç2Â'VææW"Â&W7G2Â&F–æw2Â&V6÷fW'’ÂæB&Wf–Wrà£2âwV—F"–çWC¢W&Ö—76–öâöFWf–6RÆ–fV7–6ÆRÂ6Æ–'&F–öâÂ—F6‚FWFV7F–öâÂæBÖV7W&VÖVçBÆ"à£Bâ&V6÷&F–ærÆ#¢Æö6Â&V6÷&F–ær7F÷&RÂÆ–&6²ÂW‡÷'BÂæBô"6ö×&—6öâà£Râg&WF&ö&BbV"G&–æW#¢ÆV&âõV—¢Â&Wf–WrVWVRÂF&vWB×FöæR–çFVw&F–öâÂæB÷F–öæÂ—F6‚ÖF6†–ærà£bâ&6¶–ærÆ"#¢7W7FöÒ&öw&W76–öç2ÂÖWFW'2Âw&ö÷fW2ÂÆö÷2Â&×2Â÷fW&Æ—2ÂæB÷'F&ÆR&W6WG2à£râ&öw&W72F6†&ö&C¢6¶–ÆÂÖöFVÂÂG&VæG2Â76W76ÖVçG2ÂæBFF—fRæW‡B×6W76–öâ&V6öÖÖVæFF–öç2à£‚âvV"b6WGWÆ#¢vVæW&–2V&Æ–2wV–FW2æB÷F–öæÂÆö6ÂW'6öæÂ&öf–ÆRà£’â–çFVw&F–öâæB&VÆV6S¢öffÆ–æR&V†f–÷"Â66W76–&–Æ—G’Â&W7öç6—fRÂFö7VÖVçFF–öâÂ&—f7’66âÂæBv—D‡V"vW2FWÆ÷–ÖVçBà ¤V6‚&VÆV6RÆVfW2F†RW†—7F–ær6÷W'6RW6&ÆRâæòÆFW"7V'7—7FVÒ—2ÆÆ÷vVBFòÖ¶RâV&Æ–W"7V'7—7FVÒFWVæBöâÖ–7&÷†öæRW&Ö—76–öâÂ&V6÷&F–ær7W÷'BÂ÷"æWGv÷&²6W'f–6Rà ¢22râW‡Æ–6—BæöâÔvöÇ2f÷"c  ¢Ò&VÆ–&ÆRöÇ—†öæ–26†÷&BG&ç67&—F–öâg&öÒ&ö6W76VBwV—F"6–væÂà¢ÒWFöÖF–2§VFvVÖVçBöbFöæRVÆ—G’ÂVÖ÷F–öâÂ7&VF—f—G’Â÷"v†WF†W"Æ––ær(	Ç6÷VæG2Æ–¶RwWF‡&–Rv÷fâî(	Ğ¢Ò6Æ÷VB66÷VçG2Â7&÷72ÖFWf–6R7–æ2Â6ö6–ÂfVVG2ÂV&Æ–2&V6÷&F–æw2ÂÆVFW&&ö&G2Â÷"FV6†W"Ö&¶WGÆ6W2à¢Ò6÷—&–v‡FVBF'2Â6öæw2Â6öÖÖW&6–Â&6¶–ærG&6·2Â÷"'F—7BVF–òà¢ÒÖVF–6ÂF–væ÷6—2ÂwV&çFVVB†V&–ær×6fWG’ÖV7W&VÖVçBÂ÷"&WÆ6VÖVçBf÷"â–â×W'6öâFV6†W"÷FV6†æ–6–âà¢ÒÖæFF÷'’Ö6†–æRÖÆV&æ–ærÖöFVÂ÷"W‡FW&æÂ’’à ¥F†W6R&÷VæF&–W2¶VWc"&—fFRÂVæFW'7FæF&ÆRÂöffÆ–æRÖ6&ÆRÂæB6†–Wf&ÆRv†–ÆRÆVf–ær&ööÒf÷"gWGW&R÷F–öæÂW‡W&–ÖVçG2à
+- [ ] **Step 1: Write failing hand-derived fixtures** for 82.41, 110, 220, and 440 Hz plus Â±25-cent offsets; silence/noise/clipping/low-confidence must be insufficient with explicit reasons.
+- [ ] **Step 2: Verify RED**, then implement windowing and autocorrelation/YIN-style difference scoring with bounded frequency search and no dependency.
+- [ ] **Step 3: Write failing feature tests** for RMS, clipping ratio, onset refractory behavior, spectral-flux/high-band separation, and finite output for zero input.
+- [ ] **Step 4: Implement minimal pure features, run targeted/full tests; commit** with `feat: add confidence-gated guitar signal features`.
+
+### Task 9: Implement Performance Measurements
+
+**Files:**
+- Create: `src/js/performance-analyser.js`
+- Create: `tests/performance-analyser.test.mjs`
+
+**Interfaces:**
+- Produces `PerformanceAnalyser.sustain(frames)`, `.bend(frames, targetCents)`, `.vibrato(frames)`, `.timing(onsets, scheduledTimes)`, `.noiseFloor(frames)`, and `.stringNoise(frames)`.
+- Every result is `{ status: 'valid'|'insufficient', confidence, reason, ...rawMeasurements }`.
+
+- [ ] **Step 1: Write failing literal frame fixtures** for stable sustain, 100-cent bend with/without overshoot, 5 Hz/60-cent vibrato, early/late onsets, calibrated noise floor, and broadband transients outside note windows.
+- [ ] **Step 2: Verify RED**, then implement median/percentile and zero-crossing measurements using the frozen acceptance contracts.
+- [ ] **Step 3: Add suppression tests** for too-short notes, fewer than three vibrato cycles, out-of-band rates, clipping, missing calibration, and low confidence.
+- [ ] **Step 4: Run targeted/full tests; commit** with `feat: measure bends vibrato timing and signal clarity`.
+
+### Task 10: Implement Explicit Guitar-Input Lifecycle and Calibration UI
+
+**Files:**
+- Create: `src/js/input-manager.js`
+- Create: `src/js/analysis-controller.js`
+- Create: `src/js/guitar-input-view.js`
+- Modify: `src/js/studio-view.js`
+- Modify: `src/js/app.js`
+- Create: `tests/input-manager.test.mjs`
+- Create: `tests/analysis-controller.test.mjs`
+
+**Interfaces:**
+- `InputManager.create({ mediaDevices, runtime, raf })` owns streams/tracks; `connect`, `selectDevice`, `disconnect`, `setMonitoring` expose typed states.
+- Monitoring defaults disconnected/muted; recording may borrow a stream without owning/stopping it.
+
+- [ ] **Step 1: Write failing media-device tests** proving mount makes zero permission calls, permission denied/no device/busy/disappeared states are isolated, and every track stops on disconnect, route change, pagehide, ended, and analysis failure.
+- [ ] **Step 2: Verify RED**, implement explicit connect/select/calibrate/disconnect lifecycle and complete cleanup.
+- [ ] **Step 3: Write controller tests** for GP-200 guidance, level/clipping/noise status, clean-preset advice, frame-throttled visual updates, non-chattering live regions, and rejected-score explanations.
+- [ ] **Step 4: Implement Studio input lab and text-equivalent metric tiles.** Never connect input to destination unless the user enables warned monitoring.
+- [ ] **Step 5: Run tests/build/verify; commit** with `feat: add private local guitar analysis lab`.
+
+### Task 11: Implement Recording Store and A/B Comparison
+
+**Files:**
+- Create: `src/js/recording-store.js`
+- Create: `src/js/recording-controller.js`
+- Create: `src/js/recording-view.js`
+- Modify: `src/js/studio-view.js`
+- Modify: `src/js/progress-transfer.js`
+- Create: `tests/recording-store.test.mjs`
+- Create: `tests/recording-controller.test.mjs`
+
+**Interfaces:**
+- `RecordingStore.create(repository, storageManager)` stores blobs separately and reports usage pressure.
+- `RecordingController.create({ MediaRecorder, clock, urlApi, store })` supports countdown, max-60-second take, stop, playback, export, confirmed delete, and sequential compare.
+
+- [ ] **Step 1: Write failing store tests** for metadata/blob separation, 80%/50 MB warnings, quota failure, recording-reference export, and delete requiring confirmed intent.
+- [ ] **Step 2: Verify RED**, then implement storage operations and never mutate blobs during progress import.
+- [ ] **Step 3: Write failing controller tests** for unsupported recorder, MIME choice and actual returned MIME, countdown, manual/hard stop, borrowed-stream ownership, URL revocation, and sequential A/B playback.
+- [ ] **Step 4: Implement local Recording Lab**, visible recording state, per-take audio export, attempt metadata, analysis summary, and reflection prompts.
+- [ ] **Step 5: Run tests/build/verify; commit** with `feat: add local recording and comparison lab`.
+
+---
+
+## Phase C â€” Fretboard, Ear Training, and Backing Lab 2
+
+### Task 12: Implement Fretboard and Review Engines
+
+**Files:**
+- Create: `src/js/fretboard-engine.js`
+- Create: `src/js/review-scheduler.js`
+- Create: `src/js/fretboard-view.js`
+- Modify: `src/js/studio-view.js`
+- Modify: `src/js/music-theory.js`
+- Create: `tests/fretboard-engine.test.mjs`
+- Create: `tests/review-scheduler.test.mjs`
+
+**Interfaces:**
+- Produces 78 standard-tuning positions with stable string/fret IDs and note/MIDI data; maps intervals, triads, sevenths, and current chord tones.
+- Review scheduler accepts injected clock and fixed intervals `[1,3,7,14,30]` days.
+
+- [ ] **Step 1: Write failing tests** for all 78 positions, open/12th octave invariants, enharmonic spelling, interval roots, triads, sevenths, thirds/sevenths, and current-backing overlays.
+- [ ] **Step 2: Verify RED**, then implement the pure fretboard mapping and expose needed pitch-class helpers from MusicTheory.
+- [ ] **Step 3: Write failing scheduler tests** for seeded quiz determinism, miss reset, correct interval advancement, due order, and immediate feedback explanations.
+- [ ] **Step 4: Implement Learn/Quiz UI**, keyboard-accessible string/fret grid, visible/revealed modes, review queue, and non-color answer states.
+- [ ] **Step 5: Run tests/build/verify; commit** with `feat: add interactive fretboard trainer`.
+
+### Task 13: Implement Ear Training and Optional Pitch Matching
+
+**Files:**
+- Create: `src/js/ear-training-engine.js`
+- Create: `src/js/ear-training-view.js`
+- Modify: `src/js/studio-view.js`
+- Create: `tests/ear-training-engine.test.mjs`
+
+**Interfaces:**
+- Produces deterministic note matching, interval, triad-quality, chord-tone singing, and short call-response prompts.
+- Playback uses the shared runtime; answer flow always permits self-confirmation when input is unavailable.
+
+- [ ] **Step 1: Write failing seeded tests** for prompt ranges, interval/triad answers, replay limits, answer explanations, and review-item creation.
+- [ ] **Step 2: Verify RED**, implement pure prompt generation and answer evaluation.
+- [ ] **Step 3: Implement generated-tone UI** with explicit Play, self-confirm fallback, and optional confidence-gated pitch matching.
+- [ ] **Step 4: Run tests/build/verify; commit** with `feat: add adaptive ear training`.
+
+### Task 14: Replace Beat Math with Explicit Meter and Progression Validation
+
+**Files:**
+- Modify: `src/js/player-timeline.js`
+- Create: `src/js/progression-engine.js`
+- Modify: `src/js/course-data.js`
+- Modify: `tests/player-timeline.test.mjs`
+- Create: `tests/progression-engine.test.mjs`
+
+**Interfaces:**
+- Timeline uses `PPQ=96` ticks and normalized meter `{ numerator, denominator, groups, tempoUnit }`.
+- Progression engine validates curated/custom presets, loops, imports, and success-triggered tempo ramps.
+
+- [ ] **Step 1: Write failing timeline tests** proving 7/8 `[2,2,3]` has 48 ticks/pulse, 336 ticks/bar, and 3.5 seconds/bar at eighth-note BPM 120; add 3/4, 5/4, grouping positions, right-open loops, and 40/240 boundaries.
+- [ ] **Step 2: Verify RED**, implement integer-tick meter/timeline conversion while preserving compatibility for current tracks.
+- [ ] **Step 3: Write failing progression tests** for bounds, supported qualities/grooves/meters, full-bar total, valid `Em7:2 Cmaj7:2 D:3` in 7/8, section/bar loops, no-mutation invalid import, and ramp/undo only after clean or valid timing evidence.
+- [ ] **Step 4: Implement normalization and migrate curated tracks** to stable groove IDs, meters, groupings, tempo units, and seeds.
+- [ ] **Step 5: Compile every curated track in tests; run full suite; commit** with `feat: add custom progressions and exact odd meter`.
+
+### Task 15: Compile Musical Voicings, Bass Lines, and Eight Grooves
+
+**Files:**
+- Modify: `src/js/music-theory.js`
+- Create: `src/js/voicing-engine.js`
+- Create: `src/js/bass-arranger.js`
+- Create: `src/js/groove-patterns.js`
+- Create: `src/js/groove-engine.js`
+- Create: `tests/voicing-engine.test.mjs`
+- Create: `tests/bass-arranger.test.mjs`
+- Create: `tests/groove-engine.test.mjs`
+
+**Interfaces:**
+- `MusicTheory.describeChord(symbol)` returns pitch classes and musical roles.
+- Groove compiler emits sorted semantic events `{ tick, lane, instrument, durationTicks, notes, velocity, offsetSeconds, sourceEventIndex }`.
+
+- [ ] **Step 1: Write failing chord/voicing tests** for Cmaj7-Am7-Dm7-G7 guide tones, range MIDI 48-76, deterministic cyclic voice-leading, common-tone retention, C13 priority, sus/power/diminished handling, and lower motion than root positions.
+- [ ] **Step 2: Verify RED**, implement bounded candidate generation and cyclic dynamic-programming selection.
+- [ ] **Step 3: Write failing bass tests** for range MIDI 28-52, slash-bass downbeats, group anchors, chromatic approaches, loop-first targeting, and bounded leaps; then implement.
+- [ ] **Step 4: Write failing groove fixtures** for fusion, funk, rock, ballad, neo-soul, ambient, changes, and metronome-only; assert lane presence, canonical ticks, deterministic four-bar variation, 7/8 group accents, bounded swing/jitter, exact downbeats/chord boundaries, clipped fills, and no event beyond loop end.
+- [ ] **Step 5: Implement data-driven grooves** with capped jitter `min(12 ms, 3% subdivision)`, Â±5% velocity variation, exact structural events, and seeded output.
+- [ ] **Step 6: Run targeted/full tests; commit** with `feat: compile musical backing arrangements`.
+
+### Task 16: Render Rich Procedural Backing and Ship Backing Lab 2 UI
+
+**Files:**
+- Create: `src/js/synth-voices.js`
+- Create: `src/js/backing-lab-view.js`
+- Create: `tests/helpers/fake-audio-context.mjs`
+- Modify: `src/js/audio-engine.js`
+- Modify: `src/js/studio-view.js`
+- Modify: `src/templates/index.html`
+- Modify: `tests/audio-state.test.mjs`
+- Create: `tests/synth-voices.test.mjs`
+
+**Interfaces:**
+- Synth voices render semantic events; AudioEngine schedules/loops/pauses/stops only and contains no harmony/groove decisions.
+- Backing Lab editor supports custom progression, meter/grouping, eight grooves, section/bar loop, clean-triggered ramp, overlays, local presets, import/export, and mixer.
+
+- [ ] **Step 1: Extend the fake audio context** to record node type, frequency, routing, automation, start/stop time, and buffers; write failing renderer tests for cached noise, bus routing, safe exponential values, voice normalization, feature fallback, and source cap.
+- [ ] **Step 2: Verify RED**, implement cached procedural kick/snare/hats/click/tom, bass, pad/keys, optional short-room send, 25 Hz high-pass, conservative compressor/ceiling, smoothed mixer, and bounded cleanup.
+- [ ] **Step 3: Write failing transport tests** for grouped count-in, one count-in per start/resume, loop boundary uniqueness, tempo update only at boundary, bar-safe resume, faded stop, immediate pagehide stop, and no background backlog burst.
+- [ ] **Step 4: Refactor AudioEngine to consume compiled events**, preserving original curated play behavior through normalized presets.
+- [ ] **Step 5: Implement the full Backing Lab 2 editor and overlays**, including correction messages and portable custom preset JSON.
+- [ ] **Step 6: Run tests/build/verify and low-volume audible QA across grooves/meters; commit** with `feat: deliver Backing Lab 2 musical engine`.
+
+---
+
+## Phase D â€” Progress, Gear, Offline Integration, and Release
+
+### Task 17: Implement Skill Model and Adaptive Progress Dashboard
+
+**Files:**
+- Create: `src/js/skill-model.js`
+- Create: `src/js/progress-controller.js`
+- Modify: `src/js/progress-view.js`
+- Modify: `src/js/recommendation-engine.js`
+- Create: `tests/skill-model.test.mjs`
+- Create: `tests/progress-controller.test.mjs`
+
+**Interfaces:**
+- Skill model summarizes technique, rhythm, ear, harmony, improvisation, repertoire, and performance with evidence counts, confidence, latest, and 28-day rollup.
+- Dashboard projections include text-equivalent tables for every visual trend.
+
+- [ ] **Step 1: Write failing literal tests** for recency, evidence confidence, one-failure low-confidence behavior, baseline/latest, tempo-cleanliness and valid bend/vibrato/timing trends.
+- [ ] **Step 2: Verify RED**, implement transparent weighting: self-rating 50%, assessment 30%, valid signal evidence 20%, with missing categories re-normalized rather than treated as zero.
+- [ ] **Step 3: Write controller tests** for due reviews, unfinished repertoire, recommendation evidence, accept/edit/postpone/reject history, and accessible textual chart data.
+- [ ] **Step 4: Implement Progress UI** with restrained charts, honest confidence labels, A/B links, and no streak/leaderboard/shame language.
+- [ ] **Step 5: Run tests/build/verify; commit** with `feat: add transparent adaptive progress dashboard`.
+
+### Task 18: Replace the Model-Specific Landing Area with Gear & Setup Lab
+
+**Files:**
+- Create: `src/js/gear-profile.js`
+- Modify: `src/js/roadmap-view.js`
+- Modify: `src/templates/index.html`
+- Create: `content/12-gear-and-setup/used-guitar-inspection.md`
+- Create: `content/12-gear-and-setup/floating-tremolo-setup.md`
+- Create: `content/12-gear-and-setup/action-relief-intonation.md`
+- Create: `content/12-gear-and-setup/string-gauge-changes.md`
+- Create: `content/12-gear-and-setup/signal-noise-and-grounding.md`
+- Create: `content/12-gear-and-setup/maintenance-and-storage.md`
+- Create: `tests/gear-profile.test.mjs`
+- Modify: `tests/content.test.mjs`
+
+**Interfaces:**
+- Public content is generic; existing RG8570 files remain archived examples.
+- Optional local gear profile validates bounded text and exports only by deliberate progress export.
+
+- [ ] **Step 1: Write failing profile/content tests** for validation, privacy-safe fields, export inclusion, generic public landing, and retained archived model links.
+- [ ] **Step 2: Verify RED**, implement profile and focused educational guides without transaction/seller/private details.
+- [ ] **Step 3: Render the Gear & Setup Lab** inside Roadmap with quick diagnostic paths and technician/safety boundaries.
+- [ ] **Step 4: Run tests/build/privacy scan; commit** with `feat: add generic gear and setup lab`.
+
+### Task 19: Complete Privacy, Accessibility, Offline, and Responsive Release Gates
+
+**Files:**
+- Modify: `scripts/lib/privacy.mjs`
+- Modify: `scripts/verify.mjs`
+- Modify: `src/templates/sw.js`
+- Modify: `src/manifest.webmanifest`
+- Modify: `src/assets/*.css`
+- Modify: `README.md`
+- Modify: `SECURITY.md`
+- Modify: `tests/privacy.test.mjs`
+- Modify: `tests/offline.test.mjs`
+- Modify: `tests/build.test.mjs`
+- Create: `tests/accessibility-contracts.test.mjs`
+- Modify: `.github/workflows/validate.yml`
+
+**Interfaces:**
+- Publication gate runs tests, build, offline package, verification, privacy checks, and browser QA server checks.
+
+- [ ] **Step 1: Write failing privacy tests** that scan application JS for unallowlisted `fetch`, XHR, WebSocket, sendBeacon, analytics domains/SDKs, uploads, automatic `getUserMedia`, bootstrap `MediaRecorder`, and audio serialization; allow only same-origin service-worker fetch behavior.
+- [ ] **Step 2: Implement the scanner and correct findings** without blocking the service worker or explicit local file exports.
+- [ ] **Step 3: Write failing accessibility/build tests** for five route landmarks, route H1/focus, native labelled controls, reduced motion, forced colors, live-region throttling, chart text equivalents, separate reset boundaries, all scripts precached, and no user-data/blob cache paths.
+- [ ] **Step 4: Implement remaining responsive/a11y/offline corrections** and document that install/PWA/media support requires HTTP(S), while file ZIP keeps lessons/planning/self-rating/backing fallbacks.
+- [ ] **Step 5: Run `npm.cmd test`, `npm.cmd run build`, `npm.cmd run package:offline`, and `npm.cmd run verify`; inspect exit codes and outputs.**
+- [ ] **Step 6: Run desktop 1440Ã—900, tablet 1024Ã—768, phone 390Ã—844, and compact phone 320Ã—568 browser QA** for navigation, keyboard, focus, overflow, session distraction mode, denied media, storage fallback, offline reload, and conservative audio start.
+- [ ] **Step 7: Commit** with `chore: enforce Practice Coach v2 release gates`.
+
+### Task 20: Final Review and GitHub Publication
+
+**Files:**
+- Review: all changes from `origin/main` through branch HEAD.
+
+**Interfaces:**
+- Produces a reviewed branch, pushed remote branch, and ready pull request into `main`.
+
+- [ ] **Step 1: Generate a complete diff/review package** and request an independent spec-compliance and code-quality review.
+- [ ] **Step 2: Fix every Critical/Important finding with a failing regression test first**, rerun scoped/full verification, and request a scoped re-review.
+- [ ] **Step 3: Re-read the approved spec line by line** and map each requirement to implementation evidence or report any honest limitation.
+- [ ] **Step 4: Run the full publication gate fresh** and record exact test/build/verify results.
+- [ ] **Step 5: Push `codex/practice-coach-v2` and open a ready pull request** summarizing features, privacy, verification, manual GP-200 checks still requiring the user's hardware, and rollback boundaries.

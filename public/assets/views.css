@@ -81,489 +81,99 @@ blockquote { margin: 12px 0 22px; font-size: clamp(1.3rem, 3vw, 2rem); font-weig
 .transport-readout { display: grid; gap: 10px; align-items: center; padding-bottom: 8px; }
 .transport-readout progress { width: 100%; accent-color: var(--color-action); }
 .chord-strip { display: flex; gap: 9px; padding: 14px 4px 17px; overflow-x: auto; scroll-snap-type: x proximity; }
-.chord-chip { min-width: 94px; padding: 12px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-canvas); color: var(--color-text); text-align: left; scrolyïží¢G§²ÚîÆ­yÚ "Progressive",
-    "tags": [
-      "fretboard-theory-chords",
-      "fretboard",
-      "freedom"
-    ],
-    "summary": "The neck is not five boxes. It is one pitch map viewed through intervals, chord tones, and sound.",
-    "slug": "fretboard-freedom"
-  },
-  {
-    "title": "How Chords Are Built",
-    "category": "Fretboard Theory and Chords",
-    "phase": "Weeks 1-20",
-    "difficulty": "Progressive",
-    "tags": [
-      "fretboard-theory-chords",
-      "chords",
-      "built"
-    ],
-    "summary": "Chord creation is interval selection plus voicing and context. You never need to wait for a chord dictionary.",
-    "slug": "how-chords-are-built"
-  },
-  {
-    "title": "How Scales Are Built",
-    "category": "Fretboard Theory and Chords",
-    "phase": "Weeks 1-20",
-    "difficulty": "Progressive",
-    "tags": [
-      "fretboard-theory-chords",
-      "scales",
-      "built"
-    ],
-    "summary": "Western equal-tempered music divides the octave into 12 semitones. A scale is a chosen collection of those distances from a root. Learn formulas as intervals and sounds, then di...",
-    "slug": "how-scales-are-built"
-  },
-  {
-    "title": "Modes, Harmony, and Playing Through Changes",
-    "category": "Fretboard Theory and Chords",
-    "phase": "Weeks 1-20",
-    "difficulty": "Progressive",
-    "tags": [
-      "fretboard-theory-chords",
-      "modes",
-      "harmony",
-      "playing",
-      "changes"
-    ],
-    "summary": "Do not merely run the parent major scale from a different note. Establish the modal root with a drone/vamp and feature the identifying degree:",
-    "slug": "modes-harmony-and-playing-through-changes"
-  },
-  {
-    "title": "Seventh Chords, Extensions, and Alterations",
-    "category": "Fretboard Theory and Chords",
-    "phase": "Weeks 1-20",
-    "difficulty": "Progressive",
-    "tags": [
-      "fretboard-theory-chords",
-      "seventh",
-      "chords",
-      "extensions",
-      "alterations"
-    ],
-    "summary": "Extensions work because a chord may continue stacking thirds: 9, 11, 13. On guitar, choose the tones the ear needs.",
-    "slug": "seventh-chords-extensions-and-alterations"
-  },
-  {
-    "title": "Triads, Inversions, and Voice Leading",
-    "category": "Fretboard Theory and Chords",
-    "phase": "Weeks 1-20",
-    "difficulty": "Progressive",
-    "tags": [
-      "fretboard-theory-chords",
-      "triads",
-      "inversions",
-      "voice",
-      "leading"
-    ],
-    "summary": "Turn the whole neck into small movable harmony and create smooth chord movement useful for funk, neo-soul, fusion, accompaniment, and melodic soloing.",
-    "slug": "triads-inversions-and-voice-leading"
-  },
-  {
-    "title": "Build Your Own Vocabulary",
-    "category": "Improvisation and Phrasing",
-    "phase": "Weeks 5-24",
-    "difficulty": "Intermediate to advanced",
-    "tags": [
-      "improvisation-phrasing",
-      "build",
-      "vocabulary"
-    ],
-    "summary": "Vocabulary should become grammar you can recombine, not quotations pasted into unrelated conversations.",
-    "slug": "build-your-own-vocabulary"
-  },
-  {
-    "title": "Motif Development",
-    "category": "Improvisation and Phrasing",
-    "phase": "Weeks 5-24",
-    "difficulty": "Intermediate to advanced",
-    "tags": [
-      "improvisation-phrasing",
-      "motif",
-      "development"
-    ],
-    "summary": "A motif is a small recognizable identityâ€”often rhythm plus contour, not a specific lick.",
-    "slug": "motif-development"
-  },
-  {
-    "title": "Target Notes and Chord Changes",
-    "category": "Improvisation and Phrasing",
-    "phase": "Weeks 5-24",
-    "difficulty": "Intermediate to advanced",
-    "tags": [
-      "improvisation-phrasing",
-      "target",
-      "chord",
-      "changes"
-    ],
-    "summary": "Make the harmony audible through melodic arrival while preserving rhythm and phrase continuity.",
-    "slug": "target-notes-and-chord-changes"
-  },
-  {
-    "title": "Tension, Release, and Outside Playing",
-    "category": "Improvisation and Phrasing",
-    "phase": "Weeks 5-24",
-    "difficulty": "Intermediate to advanced",
-    "tags": [
-      "improvisation-phrasing",
-      "tension",
-      "release",
-      "outside",
-      "playing"
-    ],
-    "summary": "Outside playing works when the listener can hear where â€œinsideâ€ is and believes you meant to leave and return.",
-    "slug": "tension-release-and-outside-playing"
-  },
-  {
-    "title": "The Musical Sentence",
-    "category": "Improvisation and Phrasing",
-    "phase": "Weeks 5-24",
-    "difficulty": "Intermediate to advanced",
-    "tags": [
-      "improvisation-phrasing",
-      "musical",
-      "sentence"
-    ],
-    "summary": "Improvisation becomes understandable when phrases behave like speech: ideas, breath, emphasis, response, development, and conclusion.",
-    "slug": "the-musical-sentence"
-  },
-  {
-    "title": "Arrangement and Performance Checklist",
-    "category": "Repertoire and Self-Made Covers",
-    "phase": "Weeks 5-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "repertoire-covers",
-      "arrangement",
-      "performance",
-      "checklist"
-    ],
-    "summary": "Choose at least one:",
-    "slug": "arrangement-and-performance-checklist"
-  },
-  {
-    "title": "Self-Made Cover Rules â€” No Tabs First",
-    "category": "Repertoire and Self-Made Covers",
-    "phase": "Weeks 5-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "repertoire-covers",
-      "cover",
-      "rules",
-      "tabs"
-    ],
-    "summary": "Your first complete version comes from the recording, your ears, and your musical decisions. A tab may later diagnose differences, but it cannot design your interpretation.",
-    "slug": "cover-rules-no-tabs"
-  },
-  {
-    "title": "Guthrie Study Map",
-    "category": "Repertoire and Self-Made Covers",
-    "phase": "Weeks 5-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "repertoire-covers",
-      "guthrie",
-      "study"
-    ],
-    "summary": "Study Guthrie as a problem-solver. Learn small sections, identify the principle, then make it yours.",
-    "slug": "guthrie-study-map"
-  },
-  {
-    "title": "Your Personal Cover Ladder",
-    "category": "Repertoire and Self-Made Covers",
-    "phase": "Weeks 5-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "repertoire-covers",
-      "personal",
-      "cover",
-      "ladder"
-    ],
-    "summary": "This is built from your supplied Songsterr favourites. It is not a difficulty ranking of entire songs; it ranks **useful first projects**. Start with selected sections and earn...",
-    "slug": "personal-cover-ladder"
-  },
-  {
-    "title": "Develop Your Own Voice",
-    "category": "Musical Personality and Humour",
-    "phase": "Weeks 9-24",
-    "difficulty": "All levels",
-    "tags": [
-      "personality-humour",
-      "develop",
-      "voice"
-    ],
-    "summary": "Your voice is not found by avoiding influences. It appears when influences pass through your ears, taste, limitations, experiences, and repeated choices.",
-    "slug": "develop-your-own-voice"
-  },
-  {
-    "title": "Natural Stage Banter",
-    "category": "Musical Personality and Humour",
-    "phase": "Weeks 9-24",
-    "difficulty": "All levels",
-    "tags": [
-      "personality-humour",
-      "natural",
-      "stage",
-      "banter"
-    ],
-    "summary": "Being funny like Guthrie does not mean copying Guthrie's jokes. His strongest lesson is comfort, observation, timing, vocabulary, and treating the audience like intelligent humans.",
-    "slug": "natural-stage-banter"
-  },
-  {
-    "title": "Storytelling, Timing, and Callbacks",
-    "category": "Musical Personality and Humour",
-    "phase": "Weeks 9-24",
-    "difficulty": "All levels",
-    "tags": [
-      "personality-humour",
-      "storytelling",
-      "timing",
-      "callbacks"
-    ],
-    "summary": "Write ten true, small moments:",
-    "slug": "storytelling-timing-and-callbacks"
-  },
-  {
-    "title": "24-Week Final Performance",
-    "category": "Assessments",
-    "phase": "Weeks 1-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "assessments",
-      "week",
-      "final",
-      "performance"
-    ],
-    "summary": "Create one 12â€“20 minute recorded set. It may be filmed in separate continuous pieces, but do not edit individual notes.",
-    "slug": "24-week-final-performance"
-  },
-  {
-    "title": "Baseline Test",
-    "category": "Assessments",
-    "phase": "Weeks 1-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "assessments",
-      "baseline",
-      "test"
-    ],
-    "summary": "Take this once before week 1. Save every raw recording in a folder dated `Baseline`. Do not rehearse first; the purpose is an honest starting point.",
-    "slug": "baseline-test"
-  },
-  {
-    "title": "Monthly Tests",
-    "category": "Assessments",
-    "phase": "Weeks 1-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "assessments",
-      "monthly",
-      "tests"
-    ],
-    "summary": "Run at the end of weeks 4, 8, 12, 16, 20, and 24. Use the same recording setup and compare to your baseline, not to a polished artist recording.",
-    "slug": "monthly-tests"
-  },
-  {
-    "title": "Weekly Review",
-    "category": "Assessments",
-    "phase": "Weeks 1-24",
-    "difficulty": "Progressive",
-    "tags": [
-      "assessments",
-      "weekly",
-      "review"
-    ],
-    "summary": "Complete this on the light day in 15â€“25 minutes.",
-    "slug": "weekly-review"
-  },
-  {
-    "title": "Recording Review Checklist",
-    "category": "Templates and Trackers",
-    "phase": "Weeks 1-24",
-    "difficulty": "All levels",
-    "tags": [
-      "templates-trackers",
-      "recording",
-      "review",
-      "checklist"
-    ],
-    "summary": "A practical lesson from the Templates and Trackers course track.",
-    "slug": "recording-review-checklist"
-  },
-  {
-    "title": "Solo Analysis Worksheet",
-    "category": "Templates and Trackers",
-    "phase": "Weeks 1-24",
-    "difficulty": "All levels",
-    "tags": [
-      "templates-trackers",
-      "solo",
-      "analysis",
-      "worksheet"
-    ],
-    "summary": "A practical lesson from the Templates and Trackers course track.",
-    "slug": "solo-analysis-worksheet"
-  },
-  {
-    "title": "Transcription Worksheet",
-    "category": "Templates and Trackers",
-    "phase": "Weeks 1-24",
-    "difficulty": "All levels",
-    "tags": [
-      "templates-trackers",
-      "transcription",
-      "worksheet"
-    ],
-    "summary": "A practical lesson from the Templates and Trackers course track.",
-    "slug": "transcription-worksheet"
-  },
-  {
-    "title": "Best Learning Resources â€” What to Use and When",
-    "category": "Best Learning Resources",
-    "phase": "Reference",
-    "difficulty": "All levels",
-    "tags": [
-      "learning-resources",
-      "resource"
-    ],
-    "summary": "The best resource is the one assigned to a real musical problem. Do not buy or bookmark everything at once.",
-    "slug": "resource-guide"
-  },
-  {
-    "title": "Source Notes",
-    "category": "Best Learning Resources",
-    "phase": "Reference",
-    "difficulty": "All levels",
-    "tags": [
-      "learning-resources",
-      "source"
-    ],
-    "summary": "Checked on **2026-08-08**. These are the sources used to design this course. â€œFreeâ€ means the linked material can be read or used without purchasing it; regional prices and avai...",
-    "slug": "source-notes"
-  },
-  {
-    "title": "Action, Relief, and Intonation",
-    "category": "Gear and Setup",
-    "phase": "Reference",
-    "difficulty": "Intermediate",
-    "tags": [
-      "gear",
-      "action",
-      "relief",
-      "intonation"
-    ],
-    "summary": "Diagnose setup in the right order so one adjustment does not hide another problem.",
-    "slug": "action-relief-intonation"
-  },
-  {
-    "title": "Floating Tremolo Setup",
-    "category": "Gear and Setup",
-    "phase": "Reference",
-    "difficulty": "Intermediate",
-    "tags": [
-      "gear",
-      "floating-tremolo",
-      "setup"
-    ],
-    "summary": "Balance string and spring tension without turning a normal gauge change into a tuning fight.",
-    "slug": "floating-tremolo-setup"
-  },
-  {
-    "title": "Maintenance and Storage",
-    "category": "Gear and Setup",
-    "phase": "Reference",
-    "difficulty": "Beginner",
-    "tags": [
-      "gear",
-      "maintenance",
-      "storage"
-    ],
-    "summary": "Keep the instrument stable with small regular checks rather than unnecessary modification.",
-    "slug": "maintenance-and-storage"
-  },
-  {
-    "title": "Signal Noise and Grounding",
-    "category": "Gear and Setup",
-    "phase": "Reference",
-    "difficulty": "Beginner",
-    "tags": [
-      "gear",
-      "noise",
-      "grounding",
-      "recording"
-    ],
-    "summary": "Separate guitar noise, USB ground loops, and expected high-gain hiss before reaching for a heavy gate.",
-    "slug": "signal-noise-and-grounding"
-  },
-  {
-    "title": "String Gauge Changes",
-    "category": "Gear and Setup",
-    "phase": "Reference",
-    "difficulty": "Beginner",
-    "tags": [
-      "gear",
-      "strings",
-      "gauge"
-    ],
-    "summary": "Choose a gauge for feel and reliability, then plan the setup consequences.",
-    "slug": "string-gauge-changes"
-  },
-  {
-    "title": "Used Guitar Inspection",
-    "category": "Gear and Setup",
-    "phase": "Reference",
-    "difficulty": "Reference",
-    "tags": [
-      "gear",
-      "inspection",
-      "used-guitar"
-    ],
-    "summary": "A model-neutral inspection route for neck, frets, hardware, electronics, and playability.",
-    "slug": "used-guitar-inspection"
-  },
-  {
-    "title": "Future Stainless Refret Notes",
-    "category": "RG8570 Buying Guide",
-    "phase": "Reference",
-    "difficulty": "Reference",
-    "tags": [
-      "rg8570-buying-guide",
-      "future",
-      "stainless",
-      "refret"
-    ],
-    "summary": "Playing for one year does not automatically mean the frets need replacement. Inspect actual wear and playability. The original j.custom nickel-silver fretwork is valuable and ma...",
-    "slug": "future-stainless-refret-notes"
-  },
-  {
-    "title": "RG8570 In-Person Inspection Checklist",
-    "category": "RG8570 Buying Guide",
-    "phase": "Reference",
-    "difficulty": "Reference",
-    "tags": [
-      "rg8570-buying-guide",
-      "person",
-      "inspection",
-      "checklist"
-    ],
-    "summary": "Bring: clip-on tuner, familiar cable, small clean/gained headphone/amp setup if practical (GP-200 is fine), flashlight/phone light, pick, strap if allowed, and this checklist. D...",
-    "slug": "in-person-inspection-checklist"
-  },
-  {
-    "title": "Ibanez j.custom RG8570 Long-Term Evaluation",
-    "category": "RG8570 Buying Guide",
-    "phase": "Reference",
-    "difficulty": "Reference",
-    "tags": [
-      "rg8570-buying-guide",
-      "ibanez",
-      "used-guitar",
-      "tremolo",
-      "inspection"
-    ],
-    "summary": "A model-level evaluation of the RG8570 as a long-term fusion, rock, metal, clean, and expressive lead instrumentâ€”plus the limits of buying any used example unseen.",
-    "slug": "rg8570-long-term-evaluation"
-  }
-]
+.chord-chip { min-width: 94px; padding: 12px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-canvas); color: var(--color-text); text-align: left; scroll-snap-align: center; }
+.chord-chip span { display: block; font-size: 1.08rem; font-weight: 900; }
+.chord-chip small { color: var(--color-text-muted); }
+.chord-chip.is-current { border-color: var(--color-action); background: rgba(235,169,78,0.14); color: var(--color-action-hover); }
+.target-panel { display: grid; gap: 9px; padding: 15px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-canvas-raised); }
+.target-panel > span, .target-tones small { color: var(--color-text-muted); font-size: 0.82rem; }
+.target-tones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.target-tones small { flex-basis: 100%; }
+.mixer { margin-top: 12px; padding-top: 15px; border-top: 1px solid var(--color-border); }
+.mixer summary { min-height: 44px; cursor: pointer; font-weight: 800; }
+.custom-progression { margin-top: 18px; padding: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-canvas-raised); }
+.custom-progression summary { min-height: 44px; cursor: pointer; font-weight: 850; }
+.custom-progression textarea { width: 100%; margin-top: 8px; resize: vertical; font-family: ui-monospace, monospace; }
+.track-notes dl { display: grid; gap: 8px; }
+.track-notes dl div { display: flex; justify-content: space-between; gap: 18px; padding-block: 8px; border-bottom: 1px solid var(--color-border); }
+.track-notes dt { color: var(--color-text-muted); }
+.track-notes dd { margin: 0; font-weight: 800; }
+.practice-question { margin-top: 24px; padding: 15px; border-radius: 12px; background: var(--color-info-soft); color: var(--color-text-muted); }
+.chord-lab { display: grid; gap: 22px; }
+.chord-result { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.chord-symbol { color: var(--color-action-hover); font-size: clamp(2rem, 5vw, 4rem); font-weight: 950; }
+.formula { padding: 8px 12px; border-radius: 999px; background: var(--color-info-soft); color: var(--color-info); font-weight: 800; }
+.note-pill { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid var(--color-border); border-radius: 50%; background: var(--color-surface-3); font-weight: 850; }
+.note-pill.is-guide { border-color: var(--color-action); color: var(--color-action-hover); }
+.progress-controls h2 { margin-top: 0; }
+.progress-controls > p { color: var(--color-text-muted); }
+.skill-dashboard > p { color: var(--color-text-muted); }
+.skill-summary-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin-top: 20px; }
+.skill-card { display: grid; gap: 5px; padding: 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-canvas-raised); }
+.skill-card > span { color: var(--color-info); font-size: .75rem; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+.skill-card small { color: var(--color-text-muted); }
+.skill-bar { height: 4px; margin-top: 7px; border-radius: 9px; background: linear-gradient(90deg,var(--color-action) var(--skill-value),var(--color-border) var(--skill-value)); }
+.progress-queue { display: flex; flex-wrap: wrap; gap: 9px; margin: 18px 0; }
+.progress-queue strong { padding: 7px 10px; border-radius: 999px; background: var(--color-info-soft); color: var(--color-info); font-size: .82rem; }
+.table-scroll { overflow-x: auto; }
+.skill-summary-table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+.skill-summary-table caption { padding: 8px 0; color: var(--color-text-muted); text-align: left; }
+.skill-summary-table th,.skill-summary-table td { padding: 8px; border-bottom: 1px solid var(--color-border); text-align: left; }
+.progress-buttons { margin-block: 22px; }
+.roadmap-heading .button-row { margin-top: 26px; }
+.principle-card { max-width: 780px; border-color: rgba(235, 169, 78, 0.2); background: linear-gradient(145deg, rgba(235,169,78,0.09), var(--color-surface-1)); }
+.principle-card h2 { font-size: clamp(1.5rem, 3vw, 2.35rem); }
+.principle-card p:last-child { color: var(--color-text-muted); }
+.roadmap-grid, .library-grid { display: grid; gap: 14px; }
+.phase-card { padding: 22px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-1); }
+.phase-card.is-current { border-color: var(--color-info); background: linear-gradient(145deg, var(--color-info-soft), var(--color-surface-1)); }
+.phase-card .week-range { color: var(--color-action-hover); font-weight: 850; }
+.phase-card p { color: var(--color-text-muted); }
+.library-tools { display: grid; gap: 12px; margin-bottom: 18px; }
+.library-link { display: grid; min-height: 140px; gap: 7px; padding: 20px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-1); text-decoration: none; }
+.library-link:hover { border-color: var(--color-action); }
+.library-link.is-complete { border-color: rgba(102,215,197,.5); background: linear-gradient(145deg, var(--color-info-soft), var(--color-surface-1)); }
+.library-link small { color: var(--color-info); font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.library-link > span { color: var(--color-text-muted); }
+.completion-badge { width: fit-content; padding: 4px 8px; border-radius: 999px; background: var(--color-info); color: #07110f; font-size: 0.7rem; text-transform: uppercase; }
+.guitar-card { display: grid; gap: 24px; }
+.guitar-card p { max-width: 720px; color: var(--color-text-muted); }
+.gear-paths { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.gear-paths a { display: grid; gap: 5px; min-height: 96px; padding: 15px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-canvas-raised); text-decoration: none; }
+.gear-paths a:hover { border-color: var(--color-action); }
+.gear-paths span { color: var(--color-text-muted); font-size: .86rem; }
+.guitar-card details summary { min-height: 44px; cursor: pointer; }
+@media (min-width: 720px) { .coach-grid { grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.7fr); } .today-detail-grid, .progress-grid { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr); } .module-grid, .roadmap-grid, .library-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .focus-timer { grid-template-columns: 0.7fr 1.3fr; } .transport-readout { grid-template-columns: minmax(11rem, auto) 1fr; } .library-tools { grid-template-columns: 1.5fr 1fr 1fr; } }
+@media (min-width: 1180px) { .module-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .player-grid { grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.65fr); } .roadmap-grid, .library-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 540px) { .module-grid, .gear-paths, .skill-summary-grid { grid-template-columns: 1fr; } .session-item { grid-template-columns: auto 1fr; } .session-item time { grid-column: 2; } .review-metrics { grid-template-columns: 1fr; } .resume-strip { align-items: stretch; flex-direction: column; } }
+@media (max-width: 620px) { .route-view { padding-top: 32px; } .view-heading { margin-bottom: 20px; } .recommendation-card { padding: 18px; } .compact-controls { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 10px; } .recommendation-card h2 { margin-top: 18px; } }
+.input-lab-grid { display: grid; grid-template-columns: minmax(18rem, .8fr) minmax(22rem, 1.2fr); gap: var(--space-4); align-items: start; }
+.input-connect-card { display: grid; gap: var(--space-3); }
+.button-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.status-line { margin: 0; padding: .7rem .85rem; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--text-2); }
+.status-line[data-state="connected"] { color: var(--success); }
+.metric-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.metric-card { display: grid; align-content: start; gap: .55rem; min-height: 8.5rem; }
+.metric-card > span { color: var(--text-2); font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
+.metric-card > strong { font-size: clamp(1rem, 2vw, 1.45rem); }
+.metric-card[data-state="warning"] { border-color: var(--warning); }
+.metric-card[data-state="ready"] { border-color: var(--success); }
+.metric-card progress { width: 100%; }
+.small-copy { color: var(--text-2); font-size: .9rem; }
+@media (max-width: 760px) { .input-lab-grid { grid-template-columns: 1fr; } .metric-grid { grid-template-columns: 1fr; } }
+.recording-grid { display: grid; grid-template-columns: minmax(20rem, 1fr) minmax(20rem, 1fr); gap: var(--space-4); align-items: start; }
+.recording-controls, .take-list { display: grid; gap: var(--space-3); }
+.recording-controls textarea { min-height: 6rem; resize: vertical; }
+.take-row { display: flex; justify-content: space-between; gap: var(--space-3); align-items: center; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+.take-row div:first-child { display: grid; gap: .25rem; }
+@media (max-width: 760px) { .recording-grid { grid-template-columns: 1fr; } .take-row { align-items: flex-start; flex-direction: column; } }
+.fretboard-lab { display: grid; gap: var(--space-3); }
+.fretboard-scroll { overflow-x: auto; padding-bottom: .4rem; }
+.fretboard-grid { display: grid; grid-template-columns: repeat(13, minmax(3rem, 1fr)); grid-auto-flow: row; min-width: 48rem; gap: 2px; }
+.fret-cell { min-height: 3.6rem; display: grid; place-content: center; gap: .1rem; border: 1px solid var(--border); border-radius: .25rem; background: var(--surface-2); color: var(--text-1); }
+.fret-cell small, .fret-cell span { font-size: .68rem; color: var(--text-2); }
+.fret-cell.is-chord-tone { border-width: 2px; }
+.fret-cell.is-guide-tone { box-shadow: inset 0 0 0 2px var(--accent); }
+.ear-training-card { margin-top: var(--space-4); }
+.ear-training-card > div, .ear-training-card #ear-training-app { display: grid; gap: var(--space-3); }
+.ear-prompt { font-size: 1.15rem; font-weight: 650; }
