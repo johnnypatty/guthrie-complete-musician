@@ -5,36 +5,60 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
+  const PPQ = 96;
+
   function secondsPerBeat(bpm) {
     const tempo = Number(bpm);
-    if (!Number.isFinite(tempo) || tempo < 50 || tempo > 220) throw new Error('Tempo must be between 50 and 220 BPM');
+    if (!Number.isFinite(tempo) || tempo < 40 || tempo > 240) throw new Error('Tempo must be between 40 and 240 BPM');
     return 60 / tempo;
+  }
+
+  function normalizeMeter(input) {
+    const meter = typeof input === 'number' ? { numerator: Number(input), denominator: 4, groups: [Number(input)], tempoUnit: 4 } : { ...(input || {}) };
+    const numerator = Number(meter.numerator);
+    const denominator = Number(meter.denominator || 4);
+    if (!Number.isInteger(numerator) || numerator < 1 || numerator > 16 || ![2, 4, 8, 16].includes(denominator)) throw new Error('Unsupported meter');
+    const groups = Array.isArray(meter.groups) && meter.groups.length ? meter.groups.map(Number) : [numerator];
+    if (groups.some((group) => !Number.isInteger(group) || group < 1) || groups.reduce((sum, group) => sum + group, 0) !== numerator) throw new Error('Meter groups must total the numerator');
+    const tempoUnit = Number(meter.tempoUnit || denominator);
+    if (![2, 4, 8, 16].includes(tempoUnit)) throw new Error('Unsupported tempo unit');
+    const ticksPerPulse = PPQ * 4 / denominator;
+    const ticksPerBar = numerator * ticksPerPulse;
+    let tick = 0;
+    const groupTicks = groups.map((group) => { const start = tick; tick += group * ticksPerPulse; return start; });
+    return { numerator, denominator, groups, tempoUnit, ticksPerPulse, ticksPerBar, groupTicks };
   }
 
   function buildTimeline(progression, bpm, beatsPerBar) {
     if (!Array.isArray(progression) || progression.length === 0) throw new Error('Progression must contain chord events');
-    const barBeats = Number(beatsPerBar);
-    if (!Number.isFinite(barBeats) || barBeats <= 0) throw new Error('Beats per bar must be positive');
-    const beatSeconds = secondsPerBeat(bpm);
-    let beat = 0;
+    const meter = normalizeMeter(beatsPerBar);
+    const barBeats = meter.numerator * 4 / meter.denominator;
+    const tempoSeconds = secondsPerBeat(bpm);
+    const secondsPerTick = tempoSeconds / (PPQ * 4 / meter.tempoUnit);
+    let tick = 0;
     const events = progression.map((item, index) => {
-      const beats = Number(item.beats);
-      if (!item.chord || !Number.isFinite(beats) || beats <= 0) throw new Error(`Invalid progression event at index ${index}`);
+      const ticks = item.pulses != null ? Number(item.pulses) * meter.ticksPerPulse : Number(item.beats) * PPQ;
+      const beats = ticks / PPQ;
+      if (!item.chord || !Number.isFinite(ticks) || ticks <= 0 || !Number.isInteger(ticks)) throw new Error(`Invalid progression event at index ${index}`);
+      const startBeat = tick / PPQ;
       const event = {
         index,
         chord: item.chord,
         section: item.section || 'Full',
         beats,
-        startBeat: beat,
-        endBeat: beat + beats,
-        startTime: beat * beatSeconds,
-        duration: beats * beatSeconds,
-        startBar: Math.floor(beat / barBeats) + 1
+        pulses: ticks / meter.ticksPerPulse,
+        startTick: tick,
+        endTick: tick + ticks,
+        startBeat,
+        endBeat: startBeat + beats,
+        startTime: tick * secondsPerTick,
+        duration: ticks * secondsPerTick,
+        startBar: Math.floor(tick / meter.ticksPerBar) + 1
       };
-      beat += beats;
+      tick += ticks;
       return event;
     });
-    return { events, totalBeats: beat, totalSeconds: beat * beatSeconds, bpm: Number(bpm), beatsPerBar: barBeats };
+    return { events, totalBeats: tick / PPQ, totalTicks: tick, totalSeconds: tick * secondsPerTick, bpm: Number(bpm), beatsPerBar: barBeats, meter, ticksPerPulse: meter.ticksPerPulse, ticksPerBar: meter.ticksPerBar, groupTicks: meter.groupTicks };
   }
 
   function eventAtBeat(events, beat) {
@@ -51,6 +75,8 @@
     const length = end - start;
     return start + ((((Number(absoluteBeat) - start) % length) + length) % length);
   }
+
+  function loopTick(absoluteTick, startTick, endTick) { return loopBeat(absoluteTick, startTick, endTick); }
 
   function remapBeat(beat, oldTotal, newTotal) {
     const oldLength = Number(oldTotal);
@@ -77,5 +103,5 @@
     };
   }
 
-  return { secondsPerBeat, buildTimeline, eventAtBeat, loopBeat, remapBeat, positionAtBeat };
+  return { PPQ, secondsPerBeat, normalizeMeter, buildTimeline, eventAtBeat, loopBeat, loopTick, remapBeat, positionAtBeat };
 });

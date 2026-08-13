@@ -1,26 +1,73 @@
-const CACHE_NAME = "gcm-static-4658263f7b74";
+const CACHE_NAME = "gcm-static-b142204284af";
 const PRECACHE_URLS = [
   "./404.html",
+  "./assets/app-shell.css",
+  "./assets/components.css",
   "./assets/icon.svg",
   "./assets/social-preview.svg",
   "./assets/style.css",
+  "./assets/tokens.css",
+  "./assets/views.css",
   "./data/lessons.json",
   "./downloads/Practice Log.csv",
   "./downloads/Repertoire Tracker.csv",
   "./index.html",
+  "./js/analysis-controller.js",
+  "./js/app-shell.js",
   "./js/app.js",
   "./js/audio-engine.js",
+  "./js/audio-runtime.js",
+  "./js/backing-lab-view.js",
+  "./js/bass-arranger.js",
   "./js/course-data.js",
+  "./js/ear-training-engine.js",
+  "./js/ear-training-view.js",
+  "./js/fretboard-engine.js",
+  "./js/fretboard-view.js",
+  "./js/gear-profile.js",
+  "./js/groove-engine.js",
+  "./js/groove-patterns.js",
+  "./js/guitar-input-view.js",
+  "./js/hash-router.js",
+  "./js/indexed-db-adapter.js",
+  "./js/input-manager.js",
   "./js/lesson-index.js",
   "./js/lesson-page.js",
   "./js/lesson-search.js",
+  "./js/local-state-store.js",
   "./js/music-theory.js",
+  "./js/performance-analyser.js",
+  "./js/pitch-detector.js",
   "./js/player-timeline.js",
   "./js/practice-engine.js",
+  "./js/progress-controller.js",
+  "./js/progress-repository.js",
+  "./js/progress-schema.js",
   "./js/progress-store.js",
+  "./js/progress-transfer.js",
+  "./js/progress-view.js",
+  "./js/progression-engine.js",
+  "./js/recommendation-engine.js",
+  "./js/recording-controller.js",
+  "./js/recording-store.js",
+  "./js/recording-view.js",
+  "./js/review-scheduler.js",
+  "./js/roadmap-view.js",
+  "./js/session-controller.js",
+  "./js/session-planner.js",
+  "./js/session-runner.js",
+  "./js/session-view.js",
+  "./js/signal-features.js",
+  "./js/skill-model.js",
+  "./js/studio-view.js",
+  "./js/synth-voices.js",
+  "./js/today-view.js",
+  "./js/ui-components.js",
+  "./js/voicing-engine.js",
   "./lessons/2-hour-session.html",
   "./lessons/24-week-final-performance.html",
   "./lessons/90-minute-core.html",
+  "./lessons/action-relief-intonation.html",
   "./lessons/arrangement-and-performance-checklist.html",
   "./lessons/baseline-test.html",
   "./lessons/bending-vibrato-dynamics-and-harmonics.html",
@@ -29,6 +76,7 @@ const PRECACHE_URLS = [
   "./lessons/cover-rules-no-tabs.html",
   "./lessons/develop-your-own-voice.html",
   "./lessons/famous-short-melodies-and-riffs.html",
+  "./lessons/floating-tremolo-setup.html",
   "./lessons/fretboard-freedom.html",
   "./lessons/funk-and-muted-articulation.html",
   "./lessons/future-stainless-refret-notes.html",
@@ -39,6 +87,7 @@ const PRECACHE_URLS = [
   "./lessons/in-person-inspection-checklist.html",
   "./lessons/legato-and-tapping.html",
   "./lessons/long-day-blocks.html",
+  "./lessons/maintenance-and-storage.html",
   "./lessons/modes-harmony-and-playing-through-changes.html",
   "./lessons/monthly-tests.html",
   "./lessons/motif-development.html",
@@ -51,9 +100,11 @@ const PRECACHE_URLS = [
   "./lessons/rest-and-injury-prevention.html",
   "./lessons/rg8570-long-term-evaluation.html",
   "./lessons/seventh-chords-extensions-and-alterations.html",
+  "./lessons/signal-noise-and-grounding.html",
   "./lessons/solo-analysis-worksheet.html",
   "./lessons/source-notes.html",
   "./lessons/storytelling-timing-and-callbacks.html",
+  "./lessons/string-gauge-changes.html",
   "./lessons/sweeping-string-skipping-and-muting.html",
   "./lessons/target-notes-and-chord-changes.html",
   "./lessons/tension-release-and-outside-playing.html",
@@ -63,6 +114,7 @@ const PRECACHE_URLS = [
   "./lessons/transcription-ladder.html",
   "./lessons/transcription-worksheet.html",
   "./lessons/triads-inversions-and-voice-leading.html",
+  "./lessons/used-guitar-inspection.html",
   "./lessons/weekly-review.html",
   "./lessons/weekly-schedule.html",
   "./manifest.webmanifest"
@@ -80,13 +132,10 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.origin !== self.location.origin) return;
   if (event.request.mode === 'navigate') {
     event.respondWith(fetch(event.request)
-      .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
-      })
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html'))));
     return;
   }

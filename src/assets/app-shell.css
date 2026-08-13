@@ -1,0 +1,48 @@
+.app-page .app-layout { min-height: 100vh; }
+.app-page .desktop-rail { position: relative; z-index: 30; border-bottom: 1px solid var(--color-border); background: rgba(12, 18, 23, 0.96); }
+.app-page .brand { display: flex; min-height: 64px; align-items: center; gap: 11px; padding: 10px 18px; text-decoration: none; }
+.app-page .brand-mark { display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid rgba(102, 215, 197, 0.32); border-radius: 11px; color: var(--color-info); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.08em; }
+.app-page .brand-copy { display: grid; line-height: 1.15; }
+.app-page .brand-copy strong { font-size: 0.9rem; }
+.app-page .brand-copy small { margin-top: 3px; color: var(--color-text-muted); font-size: 0.72rem; }
+.app-page .app-navigation { position: fixed; z-index: 50; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); min-height: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom)); padding: 6px 6px calc(6px + env(safe-area-inset-bottom)); border-top: 1px solid var(--color-border-strong); background: rgba(16, 24, 31, 0.97); backdrop-filter: blur(18px); }
+.app-page .app-navigation a { display: flex; min-width: 0; min-height: 48px; align-items: center; justify-content: center; gap: 3px; border-radius: 10px; color: var(--color-text-muted); font-size: 0.68rem; font-weight: 750; text-decoration: none; flex-direction: column; }
+.app-page .app-navigation svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.app-page .app-navigation a[aria-current="page"] { color: var(--color-action); background: rgba(235, 169, 78, 0.1); }
+.app-page .rail-summary { display: none; }
+.app-page #main-content { min-width: 0; padding: 0 18px calc(var(--mobile-nav-height) + env(safe-area-inset-bottom) + 34px); }
+.app-page .route-view, .app-page footer { width: min(100%, var(--content-max)); margin-inline: auto; }
+.app-page .route-view { padding-block: 42px 72px; }
+.app-page [hidden] { display: none !important; }
+.app-page footer { display: flex; flex-direction: column; gap: 10px; padding: 28px 0 34px; border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 0.88rem; }
+.app-page footer strong { color: var(--color-text); }
+.app-page[data-route="session"] .desktop-rail, .app-page[data-route="session"] footer { display: none; }
+.app-page[data-route="session"] #main-content { padding-bottom: 24px; }
+
+@media (min-width: 1024px) {
+  .app-page .app-layout { display: grid; grid-template-columns: var(--rail-width) minmax(0, 1fr); }
+  .app-page .desktop-rail { position: sticky; top: 0; display: flex; height: 100vh; align-self: start; flex-direction: column; border-right: 1px solid var(--color-border); border-bottom: 0; }
+  .app-page .brand { min-height: 82px; padding: 18px 20px; }
+  .app-page .app-navigation { position: static; display: flex; min-height: 0; padding: 14px 12px; border: 0; background: transparent; backdrop-filter: none; flex-direction: column; }
+  .app-page .app-navigation a { min-height: 48px; justify-content: flex-start; gap: 13px; padding: 0 13px; font-size: 0.9rem; flex-direction: row; }
+  .app-page .app-navigation a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--color-action); }
+  .app-page .rail-summary { display: flex; align-items: flex-start; gap: 9px; margin: auto 16px 22px; padding: 14px; border: 1px solid rgba(102, 215, 197, 0.18); border-radius: var(--radius-md); background: var(--color-info-soft); }
+  .app-page .rail-summary p { margin: 0; color: var(--color-text-muted); font-size: 0.76rem; line-height: 1.5; }
+  .app-page .rail-summary strong { color: var(--color-info); }
+  .app-page #main-content { padding: 0 clamp(28px, 5vw, 72px); }
+  .app-page .route-view { padding-block: 64px 96px; }
+  .app-page[data-route="session"] .app-layout { display: block; }
+  .app-page[data-route="session"] #main-content { min-height: 100vh; padding-inline: clamp(28px, 8vw, 112px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-page *, .app-page *::before, .app-page *::after { scroll-behavior: auto !important; transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
+
+@media (forced-colors: active) {
+  .app-page .app-navigation a,
+  .app-page .brand-mark,
+  .app-page .rail-summary { border: 1px solid CanvasText; }
+  .app-page .app-navigation a[aria-current="page"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .app-page svg { forced-color-adjust: auto; }
+}

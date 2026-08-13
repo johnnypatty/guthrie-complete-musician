@@ -3,6 +3,13 @@ import assert from 'node:assert/strict';
 
 await import('../src/js/music-theory.js');
 await import('../src/js/player-timeline.js');
+await import('../src/js/progression-engine.js');
+await import('../src/js/voicing-engine.js');
+await import('../src/js/bass-arranger.js');
+await import('../src/js/groove-patterns.js');
+await import('../src/js/groove-engine.js');
+await import('../src/js/synth-voices.js');
+await import('../src/js/audio-runtime.js');
 await import('../src/js/audio-engine.js');
 const AudioEngine = globalThis.AudioEngine;
 
@@ -106,6 +113,7 @@ test('count-in transitions to playing and reports transport position', async () 
   });
   timers.flushTimeouts();
   assert.equal(events[0].phase, 'count-in');
+  assert.equal(typeof events[0].audioTime, 'number');
 
   FakeAudioContext.last.currentTime = 3;
   timers.flushIntervals();
@@ -115,6 +123,20 @@ test('count-in transitions to playing and reports transport position', async () 
 
   handlers.pagehide();
   assert.equal(engine.isPlaying(), false);
+});
+
+test('large background clock jumps resynchronize without stale scheduling bursts', async () => {
+  const timers = createTimers();
+  const events = [];
+  const engine = AudioEngine.create({ AudioContextClass: FakeAudioContext, timers, eventTarget: { addEventListener() {} } });
+  await engine.start({ track: testTrack(), bpm: 120, loopStartBeat: 0, loopEndBeat: 8, countInBars: 0, onTransport: (event) => events.push(event) });
+  timers.flushTimeouts();
+  const sourcesBefore = FakeAudioContext.last.sources.length;
+  FakeAudioContext.last.currentTime = 60;
+  timers.flushIntervals();
+  timers.flushTimeouts();
+  assert.ok(FakeAudioContext.last.sources.length - sourcesBefore < 20, 'must skip stale subdivisions instead of bursting them');
+  assert.ok(events.at(-1).audioTime >= 60);
 });
 
 test('clamps voice and master levels and stop cancels timers and sources', async () => {
@@ -140,4 +162,35 @@ test('clamps voice and master levels and stop cancels timers and sources', async
   assert.equal(timers.intervals.size, 0);
   assert.equal(timers.timeouts.size, 0);
   assert.ok(context.sources.every((node) => node.stopCount >= 1 && node.disconnected));
+});
+
+test('transport renders compiler events without making harmony decisions', async () => {
+  const timers = createTimers();
+  const rendered = [];
+  const engine = AudioEngine.create({
+    AudioContextClass: FakeAudioContext, timers, eventTarget: { addEventListener() {} },
+    rendererFactory: () => ({ render(event, time) { rendered.push({ event, time }); }, stop() {} })
+  });
+  await engine.start({ track: testTrack(), bpm: 120, loopStartBeat: 0, loopEndBeat: 8, countInBars: 0 });
+  assert.ok(rendered.some(({ event }) => event.lane === 'harmony' && event.sourceEventIndex === 0));
+  assert.ok(rendered.some(({ event }) => event.lane === 'bass'));
+  assert.ok(rendered.some(({ event }) => event.lane === 'drums'));
+});
+
+test('grouped count-in accents 7/8 groups and tempo waits for a loop boundary', async () => {
+  const timers = createTimers(); const rendered = [];
+  const engine = AudioEngine.create({
+    AudioContextClass: FakeAudioContext, timers, eventTarget: { addEventListener() {} },
+    rendererFactory: () => ({ render(event, time) { rendered.push({ event, time }); }, stop() {} })
+  });
+  const track = { bpm: 120, title: 'Seven', style: 'fusion', meterObject: { numerator: 7, denominator: 8, groups: [2, 2, 3], tempoUnit: 8 }, progression: [{ chord: 'Em7', pulses: 7, section: 'A' }] };
+  await engine.start({ track, bpm: 120, countInBars: 1 });
+  const clicks = rendered.filter(({ event }) => event.lane === 'click');
+  assert.equal(clicks.length, 7);
+  assert.deepEqual(clicks.filter(({ event }) => event.velocity > .7).map(({ event }) => event.countInPulse), [1, 3, 5]);
+  const before = engine.tempo(); engine.setTempo(160);
+  assert.equal(engine.tempo(), before);
+  FakeAudioContext.last.currentTime = 8;
+  timers.flushIntervals();
+  assert.equal(engine.tempo(), 160);
 });

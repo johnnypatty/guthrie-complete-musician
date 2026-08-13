@@ -59,7 +59,34 @@ test('remaps loop-relative position when loop length changes', () => {
 });
 
 test('rejects invalid tempo and remapping totals', () => {
-  assert.throws(() => PlayerTimeline.buildTimeline(progression, 49, 4), /tempo/i);
-  assert.throws(() => PlayerTimeline.buildTimeline(progression, 221, 4), /tempo/i);
+  assert.doesNotThrow(() => PlayerTimeline.buildTimeline(progression, 40, 4));
+  assert.doesNotThrow(() => PlayerTimeline.buildTimeline(progression, 240, 4));
+  assert.throws(() => PlayerTimeline.buildTimeline(progression, 39, 4), /tempo/i);
+  assert.throws(() => PlayerTimeline.buildTimeline(progression, 241, 4), /tempo/i);
   assert.throws(() => PlayerTimeline.remapBeat(1, 0, 8), /total/i);
+});
+
+test('uses PPQ ticks and eighth-note tempo for grouped 7/8 exactly', () => {
+  const meter = { numerator: 7, denominator: 8, groups: [2, 2, 3], tempoUnit: 8 };
+  const timeline = PlayerTimeline.buildTimeline([
+    { chord: 'Em7', pulses: 2, section: 'A' },
+    { chord: 'Cmaj7', pulses: 2, section: 'A' },
+    { chord: 'D', pulses: 3, section: 'A' }
+  ], 120, meter);
+  assert.equal(PlayerTimeline.PPQ, 96);
+  assert.equal(timeline.ticksPerPulse, 48);
+  assert.equal(timeline.ticksPerBar, 336);
+  assert.equal(timeline.totalTicks, 336);
+  assert.equal(timeline.totalSeconds, 3.5);
+  assert.deepEqual(timeline.events.map((event) => event.startTick), [0, 96, 192]);
+  assert.deepEqual(timeline.groupTicks, [0, 96, 192]);
+});
+
+test('normalizes 3/4 and grouped 5/4 meters and keeps loops right-open', () => {
+  assert.equal(PlayerTimeline.normalizeMeter({ numerator: 3, denominator: 4 }).ticksPerBar, 288);
+  const five = PlayerTimeline.normalizeMeter({ numerator: 5, denominator: 4, groups: [3, 2] });
+  assert.equal(five.ticksPerBar, 480);
+  assert.deepEqual(five.groupTicks, [0, 288]);
+  assert.equal(PlayerTimeline.loopTick(480, 0, 480), 0);
+  assert.equal(PlayerTimeline.loopTick(479, 0, 480), 479);
 });

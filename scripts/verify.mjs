@@ -3,7 +3,7 @@ import { dirname, extname, join, relative, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { loadLessons } from './lib/content.mjs';
-import { scanTree } from './lib/privacy.mjs';
+import { scanApplicationText, scanTree } from './lib/privacy.mjs';
 
 const TEXT_EXTENSIONS = new Set(['.css', '.html', '.js', '.json', '.svg', '.webmanifest']);
 
@@ -46,6 +46,20 @@ export async function verifySite(options = {}) {
     ...(await scanTree(contentRoot)).map((finding) => ({ ...finding, root: 'content' })),
     ...(await scanTree(publicRoot)).map((finding) => ({ ...finding, root: 'public' }))
   ];
+  const applicationPrivacyFindings = [];
+  const applicationFiles = [
+    ...await listFiles(join(projectRoot, 'src', 'js')),
+    join(projectRoot, 'src', 'templates', 'sw.js')
+  ];
+  for (const file of applicationFiles.filter((item) => ['.js', '.mjs'].includes(extname(item).toLowerCase()))) {
+    const matches = scanApplicationText(await readFile(file, 'utf8'), file);
+    if (matches.length) {
+      applicationPrivacyFindings.push({
+        path: relative(projectRoot, file).split(sep).join('/'),
+        matches
+      });
+    }
+  }
   const unresolvedTokens = [];
   const brokenLinks = [];
   const missingCacheEntries = [];
@@ -120,6 +134,7 @@ export async function verifySite(options = {}) {
   const failures = [];
   if (lessonPages.length !== lessons.length) failures.push(`lesson count mismatch: ${lessonPages.length} pages for ${lessons.length} sources`);
   if (privacyFindings.length) failures.push(`privacy findings: ${JSON.stringify(privacyFindings)}`);
+  if (applicationPrivacyFindings.length) failures.push(`application privacy findings: ${JSON.stringify(applicationPrivacyFindings)}`);
   if (unresolvedTokens.length) failures.push(`unresolved template tokens: ${unresolvedTokens.join(', ')}`);
   if (brokenLinks.length) failures.push(`broken local links: ${JSON.stringify(brokenLinks)}`);
   if (missingRequired.length) failures.push(`missing required output: ${missingRequired.join(', ')}`);
@@ -132,6 +147,7 @@ export async function verifySite(options = {}) {
     lessonCount: lessons.length,
     fileCount: files.length,
     privacyFindings,
+    applicationPrivacyFindings,
     brokenLinks,
     unresolvedTokens,
     missingRequired,

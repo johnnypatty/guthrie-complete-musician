@@ -8,12 +8,12 @@ This is an unofficial educational project inspired by broad musicianship princip
 
 ## What is included
 
-- 47 searchable lessons organized into a six-phase, 24-week path
-- 90-minute and two-hour practice-session builders
-- an original Web Audio Backing Lab with tempo, section loops, count-in, chord timeline, and target-tone guidance
+- 53 searchable lessons organized into a six-phase, 24-week path plus a practical Gear & Setup Lab
+- adaptive 30-, 60-, 90-, 120-, and 180-minute guided sessions with transparent recommendations
+- an original Web Audio Backing Lab with eight grooves, odd-meter grouping, editable progressions, count-in, chord timeline, and target-tone guidance
 - a Chord Lab for constructing chords from formulas
 - ear-training, transcription, fretboard, rhythm, technique, improvisation, repertoire, performance, and musical-humor work
-- local completion tracking, reading progress, and JSON progress export/import
+- local skill trends, review queue, session history, self-ratings, and JSON progress export/import
 - printable lesson pages and CSV practice/repertoire templates
 - an installable web app plus a complete downloadable offline ZIP
 
@@ -31,7 +31,7 @@ The project contains original explanations, exercises, generated accompaniment, 
 
 Visit the live course once to let the browser cache the static course. For a portable file version, download `guthrie-complete-musician-offline.zip` from the site, extract it, and open `START HERE.html`. The ZIP includes the generated site, public lesson Markdown, and CSV templates; it never includes private notes or repository history.
 
-Because some browsers restrict advanced features on `file://` pages, Backing Lab audio is most reliable on the hosted site or through a small local web server.
+The portable ZIP deliberately has a graceful `file://` mode: lessons, planning, self-ratings, progress, and the progression editor remain useful without a server. Installability, service-worker caching, microphone capture, and some browser audio/media permissions require an HTTP(S) origin, so use the hosted site or the included local-server command for the complete experience.
 
 ## Run and verify locally
 
@@ -45,7 +45,7 @@ npm run package:offline
 npm run verify
 ```
 
-The deployable output is written to `public/`. To preview it after completing Task 7's local server:
+The deployable output is written to `public/`. To preview the complete PWA and media-permission behavior:
 
 ```sh
 node scripts/serve.mjs --root public --port 4173

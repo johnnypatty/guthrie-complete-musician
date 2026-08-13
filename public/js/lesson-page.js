@@ -1,21 +1,8 @@
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'gcm-progress-v2';
-  const LEGACY_STORAGE_KEY = 'gcm-progress-v1';
-
-  function loadState() {
-    for (const key of [STORAGE_KEY, LEGACY_STORAGE_KEY]) {
-      const raw = localStorage.getItem(key);
-      if (!raw) continue;
-      try {
-        return ProgressStore.normalize(JSON.parse(raw));
-      } catch (_error) {
-        // Continue to the legacy key or defaults.
-      }
-    }
-    return ProgressStore.normalize(null);
-  }
+  const STORAGE_KEY = 'gcm-progress-v3';
+  const stateStore = LocalStateStore.create(localStorage, STORAGE_KEY);
 
   function init() {
     const article = document.querySelector('[data-lesson-slug]');
@@ -25,14 +12,13 @@
     if (!article || !checkbox || !progressBar) return;
 
     const slug = article.dataset.lessonSlug;
-    const state = loadState();
+    let state = stateStore.load();
     checkbox.checked = Boolean(state.lessons[slug]);
     article.classList.toggle('is-complete', checkbox.checked);
 
     checkbox.addEventListener('change', () => {
-      state.lessons[slug] = checkbox.checked;
+      state = stateStore.patch({ lessons: { [slug]: checkbox.checked } });
       article.classList.toggle('is-complete', checkbox.checked);
-      localStorage.setItem(STORAGE_KEY, ProgressStore.exportJson(state));
     });
 
     printButton?.addEventListener('click', () => window.print());

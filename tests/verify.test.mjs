@@ -17,7 +17,7 @@ test('verifySite accepts a complete privacy-safe build', async () => {
 
   const result = await verifySite({ projectRoot, publicRoot });
 
-  assert.equal(result.lessonCount, 47);
+  assert.equal(result.lessonCount, 53);
   assert.equal(result.brokenLinks.length, 0);
   assert.equal(result.privacyFindings.length, 0);
 });

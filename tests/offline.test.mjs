@@ -24,12 +24,15 @@ test('build creates a standalone manifest and complete service-worker lesson cac
   const manifest = JSON.parse(await readFile(join(outDir, 'manifest.webmanifest'), 'utf8'));
   const worker = await readFile(join(outDir, 'sw.js'), 'utf8');
   const lessons = (await readdir(join(outDir, 'lessons'))).filter((name) => name.endsWith('.html'));
+  const scripts = (await readdir(join(projectRoot, 'src', 'js'))).filter((name) => name.endsWith('.js'));
 
   assert.equal(manifest.display, 'standalone');
   assert.equal(manifest.start_url, './');
   assert.match(worker, /gcm-static-/);
   assert.match(worker, /\.\/index\.html/);
   for (const lesson of lessons) assert.match(worker, new RegExp(`\\.\\/lessons/${lesson.replaceAll('.', '\\.')}`));
+  for (const script of scripts) assert.match(worker, new RegExp(`\\.\\/js/${script.replaceAll('.', '\\.')}"`));
+  assert.doesNotMatch(worker, /cache\.put\s*\(|blob:|recordings|localStorage|indexedDB/i);
 });
 
 test('offline ZIP package has a safe launcher and excludes private and recursive files', async () => {
@@ -46,4 +49,6 @@ test('offline ZIP package has a safe launcher and excludes private and recursive
   assert.equal(result.entries.some((name) => /(?:^|\/)\.git(?:\/|$)|Private Notes|guthrie-complete-musician-offline\.zip/i.test(name)), false);
   const launcher = result.entryData.get('START HERE.html').toString('utf8');
   assert.match(launcher, /href="index\.html"/);
+  assert.match(launcher, /Open the offline course/);
+  assert.match(launcher, /double-click <strong>index\.html<\/strong>/);
 });

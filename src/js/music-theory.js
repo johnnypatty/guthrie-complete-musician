@@ -128,6 +128,15 @@
     return { chordTones, guideTones };
   }
 
+  function describeChord(symbol) {
+    const parsed = parseChord(symbol);
+    const definition = DEFINITIONS[parsed.quality];
+    const notes = buildChord(parsed.root, parsed.quality);
+    const labels = definition.formula.split(/\s+/);
+    const tones = notes.map((note, index) => ({ note, pitchClass: noteToPc(note.replace('bb', 'b').replace('##', '#')), role: labels[index], priority: /3|7/.test(labels[index]) ? 'guide' : (index === 0 ? 'root' : 'color') }));
+    return { ...parsed, symbol, rootPitchClass: noteToPc(parsed.root), bassPitchClass: noteToPc(parsed.bass || parsed.root), tones, pitchClasses: tones.map((tone) => tone.pitchClass), guidePitchClasses: tones.filter((tone) => tone.priority === 'guide').map((tone) => tone.pitchClass) };
+  }
+
   return {
     NOTE_NAMES,
     CHORD_FORMULAS,
@@ -135,6 +144,7 @@
     getTargetTones,
     parseChord,
     transposeChord,
-    noteToPc
+    noteToPc,
+    describeChord
   };
 });

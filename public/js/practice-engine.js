@@ -1,20 +1,11 @@
 (function (root, factory) {
   const data = typeof module === 'object' && module.exports ? require('./course-data.js') : root.CourseData;
-  const api = factory(data);
+  const planner = typeof module === 'object' && module.exports ? require('./session-planner.js') : root.SessionPlanner;
+  const api = factory(data, planner);
   if (typeof module === 'object' && module.exports) module.exports = api;
   if (root) root.PracticeEngine = api;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (CourseData) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (CourseData, SessionPlanner) {
   'use strict';
-
-  const core = [
-    { id: 'prepare', title: 'Prepare', minutes: 5, instruction: 'Tune, check body tension, and write today’s exact goals.' },
-    { id: 'technique', title: 'Clean technique', minutes: 20, instruction: 'Train one mechanic, then place it in a musical phrase.' },
-    { id: 'rhythm', title: 'Rhythm and groove', minutes: 15, instruction: 'Clap/count first; use a displaced or sparse click.' },
-    { id: 'ear', title: 'Ear and transcription', minutes: 15, instruction: 'Sing, then map only 1–4 seconds with no tab.' },
-    { id: 'harmony', title: 'Fretboard and harmony', minutes: 15, instruction: 'Spell, hear, locate, and apply one concept.' },
-    { id: 'improv', title: 'Constrained improvisation', minutes: 15, instruction: 'Record explore, develop, and performance takes.' },
-    { id: 'review', title: 'Listen and log', minutes: 5, instruction: 'Write one win and one exact next action.' }
-  ];
 
   function validateWeek(week) {
     const value = Number(week);
@@ -28,17 +19,12 @@
   }
 
   function buildSession(minutes, week) {
-    const duration = Number(minutes);
-    validateWeek(week);
-    if (![90, 120].includes(duration)) throw new Error('Minutes must be 90 or 120');
-    const session = core.map((block) => ({ ...block }));
-    if (duration === 120) {
-      session.splice(session.length - 1, 0,
-        { id: 'repertoire', title: 'Repertoire', minutes: 15, instruction: 'Recall, repair one transition, then perform the known section.' },
-        { id: 'phrase-lab', title: 'Phrase laboratory', minutes: 15, instruction: 'Analyze one idea and create rhythmic, melodic, and contextual variations.' }
-      );
-    }
-    return session;
+    const value = validateWeek(week);
+    return SessionPlanner.plan({ durationMinutes: minutes, week: value, candidates: SessionPlanner.DEFAULT_CANDIDATES, seed: `week-${value}` }).blocks.map((block) => ({
+      ...block,
+      instanceId: block.id,
+      ...(block.type === 'practice' ? { id: block.candidateId } : {})
+    }));
   }
 
   function hashSeed(seed) {

@@ -1,18 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
+await import('../src/js/progress-schema.js');
 await import('../src/js/progress-store.js');
 const ProgressStore = globalThis.ProgressStore;
 
-test('normalizes an empty value to schema 2 defaults', () => {
+test('normalizes an empty value to schema 3 defaults', () => {
   const state = ProgressStore.normalize(null);
-  assert.equal(state.schemaVersion, 2);
+  assert.equal(state.schemaVersion, 3);
   assert.equal(state.week, 1);
   assert.equal(state.minutes, 90);
   assert.deepEqual(state.completed, {});
   assert.deepEqual(state.lessons, {});
   assert.equal(state.trackId, 'emotional-d-minor');
   assert.equal(state.levels.master, 80);
+  assert.deepEqual(state.sessions, []);
+  assert.deepEqual(state.gearProfile, {});
 });
 
 test('migrates schema 1 progress and clamps unsafe values', () => {
@@ -26,7 +29,7 @@ test('migrates schema 1 progress and clamps unsafe values', () => {
     levels: { pad: 71, bass: -3, drums: 101 }
   });
 
-  assert.equal(state.schemaVersion, 2);
+  assert.equal(state.schemaVersion, 3);
   assert.equal(state.week, 1);
   assert.equal(state.minutes, 120);
   assert.equal(state.completed['w1-90-technique'], true);
@@ -51,7 +54,7 @@ test('exports stable JSON and imports it without changing the input object', () 
 
   assert.deepEqual(original, before);
   assert.deepEqual(imported, original);
-  assert.match(exported, /"schemaVersion": 2/);
+  assert.match(exported, /"schemaVersion": 3/);
 });
 
 test('invalid import does not mutate the current state', () => {

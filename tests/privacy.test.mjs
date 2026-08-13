@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { scanPrivateText, scanTree } from '../scripts/lib/privacy.mjs';
+import { scanPrivateText, scanApplicationText, scanTree } from '../scripts/lib/privacy.mjs';
 
 test('flags seller identity and transaction-specific dates', () => {
   const matches = scanPrivateText(
@@ -45,4 +45,29 @@ test('scanTree returns only files with findings in stable path order', async () 
   assert.equal(findings.length, 1);
   assert.equal(findings[0].path, 'nested/private.md');
   assert.deepEqual(findings[0].matches, ['seller-identity']);
+});
+
+test('flags hidden network and analytics APIs but allows same-origin service-worker fetch', () => {
+  assert.deepEqual(scanApplicationText('fetch("https://tracker.example")', 'src/js/app.js'), ['unallowlisted-fetch']);
+  assert.deepEqual(scanApplicationText('new XMLHttpRequest(); navigator.sendBeacon("/x")', 'src/js/app.js'), ['xml-http-request', 'send-beacon']);
+  assert.deepEqual(scanApplicationText('fetch(event.request)', 'src/templates/sw.js'), []);
+  assert.deepEqual(scanApplicationText('mediaDevices.getUserMedia({ audio: true })', 'src/js/app-shell.js'), ['automatic-media-capture']);
+  assert.deepEqual(scanApplicationText('mediaDevices.getUserMedia(constraints)', 'src/js/input-manager.js'), []);
+  assert.deepEqual(scanApplicationText('new MediaRecorder(stream)', 'src/js/app-shell.js'), ['bootstrap-media-recorder']);
+  assert.deepEqual(scanApplicationText('new MediaRecorder(stream)', 'src/js/recording-controller.js'), []);
+  assert.deepEqual(scanApplicationText('readAsDataURL(audio)', 'src/js/app-shell.js'), ['audio-serialization']);
+});
+
+test('shipped application modules contain no unallowlisted network or analytics APIs', async () => {
+  const root = join(import.meta.dirname, '..');
+  const moduleRoot = join(root, 'src', 'js');
+  const files = (await readdir(moduleRoot, { recursive: true, withFileTypes: true }))
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.js'))
+    .map((entry) => join(entry.parentPath, entry.name));
+  const findings = [];
+  for (const file of files) {
+    const matches = scanApplicationText(await readFile(file, 'utf8'), file);
+    if (matches.length) findings.push({ file, matches });
+  }
+  assert.deepEqual(findings, []);
 });

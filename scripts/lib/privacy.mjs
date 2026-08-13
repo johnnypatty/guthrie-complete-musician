@@ -41,6 +41,23 @@ export function scanPrivateText(text, _path = '') {
   return MARKERS.filter(({ pattern }) => pattern.test(source)).map(({ name }) => name);
 }
 
+const NETWORK_MARKERS = [
+  ['xml-http-request', /\bXMLHttpRequest\b/], ['web-socket', /\bWebSocket\b/], ['send-beacon', /\bsendBeacon\s*\(/],
+  ['analytics-sdk', /\b(?:google-analytics|googletagmanager|gtag\s*\(|mixpanel|segment\.io|amplitude)\b/i],
+  ['remote-upload', /\b(?:upload|serializeAudio|audioData)\b[^\n]{0,50}\b(?:fetch|send|post)\b/i]
+];
+
+export function scanApplicationText(text, path = '') {
+  const source = String(text);
+  const sourcePath = String(path);
+  const findings = NETWORK_MARKERS.filter(([, pattern]) => pattern.test(source)).map(([name]) => name);
+  if (/\bfetch\s*\(/.test(source) && !/[/\\]templates[/\\]sw\.js$/i.test(sourcePath)) findings.push('unallowlisted-fetch');
+  if (/\bgetUserMedia\s*\(/.test(source) && !/[/\\]input-manager\.js$/i.test(sourcePath)) findings.push('automatic-media-capture');
+  if (/\bMediaRecorder\b/.test(source) && !/[/\\]recording-controller\.js$/i.test(sourcePath)) findings.push('bootstrap-media-recorder');
+  if (/\b(?:readAsDataURL|serializeAudio|audioDataToBase64|arrayBufferToBase64)\b/.test(source)) findings.push('audio-serialization');
+  return findings;
+}
+
 async function listTextFiles(root, current = root) {
   const entries = await readdir(current, { withFileTypes: true });
   const files = [];

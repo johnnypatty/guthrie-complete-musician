@@ -4,242 +4,342 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#111318">
-  <meta name="description" content="A 24-week Guthrie Govan-inspired guitar musicianship course with original backing tracks, ear training, harmony, improvisation and practice tools.">
+  <meta name="theme-color" content="#10161b">
+  <meta name="description" content="A calm, private guitar practice coach with a 24-week musicianship roadmap and original local backing tracks.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Guthrie Complete Musician">
-  <meta property="og:description" content="Build technique, time, ears, harmony, improvisation, repertoire and personality together.">
+  <meta property="og:description" content="Plan the next session, practise with focused tools, and build complete musicianship locally on your device.">
   <meta property="og:url" content="https://johnnypatty.github.io/guthrie-complete-musician/">
   <meta property="og:image" content="https://johnnypatty.github.io/guthrie-complete-musician/assets/social-preview.svg">
   <link rel="canonical" href="https://johnnypatty.github.io/guthrie-complete-musician/">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <title>Guthrie Complete Musician</title>
+  <title>Today | Guthrie Complete Musician</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <a class="skip-link" href="#main-content">Skip to practice</a>
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="Guthrie Complete Musician home">
-      <span class="brand-mark">GCM</span>
-      <span>Complete Musician</span>
-    </a>
-    <nav aria-label="Course sections">
-      <a href="#today">Today</a>
-      <a href="#backing-lab">Backing Lab</a>
-      <a href="#roadmap">24 Weeks</a>
-      <a href="#library">Library</a>
-    </nav>
-    <details class="mobile-nav">
-      <summary aria-label="Open course menu">Menu</summary>
-      <div>
-        <a href="#today">Today</a>
-        <a href="#backing-lab">Backing Lab</a>
-        <a href="#roadmap">24 Weeks</a>
-        <a href="#library">Library</a>
+<body class="app-page">
+  <a class="skip-link" href="#main-content" data-skip-link>Skip to practice</a>
+  <div class="app-layout">
+    <aside class="desktop-rail" aria-label="Application navigation">
+      <a class="brand" href="#/today" aria-label="Guthrie Complete Musician Today">
+        <span class="brand-mark" aria-hidden="true">GCM</span>
+        <span class="brand-copy"><strong>Complete Musician</strong><small>Private practice coach</small></span>
+      </a>
+      <nav class="app-navigation" aria-label="Primary">
+        <a href="#/today" data-route-link="today">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12 12 5l8 7v7a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1Z"/></svg><span>Today</span>
+        </a>
+        <a href="#/session" data-route-link="session">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v5l3 2M9 3h6"/></svg><span>Session</span>
+        </a>
+        <a href="#/studio" data-route-link="studio">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 6v12M17 6v12M4 18h16M10 10h4v4h-4z"/></svg><span>Studio</span>
+        </a>
+        <a href="#/progress" data-route-link="progress">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9m7 10V5m7 14v-7"/></svg><span>Progress</span>
+        </a>
+        <a href="#/roadmap" data-route-link="roadmap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 4 5-2 4 2 5-2v18l-5 2-4-2-5 2Zm5-2v18m4-16v18"/></svg><span>Roadmap</span>
+        </a>
+      </nav>
+      <div class="rail-summary">
+        <span class="info-dot" aria-hidden="true"></span>
+        <p><strong>Local by design</strong><br>Your practice data stays in this browser.</p>
       </div>
-    </details>
-  </header>
+    </aside>
 
-  <main id="main-content">
-    <section id="top" class="hero shell">
-      <div>
-        <p class="eyebrow">Hear it. Understand it. Say something.</p>
-        <h1>Build freedom, not a collection of licks.</h1>
-        <p class="hero-copy">Technique, time, ears, harmony, improvisation, repertoire and personality—trained together for 24 weeks.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#today">Start today</a>
-          <a class="button ghost" href="#library">Browse 47 lessons</a>
+    <main id="main-content">
+      <section class="route-view today-view" data-route-view="today">
+        <header class="view-heading">
+          <p class="eyebrow">Your coach recommends</p>
+          <h1 tabindex="-1">Make time feel solid today.</h1>
+          <p>A focused session built from your current course week. You decide the duration, then take it one block at a time.</p>
+        </header>
+
+        <div class="coach-grid">
+          <article class="card recommendation-card">
+            <div class="recommendation-topline">
+              <span class="info-badge">Week plan</span>
+              <p id="progress-summary" class="progress-pill">0% complete today</p>
+            </div>
+            <h2>Your complete session</h2>
+            <p class="lede">Technique, time, ears, and musical choices in one deliberate arc.</p>
+            <div class="control-row compact-controls">
+              <label>Course week
+                <input id="week-input" type="number" min="1" max="24" value="1" inputmode="numeric">
+              </label>
+              <label>Session length
+                <select id="minutes-select">
+                  <option value="30">30-minute focus</option>
+                  <option value="60">60-minute session</option>
+                  <option value="90">90-minute core</option>
+                  <option value="120">Two-hour standard</option>
+                  <option value="180">Three-hour deep session</option>
+                </select>
+              </label>
+            </div>
+            <fieldset class="goal-picker">
+              <legend>Choose up to two goals <small>(optional)</small></legend>
+              <div class="choice-grid">
+                <label><input type="checkbox" name="session-goal" value="technique"> Technique</label>
+                <label><input type="checkbox" name="session-goal" value="rhythm"> Rhythm</label>
+                <label><input type="checkbox" name="session-goal" value="ear"> Ear</label>
+                <label><input type="checkbox" name="session-goal" value="harmony"> Harmony</label>
+                <label><input type="checkbox" name="session-goal" value="improv"> Improvisation</label>
+                <label><input type="checkbox" name="session-goal" value="repertoire"> Repertoire</label>
+                <label><input type="checkbox" name="session-goal" value="performance"> Performance</label>
+              </div>
+            </fieldset>
+            <div class="phase-readout">
+              <span id="phase-name">Week 1: Control and baseline</span>
+              <small id="phase-focus"></small>
+            </div>
+            <div id="resume-session-strip" class="resume-strip" hidden>
+              <div><strong>Unfinished session saved</strong><small>It will reopen paused at the last completed boundary.</small></div>
+              <a class="button secondary" href="#/session">Resume</a>
+            </div>
+            <div class="button-row recommendation-actions">
+              <button id="start-session" class="button primary primary-action" type="button">Start guided session <span aria-hidden="true">→</span></button>
+              <button id="postpone-session" class="button secondary" type="button">Later</button>
+              <button id="reject-session" class="text-button" type="button">Not this plan</button>
+            </div>
+            <p id="recommendation-status" class="status" aria-live="polite"></p>
+          </article>
+
+          <aside class="card coach-note">
+            <p class="eyebrow">Why this plan?</p>
+            <h2>Build the foundations in context.</h2>
+            <p id="recommendation-reason">The current plan follows your selected course week and keeps ear, rhythm, and expression beside technique.</p>
+            <p class="quiet-note"><span class="info-dot" aria-hidden="true"></span> Every recommendation shows its reason. You can edit, postpone, or reject it without penalty.</p>
+          </aside>
         </div>
-      </div>
-      <aside class="hero-note" aria-label="Course principle">
-        <strong>Guthrie-inspired, not Guthrie-copied.</strong>
-        <span>Your finish line is hearing an idea and making the guitar communicate it in your own voice.</span>
-      </aside>
-    </section>
 
-    <section id="today" class="section shell">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Start today</p>
-          <h2>Your complete session</h2>
+        <div class="today-detail-grid">
+          <article class="card session-preview">
+            <div class="section-heading">
+              <div><p class="eyebrow">Today’s blocks</p><h2>Session checklist</h2></div>
+            </div>
+            <ol id="session-list" class="session-list"></ol>
+          </article>
+          <article class="card prompt-card-wrap">
+            <p class="eyebrow">Improvisation constraint</p>
+            <blockquote id="prompt-card">Use only three notes. Make rhythm and dynamics carry the solo.</blockquote>
+            <button id="new-prompt" class="button secondary" type="button">Give me another</button>
+          </article>
         </div>
-        <p id="progress-summary" class="progress-pill">0% complete today</p>
-      </div>
+      </section>
 
-      <div class="control-row card compact">
-        <label>Course week
-          <input id="week-input" type="number" min="1" max="24" value="1" inputmode="numeric">
-        </label>
-        <label>Session length
-          <select id="minutes-select">
-            <option value="90">90-minute core</option>
-            <option value="120">Two-hour standard</option>
-          </select>
-        </label>
-        <div class="phase-readout">
-          <span id="phase-name">Control and baseline</span>
-          <small id="phase-focus"></small>
-        </div>
-      </div>
-
-      <div class="today-grid">
-        <article class="card">
-          <h3>Session checklist</h3>
-          <ol id="session-list" class="session-list"></ol>
+      <section class="route-view session-view" data-route-view="session" hidden>
+        <header class="view-heading session-heading">
+          <a class="back-link" href="#/today">← Back to Today</a>
+          <p id="session-progress-label" class="eyebrow">Block 1 of 1</p>
+          <h1 id="session-block-title" tabindex="-1">Practice session</h1>
+          <p id="session-block-instruction">One measurable behaviour at a time. Start only when ready.</p>
+        </header>
+        <p id="session-resume-note" class="module-notice" hidden><strong>Restored safely:</strong> this session reopened paused. Audio and input remain off.</p>
+        <article class="card guided-session-card">
+          <div class="active-block-meta">
+            <span id="session-block-type" class="info-badge">Practice</span>
+            <span id="session-tempo" class="status"></span>
+            <span class="status">Backing off · Input off</span>
+          </div>
+          <div class="timer-workspace">
+            <output id="timer-display" class="timer-display">20:00</output>
+            <p id="timer-message" class="status session-live" aria-live="polite">Ready. Nothing starts until you press Start.</p>
+            <div class="button-row session-controls">
+              <button id="timer-start" class="button primary" type="button">Start block</button>
+              <button id="timer-reset" class="button secondary" type="button">Restart block</button>
+              <button id="session-skip" class="button secondary" type="button">Skip</button>
+            </div>
+          </div>
+          <p id="session-safety" class="safety-cue">Stay loose. Stop if you feel pain; speed is never worth forcing.</p>
         </article>
-
-        <article class="card timer-card">
-          <h3>Focused timer</h3>
-          <p>Use it for one block. Take a real break after 45–60 minutes.</p>
-          <label>Minutes
-            <input id="timer-minutes" type="number" min="1" max="60" value="20">
+        <form id="session-rating" class="card rating-panel" hidden>
+          <fieldset>
+            <legend>How did that block feel?</legend>
+            <div class="rating-grid">
+              <label><input type="radio" name="block-rating" value="clean" required> Clean</label>
+              <label><input type="radio" name="block-rating" value="shaky"> Shaky</label>
+              <label><input type="radio" name="block-rating" value="failed"> Failed</label>
+            </div>
+          </fieldset>
+          <label>Short note <span class="status">(optional, 280 characters)</span>
+            <textarea id="session-note" maxlength="280" rows="3" placeholder="What changed? What should you try next?"></textarea>
           </label>
-          <output id="timer-display" class="timer-display" aria-live="polite">20:00</output>
-          <div class="button-row">
-            <button id="timer-start" class="button primary" type="button">Start timer</button>
-            <button id="timer-reset" class="button ghost" type="button">Reset</button>
-          </div>
-          <p id="timer-message" class="status" aria-live="polite"></p>
-        </article>
+          <label class="pain-check"><input id="session-pain" type="checkbox"> I felt pain or concerning discomfort</label>
+          <button class="button primary" type="submit">Save rating and continue</button>
+        </form>
+        <section id="session-review" class="card session-review" hidden>
+          <p class="eyebrow">Session review</p>
+          <h2>Keep the useful evidence.</h2>
+          <div id="session-review-summary" class="review-summary"></div>
+          <a class="button primary" href="#/today">Return to Today</a>
+        </section>
+        <div class="session-footer-actions">
+          <button id="session-end" class="text-button" type="button">End session and review</button>
+          <a class="button secondary" href="#/studio/backing">Open backing controls</a>
+        </div>
+      </section>
 
-        <article class="card prompt-card-wrap">
-          <p class="eyebrow">Improvisation constraint</p>
-          <blockquote id="prompt-card">Use only three notes. Make rhythm and dynamics carry the solo.</blockquote>
-          <button id="new-prompt" class="button ghost" type="button">Give me another</button>
-        </article>
-      </div>
-    </section>
-
-    <section id="backing-lab" class="section section-alt">
-      <div class="shell">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Original • offline • synchronized</p>
-            <h2>Backing Lab</h2>
-          </div>
-          <p>Generated locally—no downloaded copyrighted tracks.</p>
+      <section class="route-view studio-view" data-route-view="studio" hidden>
+        <header class="view-heading">
+          <p class="eyebrow">Private creative workspace</p>
+          <h1 tabindex="-1">Studio</h1>
+          <p>Open the tools you need. Nothing listens, records, or plays until you explicitly ask it to.</p>
+        </header>
+        <div class="module-grid" aria-label="Studio modules">
+          <a class="module-card" href="#/studio/input" data-route-section-link="input"><span class="module-icon" aria-hidden="true">⌁</span><strong>Guitar Input</strong><span>Connect and calibrate a private monophonic signal.</span><small>Available now · local only</small></a>
+          <a class="module-card" href="#/studio/recording" data-route-section-link="recording"><span class="module-icon" aria-hidden="true">●</span><strong>Recording Lab</strong><span>Save, export, and compare short local takes.</span><small>Available now · local only</small></a>
+          <a class="module-card" href="#backing-lab" data-route-section-link="backing"><span class="module-icon" aria-hidden="true">♫</span><strong>Backing Lab</strong><span>Original synchronized progressions generated on this device.</span><small>Available now</small></a>
+          <a class="module-card" href="#/studio/fretboard" data-route-section-link="fretboard"><span class="module-icon" aria-hidden="true">⌗</span><strong>Fretboard & Ear</strong><span>Notes, intervals, chord tones, quizzes, and ear prompts.</span><small>Available now</small></a>
+          <a class="module-card" href="#chord-lab" data-route-section-link="chords"><span class="module-icon" aria-hidden="true">△</span><strong>Chord Lab</strong><span>Build chords from formulas and hear the important voice-leading notes.</span><small>Available now</small></a>
         </div>
 
-        <div class="player-grid">
-          <article class="card player-card">
-            <div class="control-grid">
-              <label>Track
-                <select id="track-select"></select>
-              </label>
-              <label>Loop
-                <select id="section-select">
-                  <option value="full">Full progression</option>
-                </select>
-              </label>
-              <label>Tempo <output id="tempo-output">74 BPM</output>
-                <input id="tempo-input" type="range" min="50" max="220" value="74">
-              </label>
-              <label>Count-in
-                <select id="count-in-select">
-                  <option value="0">None</option>
-                  <option value="1" selected>1 bar</option>
-                  <option value="2">2 bars</option>
-                </select>
-              </label>
+        <section id="studio-input" class="studio-section" data-route-section="input">
+          <div class="section-heading"><div><p class="eyebrow">Private · explicit permission · local analysis</p><h2 tabindex="-1">Guitar Input</h2></div><p>No audio is uploaded, recorded, or monitored automatically.</p></div>
+          <div class="input-lab-grid">
+            <article class="card input-connect-card">
+              <p id="input-guidance">Select GP-200 USB Audio and use a clean sustained note.</p>
+              <div class="button-row">
+                <button id="input-connect" class="button" type="button">Connect guitar input</button>
+                <button id="input-disconnect" class="button secondary" type="button" disabled>Disconnect</button>
+              </div>
+              <p id="input-connection-status" class="status-line" data-state="idle">Nothing is listening yet.</p>
+              <button id="input-calibrate" class="text-button" type="button" disabled>Calibrate with muted strings</button>
+              <p class="small-copy">For reliable monophonic pitch: use a clean or lightly driven GP-200 preset; disable delay, reverb, chorus, octave, and backing audio.</p>
+            </article>
+            <div class="metric-grid" aria-label="Live guitar measurements">
+              <article id="input-pitch-card" class="card metric-card" data-state="waiting"><span>Stable pitch</span><strong id="input-pitch-note">—</strong><small id="input-pitch-detail">Connect when ready.</small></article>
+              <article class="card metric-card"><span>Input level</span><strong id="input-level-value">Input level: waiting</strong><progress id="input-level-meter" max="1" value="0">0%</progress></article>
+              <article id="input-clipping-card" class="card metric-card" data-state="safe"><span>Signal safety</span><strong id="input-clipping-value">Clipping: not measured</strong><small>Lower the GP-200 USB output if clipping appears.</small></article>
+              <article class="card metric-card"><span>Room / system noise</span><strong id="input-noise-value">Noise floor: not calibrated</strong><small>Mute the strings during calibration.</small></article>
             </div>
+          </div>
+          <p id="input-live" class="sr-only" aria-live="polite">Guitar input is off.</p>
+        </section>
 
-            <div class="transport">
-              <button id="play-button" class="button primary transport-button" type="button">▶ Play</button>
-              <button id="stop-button" class="button ghost transport-button" type="button" disabled>■ Stop</button>
-              <span id="player-status" class="status" aria-live="polite">Ready. Sound begins only when you press Play.</span>
-            </div>
+        <section id="studio-recording" class="studio-section" data-route-section="recording">
+          <div class="section-heading"><div><p class="eyebrow">Private takes · maximum 60 seconds</p><h2 tabindex="-1">Recording Lab</h2></div><p>Connect Guitar Input first. Your audio stays in this browser unless you export it.</p></div>
+          <div class="recording-grid">
+            <article class="card recording-controls">
+              <div class="control-row"><label>Exercise<input id="record-exercise" value="free-practice" maxlength="128"></label><label>Tempo<input id="record-tempo" type="number" min="40" max="240" value="80"></label><label>Self-rating<select id="record-rating"><option>Not rated</option><option>Needs work</option><option>Good</option><option>Clean</option></select></label></div>
+              <label>Reflection note<textarea id="record-note" maxlength="1000" placeholder="What changed between takes?"></textarea></label>
+              <div class="button-row"><button id="record-start" class="button" type="button">Record after 3-count</button><button id="record-stop" class="button secondary" type="button" disabled>Stop</button></div>
+              <p id="recording-status" class="status-line" aria-live="polite">Ready for a short local take.</p>
+            </article>
+            <article class="card"><h3>Local takes & A/B</h3><p class="small-copy">Play one take, then another. Playback stops before the next take starts so volume and phase do not confuse the comparison.</p><div id="recording-list" class="take-list"><p class="empty-copy">No local takes yet.</p></div></article>
+          </div>
+        </section>
 
-            <div class="transport-readout" aria-live="polite">
-              <strong id="transport-position">Ready</strong>
-              <progress id="transport-progress" max="100" value="0">0%</progress>
-            </div>
-
-            <div id="chord-strip" class="chord-strip" aria-label="Chord timeline"></div>
-
-            <div class="target-panel">
-              <span>Current chord targets</span>
-              <div id="target-tones" class="target-tones">Press Play to reveal guide tones.</div>
-            </div>
-
-            <details class="mixer">
-              <summary>Mix</summary>
-              <div class="control-grid four">
+        <section id="backing-lab" class="studio-section" data-route-section="backing">
+          <div class="section-heading"><div><p class="eyebrow">Original · offline · synchronized</p><h2 tabindex="-1">Backing Lab</h2></div><p>Generated locally—no downloaded copyrighted tracks.</p></div>
+          <div class="player-grid">
+            <article class="card player-card">
+              <div class="control-grid">
+                <label>Track<select id="track-select"></select></label>
+                <label>Loop<select id="section-select"><option value="full">Full progression</option></select></label>
+                <label>Groove<select id="groove-select"><option>fusion</option><option>funk</option><option>rock</option><option>ballad</option><option>neo-soul</option><option>ambient</option><option>changes</option><option>metronome</option></select></label>
+                <label>Tempo <output id="tempo-output">74 BPM</output><input id="tempo-input" type="range" min="40" max="240" value="74"></label>
+                <label>Count-in<select id="count-in-select"><option value="0">None</option><option value="1" selected>1 bar</option><option value="2">2 bars</option></select></label>
+              </div>
+              <div class="transport">
+                <button id="play-button" class="button primary transport-button" type="button">▶ Play</button>
+                <button id="stop-button" class="button secondary transport-button" type="button" disabled>■ Stop</button>
+                <span id="player-status" class="status" aria-live="polite">Ready. Sound begins only when you press Play.</span>
+              </div>
+              <div class="transport-readout"><strong id="transport-position">Ready</strong><progress id="transport-progress" max="100" value="0">0%</progress></div>
+              <div id="chord-strip" class="chord-strip" aria-label="Chord timeline"></div>
+              <div class="target-panel"><span>Current chord targets</span><div id="target-tones" class="target-tones">Press Play to reveal guide tones.</div></div>
+              <details class="mixer"><summary>Mix</summary><div class="control-grid four">
                 <label>Master <input id="master-level" type="range" min="0" max="100" value="80"></label>
                 <label>Pad <input id="pad-level" type="range" min="0" max="100" value="72"></label>
                 <label>Bass <input id="bass-level" type="range" min="0" max="100" value="72"></label>
                 <label>Drums <input id="drums-level" type="range" min="0" max="100" value="62"></label>
-              </div>
-            </details>
-          </article>
-
-          <aside class="card track-notes">
-            <p class="eyebrow" id="track-style">Expressive rock</p>
-            <h3 id="track-title">D Minor Emotional Arena</h3>
-            <p id="track-description"></p>
-            <dl>
-              <div><dt>Key</dt><dd id="track-key"></dd></div>
-              <div><dt>Meter</dt><dd id="track-meter"></dd></div>
-            </dl>
-            <p class="practice-question"><strong>Ear challenge:</strong> look away from the chord strip, sing the bass roots, then reveal it and compare.</p>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section id="chord-lab" class="section shell">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Construction, not shape collecting</p>
-          <h2>Chord Lab</h2>
-        </div>
-      </div>
-      <div class="chord-lab card">
-        <div class="control-row">
-          <label>Root
-            <select id="chord-root"></select>
-          </label>
-          <label>Quality
-            <select id="chord-quality"></select>
-          </label>
-        </div>
-        <div id="chord-result" class="chord-result" aria-live="polite"></div>
-        <p>Next: sing the third and seventh, find the notes on one string set, then connect to another chord by the smallest motion.</p>
-      </div>
-    </section>
-
-    <section id="roadmap" class="section section-alt">
-      <div class="shell">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Six connected phases</p>
-            <h2>24-week roadmap</h2>
+              </div></details>
+              <details class="custom-progression"><summary>Build or import a custom progression</summary>
+                <div class="control-grid">
+                  <label>Name<input id="custom-progression-name" maxlength="64" value="My progression"></label>
+                  <label>Meter<select id="custom-meter"><option>4/4</option><option>3/4</option><option>5/4</option><option>7/8</option></select></label>
+                  <label>Grouping<input id="custom-grouping" value="4" aria-describedby="custom-format-help"></label>
+                </div>
+                <label>Chord events<textarea id="custom-progression-text" rows="5" spellcheck="false">Dm7 | 4 | A&#10;G7 | 4 | A&#10;Cmaj7 | 4 | B&#10;A7 | 4 | B</textarea></label>
+                <p id="custom-format-help" class="small-copy">One line per event: chord | meter pulses | section. Example for 7/8: seven total pulses per bar, grouping 2+2+3.</p>
+                <div class="button-row"><button id="custom-progression-apply" class="button" type="button">Apply custom progression</button><button id="tempo-ramp" class="button secondary" type="button">Clean take: +2 BPM</button><button id="custom-progression-export" class="button secondary" type="button">Export preset</button><button id="custom-progression-import" class="button secondary" type="button">Import preset</button></div>
+                <input id="custom-progression-file" type="file" accept="application/json,.json" hidden><p id="custom-progression-status" class="status-line" aria-live="polite">Custom presets remain private until you export one.</p>
+              </details>
+            </article>
+            <aside class="card track-notes">
+              <p class="eyebrow" id="track-style">Expressive rock</p><h2 id="track-title">D Minor Emotional Arena</h2><p id="track-description"></p>
+              <dl><div><dt>Key</dt><dd id="track-key"></dd></div><div><dt>Meter</dt><dd id="track-meter"></dd></div></dl>
+              <p class="practice-question"><strong>Ear challenge:</strong> look away from the chord strip, sing the bass roots, then reveal it and compare.</p>
+            </aside>
           </div>
-        </div>
-        <div id="roadmap-grid" class="roadmap-grid"></div>
-      </div>
-    </section>
+        </section>
 
-    <section id="library" class="section shell">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Detailed local lessons</p>
-          <h2>Course library</h2>
+        <section id="studio-fretboard" class="studio-section" data-route-section="fretboard">
+          <div class="section-heading"><div><p class="eyebrow">Know the neck · hear before you play</p><h2 tabindex="-1">Fretboard & Ear</h2></div><p>Standard E A D G B E tuning through fret 12.</p></div>
+          <article class="card fretboard-lab">
+            <div class="control-row"><label>Root<select id="fretboard-root"></select></label><label>Chord quality<select id="fretboard-quality"></select></label><button id="fretboard-reveal" type="button">Hide / reveal</button><button id="fretboard-quiz" class="button" type="button">Start note quiz</button></div>
+            <p id="fretboard-legend" class="small-copy"></p>
+            <div class="fretboard-scroll"><div id="fretboard-grid" class="fretboard-grid" role="grid" aria-label="Guitar fretboard through fret 12"></div></div>
+            <p id="fretboard-feedback" class="status-line" aria-live="polite">Choose a root and chord, then say each interval before revealing it.</p>
+          </article>
+          <article id="ear-training-panel" class="card ear-training-card"><h3>Ear training</h3><p>Hear and answer generated musical prompts. Every exercise works by self-confirmation; guitar input is optional.</p><div id="ear-training-app"></div></article>
+        </section>
+
+        <section id="chord-lab" class="studio-section" data-route-section="chords">
+          <div class="section-heading"><div><p class="eyebrow">Construction, not shape collecting</p><h2 tabindex="-1">Chord Lab</h2></div></div>
+          <div class="chord-lab card">
+            <div class="control-row"><label>Root<select id="chord-root"></select></label><label>Quality<select id="chord-quality"></select></label></div>
+            <div id="chord-result" class="chord-result" aria-live="polite"></div>
+            <p>Sing the third and seventh, find them on one string set, then connect to another chord by the smallest motion.</p>
+          </div>
+        </section>
+      </section>
+
+      <section class="route-view progress-view" data-route-view="progress" hidden>
+        <header class="view-heading">
+          <p class="eyebrow">Private and transparent</p>
+          <h1 tabindex="-1">Progress</h1>
+          <p>See what your local evidence supports, how confident that estimate is, and what needs attention next. There are no streak penalties or public scores.</p>
+        </header>
+        <div class="progress-grid">
+          <article class="card skill-dashboard"><span class="info-badge">28-day evidence window</span><h2>Seven parts of complete musicianship.</h2><p>Self-ratings contribute 50%, assessments 30%, and valid signal evidence 20%. Missing evidence is rebalanced, never counted as zero.</p><div id="skill-summary-grid" class="skill-summary-grid"></div><div class="progress-queue"><strong id="due-review-count">0 due reviews</strong><strong id="repertoire-count">0 unfinished repertoire items</strong></div><div class="table-scroll"><table id="skill-summary-table" class="skill-summary-table"></table></div></article>
+          <article class="card progress-controls">
+            <h2>Portable progress</h2>
+            <p>Export or import your course state manually. Reset affects course progress only. Audio recordings stay separate and are deleted individually from Recording Lab.</p>
+            <div class="button-row progress-buttons">
+              <button id="export-progress" class="button secondary" type="button">Export progress</button>
+              <button id="import-progress" class="button secondary" type="button">Import progress</button>
+              <button id="reset-progress" class="text-button" type="button">Reset local progress</button>
+            </div>
+            <input id="progress-file" type="file" accept="application/json,.json" hidden>
+            <p id="progress-file-status" class="status" aria-live="polite">Your checks, lessons, week, duration, track and tempo stay only in this browser on this computer.</p>
+          </article>
         </div>
-      </div>
-      <div class="library-tools card compact" role="search" aria-label="Filter course lessons">
-        <label>Search lessons
-          <input id="lesson-search" type="search" autocomplete="off" placeholder="Try rhythm, bends, triads…">
-        </label>
-        <label>Category
-          <select id="lesson-category"><option value="all">All categories</option></select>
-        </label>
-        <label>Phase
-          <select id="lesson-phase"><option value="all">All phases</option></select>
-        </label>
-        <p id="lesson-result-count" class="status" aria-live="polite">47 lessons</p>
-      </div>
-      <div id="library-grid" class="library-grid"><a class="library-link" href="lessons/2-hour-session.html" data-category="Daily Practice" data-phase="Weeks 1-24" data-search="the two-hour standard session this is the recommended serious day. it keeps the complete 90-minute core and adds repertoire plus deep phrase study. daily-practice hour session">
+      </section>
+
+      <section class="route-view roadmap-view" data-route-view="roadmap" hidden>
+        <header class="view-heading roadmap-heading">
+          <p class="eyebrow">The complete path</p>
+          <h1 tabindex="-1">Build freedom over 24 weeks.</h1>
+          <p>Technique, time, ears, harmony, improvisation, repertoire, and personality—trained together so ideas can become music.</p>
+          <div class="button-row"><a class="button primary" href="#roadmap">View the six phases</a><a class="button secondary" href="#library">Browse 53 lessons</a></div>
+        </header>
+        <aside class="principle-card card"><p class="eyebrow">Course principle</p><h2>Guthrie-inspired, not Guthrie-copied.</h2><p>The finish line is hearing an idea and making the guitar communicate it in your own voice.</p></aside>
+        <section id="roadmap" class="roadmap-section">
+          <div class="section-heading"><div><p class="eyebrow">Six connected phases</p><h2>24-week roadmap</h2></div></div>
+          <div id="roadmap-grid" class="roadmap-grid"></div>
+        </section>
+        <section id="library" class="roadmap-section" data-route-section="library">
+          <div class="section-heading"><div><p class="eyebrow">Detailed local lessons</p><h2>Course library</h2></div></div>
+          <div class="library-tools card" role="search" aria-label="Filter course lessons">
+            <label>Search lessons<input id="lesson-search" type="search" autocomplete="off" placeholder="Try rhythm, bends, triads…"></label>
+            <label>Category<select id="lesson-category"><option value="all">All categories</option></select></label>
+            <label>Phase<select id="lesson-phase"><option value="all">All phases</option></select></label>
+            <p id="lesson-result-count" class="status" aria-live="polite">53 lessons</p>
+          </div>
+          <div id="library-grid" class="library-grid"><a class="library-link" href="lessons/2-hour-session.html" data-category="Daily Practice" data-phase="Weeks 1-24" data-search="the two-hour standard session this is the recommended serious day. it keeps the complete 90-minute core and adds repertoire plus deep phrase study. daily-practice hour session">
   <small>Daily Practice</small>
   <strong>The Two-Hour Standard Session</strong>
   <span>This is the recommended serious day. It keeps the complete 90-minute core and adds repertoire plus deep phrase study.</span>
@@ -459,6 +559,36 @@
   <strong>Source Notes</strong>
   <span>Checked on **2026-08-08**. These are the sources used to design this course. “Free” means the linked material can be read or used without purchasing it; regional prices and avai...</span>
 </a>
+<a class="library-link" href="lessons/action-relief-intonation.html" data-category="Gear and Setup" data-phase="Reference" data-search="action, relief, and intonation diagnose setup in the right order so one adjustment does not hide another problem. gear action relief intonation">
+  <small>Gear and Setup</small>
+  <strong>Action, Relief, and Intonation</strong>
+  <span>Diagnose setup in the right order so one adjustment does not hide another problem.</span>
+</a>
+<a class="library-link" href="lessons/floating-tremolo-setup.html" data-category="Gear and Setup" data-phase="Reference" data-search="floating tremolo setup balance string and spring tension without turning a normal gauge change into a tuning fight. gear floating-tremolo setup">
+  <small>Gear and Setup</small>
+  <strong>Floating Tremolo Setup</strong>
+  <span>Balance string and spring tension without turning a normal gauge change into a tuning fight.</span>
+</a>
+<a class="library-link" href="lessons/maintenance-and-storage.html" data-category="Gear and Setup" data-phase="Reference" data-search="maintenance and storage keep the instrument stable with small regular checks rather than unnecessary modification. gear maintenance storage">
+  <small>Gear and Setup</small>
+  <strong>Maintenance and Storage</strong>
+  <span>Keep the instrument stable with small regular checks rather than unnecessary modification.</span>
+</a>
+<a class="library-link" href="lessons/signal-noise-and-grounding.html" data-category="Gear and Setup" data-phase="Reference" data-search="signal noise and grounding separate guitar noise, usb ground loops, and expected high-gain hiss before reaching for a heavy gate. gear noise grounding recording">
+  <small>Gear and Setup</small>
+  <strong>Signal Noise and Grounding</strong>
+  <span>Separate guitar noise, USB ground loops, and expected high-gain hiss before reaching for a heavy gate.</span>
+</a>
+<a class="library-link" href="lessons/string-gauge-changes.html" data-category="Gear and Setup" data-phase="Reference" data-search="string gauge changes choose a gauge for feel and reliability, then plan the setup consequences. gear strings gauge">
+  <small>Gear and Setup</small>
+  <strong>String Gauge Changes</strong>
+  <span>Choose a gauge for feel and reliability, then plan the setup consequences.</span>
+</a>
+<a class="library-link" href="lessons/used-guitar-inspection.html" data-category="Gear and Setup" data-phase="Reference" data-search="used guitar inspection a model-neutral inspection route for neck, frets, hardware, electronics, and playability. gear inspection used-guitar">
+  <small>Gear and Setup</small>
+  <strong>Used Guitar Inspection</strong>
+  <span>A model-neutral inspection route for neck, frets, hardware, electronics, and playability.</span>
+</a>
 <a class="library-link" href="lessons/future-stainless-refret-notes.html" data-category="RG8570 Buying Guide" data-phase="Reference" data-search="future stainless refret notes playing for one year does not automatically mean the frets need replacement. inspect actual wear and playability. the original j.custom nickel-silver fretwork is valuable and ma... rg8570-buying-guide future stainless refret">
   <small>RG8570 Buying Guide</small>
   <strong>Future Stainless Refret Notes</strong>
@@ -474,52 +604,69 @@
   <strong>Ibanez j.custom RG8570 Long-Term Evaluation</strong>
   <span>A model-level evaluation of the RG8570 as a long-term fusion, rock, metal, clean, and expressive lead instrument—plus the limits of buying any used example unseen.</span>
 </a></div>
-      <p id="lesson-no-results" class="empty-state" hidden>No lessons match those filters. Try fewer words or choose All categories.</p>
-    </section>
+          <p id="lesson-no-results" class="empty-state" hidden>No lessons match those filters. Try fewer words or choose All categories.</p>
+        </section>
+        <section id="guitar" class="roadmap-section" data-route-section="gear">
+          <article class="card guitar-card"><div><p class="eyebrow">Gear & Setup Lab</p><h2>Diagnose first. Adjust safely.</h2><p>Model-neutral guides for buying used, floating tremolos, action and intonation, string gauges, noise and grounding, and long-term care. The original RG8570 research remains as an archived example.</p></div><div class="gear-paths"><a href="lessons/used-guitar-inspection.html"><strong>Buying used</strong><span>Inspect neck, frets, bridge, and electronics</span></a><a href="lessons/floating-tremolo-setup.html"><strong>Bridge moved</strong><span>Restore string/spring balance safely</span></a><a href="lessons/signal-noise-and-grounding.html"><strong>Buzz while recording</strong><span>Separate ground loops from guitar noise</span></a><a href="lessons/action-relief-intonation.html"><strong>Buzz or poor intonation</strong><span>Use the correct diagnostic order</span></a></div><details><summary>Archived model-specific examples</summary><div class="button-row"><a class="button secondary" href="lessons/in-person-inspection-checklist.html">RG8570 inspection</a><a class="button secondary" href="lessons/rg8570-long-term-evaluation.html">RG8570 evaluation</a></div></details></article>
+        </section>
+      </section>
 
-    <section id="guitar" class="section shell">
-      <article class="card guitar-card">
-        <div>
-          <p class="eyebrow">Used-instrument decisions</p>
-          <h2>RG8570 model and inspection guide</h2>
-          <p>Evaluate the model, then make the individual guitar prove its neck, frets, Lo-Pro Edge, electronics, serial and documents in person.</p>
-        </div>
-        <div class="hero-actions">
-          <a class="button primary" href="lessons/in-person-inspection-checklist.html">Open inspection checklist</a>
-          <a class="button ghost" href="lessons/rg8570-long-term-evaluation.html">Read model evaluation</a>
-        </div>
-      </article>
-    </section>
-
-    <section class="section shell progress-controls">
-      <div class="button-row progress-buttons">
-        <button id="export-progress" class="button ghost" type="button">Export progress</button>
-        <button id="import-progress" class="button ghost" type="button">Import progress</button>
-        <button id="reset-progress" class="text-button" type="button">Reset local progress</button>
-      </div>
-      <input id="progress-file" type="file" accept="application/json,.json" hidden>
-      <p id="progress-file-status" class="status" aria-live="polite">Your checks, lessons, week, duration, track and tempo stay only in this browser on this computer.</p>
-    </section>
-  </main>
-
-  <footer>
-    <div class="shell">
-      <strong>Make the next phrase mean something.</strong>
-      <span>Unofficial educational project • no account • no tracking • no copyrighted backing-track downloads<br>
-        <a href="downloads/guthrie-complete-musician-offline.zip" download>Download the complete offline course</a> •
-        <span id="offline-status" aria-live="polite">Offline support is checking…</span>
-      </span>
-    </div>
-  </footer>
+      <footer>
+        <strong>Make the next phrase mean something.</strong>
+        <span>Unofficial educational project · no account · no tracking · no copyrighted backing-track downloads<br><a href="downloads/guthrie-complete-musician-offline.zip" download>Download the complete offline course</a> · <span id="offline-status" aria-live="polite">Offline support is checking…</span></span>
+      </footer>
+    </main>
+  </div>
 
   <script src="js/course-data.js"></script>
   <script src="js/lesson-index.js"></script>
+  <script src="js/progress-schema.js"></script>
+  <script src="js/local-state-store.js"></script>
   <script src="js/progress-store.js"></script>
   <script src="js/lesson-search.js"></script>
   <script src="js/music-theory.js"></script>
+  <script src="js/recommendation-engine.js"></script>
+  <script src="js/skill-model.js"></script>
+  <script src="js/progress-controller.js"></script>
+  <script src="js/gear-profile.js"></script>
+  <script src="js/session-planner.js"></script>
   <script src="js/practice-engine.js"></script>
+  <script src="js/session-runner.js"></script>
+  <script src="js/session-controller.js"></script>
+  <script src="js/audio-runtime.js"></script>
+  <script src="js/pitch-detector.js"></script>
+  <script src="js/signal-features.js"></script>
+  <script src="js/performance-analyser.js"></script>
+  <script src="js/input-manager.js"></script>
+  <script src="js/analysis-controller.js"></script>
+  <script src="js/guitar-input-view.js"></script>
+  <script src="js/indexed-db-adapter.js"></script>
+  <script src="js/progress-repository.js"></script>
+  <script src="js/recording-store.js"></script>
+  <script src="js/recording-controller.js"></script>
+  <script src="js/recording-view.js"></script>
+  <script src="js/fretboard-engine.js"></script>
+  <script src="js/review-scheduler.js"></script>
+  <script src="js/fretboard-view.js"></script>
+  <script src="js/ear-training-engine.js"></script>
+  <script src="js/ear-training-view.js"></script>
   <script src="js/player-timeline.js"></script>
+  <script src="js/progression-engine.js"></script>
+  <script src="js/voicing-engine.js"></script>
+  <script src="js/bass-arranger.js"></script>
+  <script src="js/groove-patterns.js"></script>
+  <script src="js/groove-engine.js"></script>
+  <script src="js/synth-voices.js"></script>
   <script src="js/audio-engine.js"></script>
+  <script src="js/backing-lab-view.js"></script>
+  <script src="js/ui-components.js"></script>
+  <script src="js/hash-router.js"></script>
+  <script src="js/today-view.js"></script>
+  <script src="js/session-view.js"></script>
+  <script src="js/studio-view.js"></script>
+  <script src="js/progress-view.js"></script>
+  <script src="js/roadmap-view.js"></script>
+  <script src="js/app-shell.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

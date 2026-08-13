@@ -1,315 +1,125 @@
-(function (root, factory) {
-  const api = factory(root.MusicTheory, root.PlayerTimeline);
-  if (typeof module === 'object' && module.exports) module.exports = api;
-  if (root) root.AudioEngine = api;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (MusicTheory, PlayerTimeline) {
+(function (root) {
   'use strict';
 
-  function create(options) {
-    const settings = options || {};
-    const timers = settings.timers || {
-      setInterval: (...args) => globalThis.setInterval(...args),
-      clearInterval: (id) => globalThis.clearInterval(id),
-      setTimeout: (...args) => globalThis.setTimeout(...args),
-      clearTimeout: (id) => globalThis.clearTimeout(id)
-    };
-    const eventTarget = settings.eventTarget || globalThis;
-    let context = null;
-    let master = null;
-    let compressor = null;
-    let padBus = null;
-    let bassBus = null;
-    let drumBus = null;
-    let scheduler = null;
-    let config = null;
-    let timeline = null;
-    let nextStepBeat = 0;
-    let nextStepTime = 0;
-    let playing = false;
-    let lastChordIndex = -1;
-    const activeNodes = new Set();
+  function create(options = {}) {
+    const timers = options.timers || { setInterval: (...args) => root.setInterval(...args), clearInterval: (id) => root.clearInterval(id), setTimeout: (...args) => root.setTimeout(...args), clearTimeout: (id) => root.clearTimeout(id) };
+    const eventTarget = options.eventTarget || root;
+    let context = null; let master = null; let compressor = null; let renderer = null;
+    let buses = null; let scheduler = null; let config = null; let preset = null; let events = [];
+    let playing = false; let generation = 0; let cycleStart = 0; let eventCursor = 0; let pendingTempo = null; let appliedTempo = null;
     const callbackTimers = new Set();
 
-    function audioContextConstructor() {
-      return settings.AudioContextClass || globalThis.AudioContext || globalThis.webkitAudioContext;
-    }
-
+    function contextClass() { return options.AudioContextClass || root.AudioContext || root.webkitAudioContext; }
     function buildGraph() {
       if (context) return;
-      const AudioContextClass = audioContextConstructor();
+      const AudioContextClass = contextClass();
       if (!AudioContextClass) throw new Error('This browser does not support Web Audio. Try current Chrome, Edge, or Firefox.');
-      context = new AudioContextClass();
-      master = context.createGain();
-      compressor = context.createDynamicsCompressor();
-      compressor.threshold.value = -18;
-      compressor.knee.value = 12;
-      compressor.ratio.value = 4;
-      compressor.attack.value = 0.005;
-      compressor.release.value = 0.18;
-      master.gain.value = 0.62;
-      padBus = context.createGain();
-      bassBus = context.createGain();
-      drumBus = context.createGain();
-      padBus.connect(compressor);
-      bassBus.connect(compressor);
-      drumBus.connect(compressor);
-      compressor.connect(master);
-      master.connect(context.destination);
+      context = new AudioContextClass(); master = context.createGain(); compressor = context.createDynamicsCompressor();
+      compressor.threshold.value = -18; compressor.knee.value = 12; compressor.ratio.value = 4; compressor.attack.value = .005; compressor.release.value = .18;
+      master.gain.value = .62;
+      buses = { harmony: context.createGain(), bass: context.createGain(), drums: context.createGain(), click: context.createGain(), room: context.createGain() };
+      const highPass = context.createBiquadFilter(); highPass.type = 'highpass'; highPass.frequency.value = 25;
+      Object.values(buses).forEach((node) => node.connect(highPass)); highPass.connect(compressor); compressor.connect(master); master.connect(context.destination);
+      const factory = options.rendererFactory || root.SynthVoices?.create;
+      if (typeof factory !== 'function') throw new Error('Backing instruments are unavailable. Reload the page and try again.');
+      renderer = factory({ context, buses, maxSources: 64 });
     }
-
-    function trackNode(node) {
-      activeNodes.add(node);
-      node.addEventListener?.('ended', () => activeNodes.delete(node), { once: true });
-      return node;
+    function normalizeTrack(track, bpm) {
+      return root.ProgressionEngine.fromTrack({ title: track.title || 'Progression', style: track.style || track.groove || 'fusion', bpm, ...track, bpm });
     }
-
-    function midiFrequency(midi) {
-      return 440 * Math.pow(2, (midi - 69) / 12);
+    function compile() {
+      preset = normalizeTrack(config.track, appliedTempo);
+      const requestedStart = Number.isFinite(config.loopStartTick) ? config.loopStartTick : Number(config.loopStartBeat || 0) * root.PlayerTimeline.PPQ;
+      const requestedEnd = Number.isFinite(config.loopEndTick) ? config.loopEndTick : Number.isFinite(config.loopEndBeat) ? config.loopEndBeat * root.PlayerTimeline.PPQ : preset.timeline.totalTicks;
+      if (requestedStart < 0 || requestedEnd > preset.timeline.totalTicks || requestedEnd <= requestedStart) throw new Error('Invalid loop selection');
+      config.loopStartTick = requestedStart; config.loopEndTick = requestedEnd;
+      events = root.GrooveEngine.compile(preset.timeline, { groove: config.groove || preset.groove, seed: config.seed ?? preset.seed, loopStartTick: requestedStart, loopEndTick: requestedEnd });
+      eventCursor = 0;
     }
-
-    function scheduleOscillator(destination, frequency, start, duration, type, level, attack, release, detune) {
-      const oscillator = trackNode(context.createOscillator());
-      const gain = context.createGain();
-      oscillator.type = type;
-      oscillator.frequency.setValueAtTime(frequency, start);
-      oscillator.detune.setValueAtTime(detune || 0, start);
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.linearRampToValueAtTime(level, start + attack);
-      gain.gain.setValueAtTime(level, Math.max(start + attack, start + duration - release));
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-      oscillator.connect(gain);
-      gain.connect(destination);
-      oscillator.start(start);
-      oscillator.stop(start + duration + 0.02);
-    }
-
-    function schedulePad(symbol, start, duration) {
-      const parsed = MusicTheory.parseChord(symbol);
-      const notes = MusicTheory.buildChord(parsed.root, parsed.quality);
-      const usable = notes.slice(0, Math.min(notes.length, 5));
-      usable.forEach((note, index) => {
-        const pc = MusicTheory.noteToPc(note.replace('bb', 'b').replace('##', '#'));
-        const midi = 48 + pc + (index > 0 && pc <= MusicTheory.noteToPc(usable[0]) ? 12 : 0);
-        scheduleOscillator(padBus, midiFrequency(midi), start, Math.max(0.18, duration), 'triangle', 0.025, 0.05, 0.12, index % 2 ? 4 : -4);
-      });
-    }
-
-    function scheduleBass(symbol, start, duration, beatInChord) {
-      const parsed = MusicTheory.parseChord(symbol);
-      const root = parsed.bass || parsed.root;
-      const rootPc = MusicTheory.noteToPc(root);
-      const pc = beatInChord % 4 === 2 ? (rootPc + 7) % 12 : rootPc;
-      const midi = 36 + pc;
-      scheduleOscillator(bassBus, midiFrequency(midi), start, duration * 0.78, 'triangle', 0.14, 0.008, 0.06, 0);
-    }
-
-    function scheduleKick(start) {
-      const oscillator = trackNode(context.createOscillator());
-      const gain = context.createGain();
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(120, start);
-      oscillator.frequency.exponentialRampToValueAtTime(48, start + 0.12);
-      gain.gain.setValueAtTime(0.28, start);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.16);
-      oscillator.connect(gain);
-      gain.connect(drumBus);
-      oscillator.start(start);
-      oscillator.stop(start + 0.18);
-    }
-
-    function noiseBuffer(duration) {
-      const length = Math.max(1, Math.floor(context.sampleRate * duration));
-      const buffer = context.createBuffer(1, length, context.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let index = 0; index < length; index += 1) data[index] = Math.random() * 2 - 1;
-      return buffer;
-    }
-
-    function scheduleNoise(start, duration, frequency, level) {
-      const source = trackNode(context.createBufferSource());
-      const filter = context.createBiquadFilter();
-      const gain = context.createGain();
-      source.buffer = noiseBuffer(duration);
-      filter.type = frequency > 3000 ? 'highpass' : 'bandpass';
-      filter.frequency.value = frequency;
-      gain.gain.setValueAtTime(level, start);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-      source.connect(filter);
-      filter.connect(gain);
-      gain.connect(drumBus);
-      source.start(start);
-      source.stop(start + duration + 0.01);
-    }
-
-    function scheduleSnare(start) {
-      scheduleNoise(start, 0.14, 1600, 0.13);
-      scheduleOscillator(drumBus, 185, start, 0.08, 'triangle', 0.035, 0.002, 0.05, 0);
-    }
-
-    function scheduleHat(start, accent) {
-      scheduleNoise(start, 0.035, 6500, accent ? 0.045 : 0.026);
-    }
-
-    function queueCallback(callback, payload, when) {
+    function secondsPerTick() { return root.PlayerTimeline.secondsPerBeat(appliedTempo) / (root.PlayerTimeline.PPQ * 4 / preset.meter.tempoUnit); }
+    function loopDuration() { return (config.loopEndTick - config.loopStartTick) * secondsPerTick(); }
+    function queue(callback, payload, when) {
       if (typeof callback !== 'function') return;
-      const delay = Math.max(0, (when - context.currentTime) * 1000);
-      const timer = timers.setTimeout(() => {
-        callbackTimers.delete(timer);
-        if (playing) callback(payload);
-      }, delay);
-      callbackTimers.add(timer);
+      const token = generation; const delay = Math.max(0, (when - context.currentTime) * 1000);
+      const id = timers.setTimeout(() => { callbackTimers.delete(id); if (playing && token === generation) callback({ ...payload, audioTime: when }); }, delay);
+      callbackTimers.add(id);
     }
-
-    function loopBounds() {
-      return {
-        start: Number.isFinite(config.loopStartBeat) ? config.loopStartBeat : 0,
-        end: Number.isFinite(config.loopEndBeat) ? config.loopEndBeat : timeline.totalBeats
-      };
-    }
-
-    function scheduleStep(beat, when) {
-      const bounds = loopBounds();
-      const beatLength = PlayerTimeline.secondsPerBeat(config.bpm);
-      const countInBeats = config.countInBars * config.track.beatsPerBar;
-      const countInStart = bounds.start - countInBeats;
-      if (beat < bounds.start) {
-        const elapsed = beat - countInStart;
-        const halfStep = Math.round(elapsed * 2);
-        const isWholeBeat = halfStep % 2 === 0;
-        if (isWholeBeat) {
-          const beatInBar = Math.floor(elapsed) % config.track.beatsPerBar;
-          scheduleHat(when, beatInBar === 0);
-          if (beatInBar === 0) scheduleKick(when);
-          queueCallback(config.onTransport, {
-            phase: 'count-in',
-            countInBeat: Math.floor(elapsed) + 1,
-            countInTotal: countInBeats
-          }, when);
+    function countIn() {
+      const bars = Number(config.countInBars || 0); if (!bars) return 0;
+      const meter = preset.meter; const tickSeconds = secondsPerTick(); const start = context.currentTime + .06;
+      for (let bar = 0; bar < bars; bar += 1) {
+        for (let pulse = 0; pulse < meter.numerator; pulse += 1) {
+          const tick = pulse * meter.ticksPerPulse; const accent = meter.groupTicks.includes(tick); const when = start + (bar * meter.ticksPerBar + tick) * tickSeconds;
+          renderer.render({ lane: 'click', instrument: 'click', velocity: accent ? .85 : .54, durationTicks: Math.min(12, meter.ticksPerPulse / 2), countInPulse: pulse + 1 }, when, tickSeconds);
+          queue(config.onTransport, { phase: 'count-in', countInBeat: bar * meter.numerator + pulse + 1, countInTotal: bars * meter.numerator }, when);
         }
-        return;
       }
-
-      const loopedBeat = PlayerTimeline.loopBeat(beat, bounds.start, bounds.end);
-      const event = PlayerTimeline.eventAtBeat(timeline.events, loopedBeat);
-      const halfStep = Math.round(loopedBeat * 2);
-      const isWholeBeat = halfStep % 2 === 0;
-
-      scheduleHat(when, isWholeBeat);
-      if (isWholeBeat) {
-        const beatNumber = Math.floor(loopedBeat) % config.track.beatsPerBar;
-        if (beatNumber === 0 || (config.track.beatsPerBar === 4 && beatNumber === 2)) scheduleKick(when);
-        if (config.track.beatsPerBar === 4 && (beatNumber === 1 || beatNumber === 3)) scheduleSnare(when);
-        if (config.track.beatsPerBar === 5 && (beatNumber === 2 || beatNumber === 4)) scheduleSnare(when);
-        scheduleBass(event.chord, when, beatLength, Math.floor(loopedBeat - event.startBeat));
-        const position = PlayerTimeline.positionAtBeat(timeline, loopedBeat);
-        queueCallback(config.onTransport, {
-          phase: 'playing',
-          chord: event.chord,
-          section: event.section,
-          bar: position.bar,
-          beatInBar: position.beatInBar,
-          progress: (loopedBeat - bounds.start) / (bounds.end - bounds.start),
-          beat: loopedBeat
-        }, when);
-      }
-
-      if (event.index !== lastChordIndex) {
-        const remainingBeats = Math.min(event.endBeat, bounds.end) - loopedBeat;
-        schedulePad(event.chord, when, Math.max(beatLength, remainingBeats * beatLength * 0.96));
-        lastChordIndex = event.index;
-        queueCallback(config.onChordChange, { chord: event.chord, index: event.index, beat: loopedBeat, section: event.section }, when);
-      }
+      return bars * meter.ticksPerBar * tickSeconds;
     }
-
+    function position(event) {
+      const relativeTick = event.tick - config.loopStartTick;
+      const absoluteTick = config.loopStartTick + relativeTick;
+      const harmony = preset.timeline.events.find((item) => absoluteTick >= item.startTick && absoluteTick < item.endTick) || preset.timeline.events[0];
+      return { harmony, bar: Math.floor(absoluteTick / preset.meter.ticksPerBar) + 1, pulse: Math.floor((absoluteTick % preset.meter.ticksPerBar) / preset.meter.ticksPerPulse) + 1, progress: relativeTick / (config.loopEndTick - config.loopStartTick) };
+    }
+    function renderEvent(event, when) {
+      const tickSeconds = secondsPerTick(); renderer.render(event, when + Number(event.offsetSeconds || 0), tickSeconds);
+      const info = position(event);
+      if (event.lane === 'harmony') queue(config.onChordChange, { chord: info.harmony.chord, index: info.harmony.index, beat: event.tick / root.PlayerTimeline.PPQ, section: info.harmony.section }, when);
+      if (event.tick % preset.meter.ticksPerPulse === 0 && (event.instrument === 'hat' || event.lane === 'click')) queue(config.onTransport, { phase: 'playing', chord: info.harmony.chord, section: info.harmony.section, bar: info.bar, beatInBar: info.pulse, progress: info.progress, beat: event.tick / root.PlayerTimeline.PPQ }, when);
+    }
+    function applyPendingAtBoundary(boundaryTime) {
+      if (pendingTempo == null) return;
+      appliedTempo = pendingTempo; pendingTempo = null; compile(); cycleStart = boundaryTime; eventCursor = 0;
+    }
+    function resync(now) {
+      const duration = loopDuration(); const elapsed = Math.max(0, now - cycleStart); const completed = Math.floor(elapsed / duration);
+      if (completed > 0) { cycleStart += completed * duration; eventCursor = 0; applyPendingAtBoundary(cycleStart); }
+      const tick = config.loopStartTick + Math.max(0, now - cycleStart) / secondsPerTick();
+      eventCursor = events.findIndex((event) => event.tick >= tick); if (eventCursor < 0) eventCursor = events.length;
+    }
     function schedulerTick() {
       if (!playing) return;
-      const lookAhead = context.currentTime + 0.1;
-      const halfBeatSeconds = PlayerTimeline.secondsPerBeat(config.bpm) / 2;
-      while (nextStepTime < lookAhead) {
-        scheduleStep(nextStepBeat, nextStepTime);
-        nextStepBeat += 0.5;
-        const bounds = loopBounds();
-        if (nextStepBeat >= bounds.end - 0.0001) {
-          nextStepBeat = bounds.start;
-          lastChordIndex = -1;
+      const now = context.currentTime; if (now > cycleStart + loopDuration() + .1) resync(now);
+      const horizon = now + .12;
+      while (playing) {
+        if (eventCursor >= events.length) {
+          const boundary = cycleStart + loopDuration();
+          if (boundary > horizon) break;
+          applyPendingAtBoundary(boundary); if (cycleStart !== boundary) cycleStart = boundary; eventCursor = 0; continue;
         }
-        nextStepTime += halfBeatSeconds;
+        const event = events[eventCursor]; const when = cycleStart + (event.tick - config.loopStartTick) * secondsPerTick();
+        if (when > horizon) break;
+        if (when >= now - .02) renderEvent(event, when);
+        eventCursor += 1;
       }
     }
-
-    function clearScheduled() {
-      if (scheduler) timers.clearInterval(scheduler);
-      scheduler = null;
-      callbackTimers.forEach((timer) => timers.clearTimeout(timer));
-      callbackTimers.clear();
-      activeNodes.forEach((node) => {
-        try { node.stop(); } catch (_) { /* node already stopped */ }
-        try { node.disconnect(); } catch (_) { /* safe cleanup */ }
-      });
-      activeNodes.clear();
+    function clear(fast = false) {
+      generation += 1; if (scheduler) timers.clearInterval(scheduler); scheduler = null;
+      callbackTimers.forEach((id) => timers.clearTimeout(id)); callbackTimers.clear();
+      renderer?.stop(fast ? context?.currentTime || 0 : (context?.currentTime || 0) + .03);
     }
-
-    function setMix(levels) {
-      if (!context || !levels) return;
-      const now = context.currentTime;
-      const clamp = (value) => Math.max(0, Math.min(1, Number(value)));
-      if (levels.pad != null) padBus.gain.setTargetAtTime(clamp(levels.pad), now, 0.02);
-      if (levels.bass != null) bassBus.gain.setTargetAtTime(clamp(levels.bass), now, 0.02);
-      if (levels.drums != null) drumBus.gain.setTargetAtTime(clamp(levels.drums), now, 0.02);
-      if (levels.master != null) master.gain.setTargetAtTime(clamp(levels.master), now, 0.02);
+    function setMix(levels = {}) {
+      if (!context) return; const now = context.currentTime; const clamp = (value) => Math.max(0, Math.min(1, Number(value)));
+      if (levels.master != null) master.gain.setTargetAtTime(clamp(levels.master), now, .02);
+      if (levels.pad != null) buses.harmony.gain.setTargetAtTime(clamp(levels.pad), now, .02);
+      if (levels.bass != null) buses.bass.gain.setTargetAtTime(clamp(levels.bass), now, .02);
+      if (levels.drums != null) buses.drums.gain.setTargetAtTime(clamp(levels.drums), now, .02);
     }
-
     async function start(nextConfig) {
-      buildGraph();
-      clearScheduled();
-      config = { ...nextConfig };
-      config.countInBars = Number(config.countInBars || 0);
-      if (!Number.isInteger(config.countInBars) || config.countInBars < 0 || config.countInBars > 2) {
-        throw new Error('Count-in must be 0, 1, or 2 bars');
-      }
-      timeline = PlayerTimeline.buildTimeline(config.track.progression, config.bpm, config.track.beatsPerBar);
-      const bounds = loopBounds();
-      if (bounds.start < 0 || bounds.end > timeline.totalBeats || bounds.end <= bounds.start) throw new Error('Invalid loop selection');
-      if (context.state === 'suspended') await context.resume();
-      setMix(config.levels || { pad: 0.72, bass: 0.72, drums: 0.62, master: 0.8 });
-      nextStepBeat = bounds.start - (config.countInBars * config.track.beatsPerBar);
-      nextStepTime = context.currentTime + 0.06;
-      lastChordIndex = -1;
-      playing = true;
-      schedulerTick();
-      scheduler = timers.setInterval(schedulerTick, 25);
+      buildGraph(); clear(true); config = { ...nextConfig }; appliedTempo = Number(config.bpm || config.track?.bpm);
+      root.PlayerTimeline.secondsPerBeat(appliedTempo);
+      config.countInBars = Number(config.countInBars || 0); if (!Number.isInteger(config.countInBars) || config.countInBars < 0 || config.countInBars > 2) throw new Error('Count-in must be 0, 1, or 2 bars');
+      compile(); if (context.state === 'suspended') await context.resume();
+      setMix(config.levels || { pad: .72, bass: .72, drums: .62, master: .8 }); playing = true;
+      cycleStart = context.currentTime + .06 + countIn(); eventCursor = 0; schedulerTick(); scheduler = timers.setInterval(schedulerTick, 25);
     }
-
-    function stop() {
-      playing = false;
-      clearScheduled();
-      lastChordIndex = -1;
-    }
-
-    function setTempo(bpm) {
-      if (!config) return;
-      const tempo = Number(bpm);
-      PlayerTimeline.secondsPerBeat(tempo);
-      config.bpm = tempo;
-      timeline = PlayerTimeline.buildTimeline(config.track.progression, config.bpm, config.track.beatsPerBar);
-      if (playing) {
-        clearScheduled();
-        nextStepTime = context.currentTime + 0.06;
-        lastChordIndex = -1;
-        schedulerTick();
-        scheduler = timers.setInterval(schedulerTick, 25);
-      }
-    }
-
-    function isPlaying() { return playing; }
-
-    if (eventTarget?.addEventListener) {
-      eventTarget.addEventListener('pagehide', stop);
-      eventTarget.addEventListener('beforeunload', stop);
-    }
-
-    return { start, stop, setTempo, setMix, setLevels: setMix, isPlaying };
+    function stop(fast = false) { playing = false; clear(fast); eventCursor = 0; }
+    function setTempo(value) { const bpm = Number(value); root.PlayerTimeline.secondsPerBeat(bpm); if (!config) return; if (!playing) { appliedTempo = bpm; config.bpm = bpm; compile(); } else pendingTempo = bpm; }
+    function tempo() { return appliedTempo; }
+    if (eventTarget?.addEventListener) { eventTarget.addEventListener('pagehide', () => stop(true)); eventTarget.addEventListener('beforeunload', () => stop(true)); }
+    return Object.freeze({ start, stop, setTempo, setMix, setLevels: setMix, isPlaying: () => playing, tempo });
   }
 
-  return { create };
-});
+  root.AudioEngine = Object.freeze({ create });
+})(typeof globalThis !== 'undefined' ? globalThis : this);

@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
+
+import { buildSite } from '../scripts/build.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const read = (path) => readFile(join(root, path), 'utf8');
@@ -44,4 +47,17 @@ test('Pages workflow grants deploy permissions only to the deploy job', async ()
   assert.match(pages, /actions\/upload-pages-artifact@v4/);
   assert.match(pages, /actions\/deploy-pages@v4/);
   assert.match(pages, /path: public/);
+});
+
+test('the generated public page loads its application scripts from the same static site', async () => {
+  const outDir = await mkdtemp(join(tmpdir(), 'gcm-public-contract-'));
+  await buildSite({ projectRoot: root, contentRoot: join(root, 'content'), outDir });
+  const index = await readFile(join(outDir, 'index.html'), 'utf8');
+  const scripts = [...index.matchAll(/<script src="([^"]+)"><\/script>/g)].map((match) => match[1]);
+
+  assert.deepEqual(scripts, [
+    'js/course-data.js', 'js/lesson-index.js', 'js/progress-schema.js', 'js/local-state-store.js', 'js/progress-store.js', 'js/lesson-search.js',
+    'js/music-theory.js', 'js/recommendation-engine.js', 'js/skill-model.js', 'js/progress-controller.js', 'js/gear-profile.js', 'js/session-planner.js', 'js/practice-engine.js', 'js/session-runner.js', 'js/session-controller.js', 'js/audio-runtime.js', 'js/pitch-detector.js', 'js/signal-features.js', 'js/performance-analyser.js', 'js/input-manager.js', 'js/analysis-controller.js', 'js/guitar-input-view.js', 'js/indexed-db-adapter.js', 'js/progress-repository.js', 'js/recording-store.js', 'js/recording-controller.js', 'js/recording-view.js', 'js/fretboard-engine.js', 'js/review-scheduler.js', 'js/fretboard-view.js', 'js/ear-training-engine.js', 'js/ear-training-view.js', 'js/player-timeline.js', 'js/progression-engine.js', 'js/voicing-engine.js', 'js/bass-arranger.js', 'js/groove-patterns.js', 'js/groove-engine.js', 'js/synth-voices.js', 'js/audio-engine.js', 'js/backing-lab-view.js', 'js/ui-components.js', 'js/hash-router.js',
+    'js/today-view.js', 'js/session-view.js', 'js/studio-view.js', 'js/progress-view.js', 'js/roadmap-view.js', 'js/app-shell.js', 'js/app.js'
+  ]);
 });

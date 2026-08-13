@@ -1,10 +1,12 @@
 {
   "name": "Guthrie Complete Musician",
   "short_name": "GCM Course",
+  "id": "./",
   "description": "A private-by-design 24-week guitar musicianship course.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "categories": ["education", "music"],
   "background_color": "#0c0f11",
   "theme_color": "#111318",
   "icons": [
